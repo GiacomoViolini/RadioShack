@@ -29,7 +29,7 @@ export default function Home() {
         <div className="relative flex flex-col items-center">
           <img
             src="./public/Prodotti.svg"
-            className="home-image hover:bg-red-500"
+            className="home-image hover:bg-purple-500"
             onClick={() => navigateTo(routes[0])}
           />
           <h2 className="home-text">
@@ -79,7 +79,7 @@ export default function Home() {
         <div className="flex flex-col items-center">
           <img
             src="./public/Vendite.svg"
-            className="home-image hover:bg-purple-500"
+            className="home-image hover:bg-red-500"
             onClick={() => navigateTo(routes[5])}
           />
           <h2 className="home-text">
