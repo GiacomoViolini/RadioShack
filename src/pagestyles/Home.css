@@ -2,22 +2,16 @@
   height: 27rem;
   width: 27rem;
   border-radius: 0.5rem;
-  background-color: rgb(255,255, 255,1 );
+  background-color: rgb(255, 255, 255, 1);
   border-width: 4px;
-  border-color: rgb(255,255, 255,1 );
+  border-color: rgb(255, 255, 255, 1);
   transition: background-color 300ms;
 }
-.home-image:hover {
-  background-color: rgb(220, 38, 38,1);
+
+.home-text{
+    font-size: 2.25rem;
+    line-height: 2.5rem;
+    margin: 1rem 0;
+    font-weight: 800;
 }
-.border-bottom{
-    position: absolute;
-    z-index: -10;
-    top: 0px;
-    left: 0px;
-    width: 24.5rem;
-    height: 24.5rem;
-    border-width: 4px;
-    border-radius: 0.4rem;
-    border-color: rgb(255,255, 255,1 );
-}
+
