@@ -22,10 +22,19 @@ export default function Table({ fields, informations }: TableProps) {
           <tr key={rowIndex} className="border-spacing-y-1 border ">
             {information.map((info, colIndex) =>
               information.length === colIndex + 1 && information.length > 5 ? (
-                <td className="flex flex-row justify-center" key={colIndex}>
-                  <img src={visualizeIcon} alt="visualize"></img>
-                  <img src={modifyIcon} alt="modify"></img>
-                  <img src={deleteIcon} alt="delete"></img>
+                <td
+                  className="flex flex-row gap-1 justify-center"
+                  key={colIndex}
+                >
+                  <button>
+                    <img src={visualizeIcon} alt="visualize"></img>
+                  </button>
+                  <button>
+                    <img src={modifyIcon} alt="modify"></img>
+                  </button>
+                  <button>
+                    <img src={deleteIcon} alt="delete" className="ml-1"></img>
+                  </button>
                 </td>
               ) : (
                 <td key={colIndex}>{info}</td>
