@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Statistiche from "./pages/Statistiche";
 import Prodotti from "./pages/Prodotti";
+import Vendite from "./pages/Vendite";
 
 function App() {
   return (
@@ -13,7 +14,7 @@ function App() {
         <Route path="/fornitori" />
         <Route path="/clienti" />
         <Route path="/acquisti" />
-        <Route path="/vendite" />
+        <Route path="/vendite" element={<Vendite />} />
       </Routes>
     </BrowserRouter>
   );
