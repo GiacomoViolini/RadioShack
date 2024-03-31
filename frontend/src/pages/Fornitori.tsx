@@ -92,7 +92,7 @@ export default function Fornitori() {
   return (
     <div className="flex flex-col">
       <Navbar />
-      <div className="grid grid-cols-5">
+      <div className="grid grid-cols-8">
         <div className="col-span-1">
           <h2 className="text-2xl font-semibold">Filtro</h2>
           <hr className="h-2 border-t-2" />
@@ -103,7 +103,7 @@ export default function Fornitori() {
             </>
           ))}
         </div>
-        <div className="col-span-4 flex justify-center px-8">
+        <div className="col-span-7 flex justify-center px-8">
           <Table fields={fields} informations={fornitori} />
         </div>
       </div>
