@@ -3,6 +3,7 @@ import Home from "./pages/Home";
 import Statistiche from "./pages/Statistiche";
 import Prodotti from "./pages/Prodotti";
 import Vendite from "./pages/Vendite";
+import Prodotto from "./pages/Prodotto";
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/prodotti" element={<Prodotti />} />
+        <Route path="/prodotti/:idprodotto" element={<Prodotto />} />
         <Route path="/statistiche" element={<Statistiche />} />
         <Route path="/fornitori" />
         <Route path="/clienti" />

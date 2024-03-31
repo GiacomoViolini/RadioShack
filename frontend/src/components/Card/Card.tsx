@@ -1,6 +1,7 @@
+import { useNavigate } from "react-router-dom";
+
 interface CardProps {
   title: string;
-  image: string;
   capacità_possibili: string[];
   colori_possibili: string[];
   quantità: number;
@@ -9,13 +10,14 @@ interface CardProps {
 
 export default function Card({
   title,
-  image,
   capacità_possibili,
   colori_possibili,
   quantità,
   prezzo,
 }: CardProps) {
-  function convertiColori(color:string) {
+  const image = "/Prodotti.svg";
+  const navigate = useNavigate();
+  function convertiColori(color: string) {
     switch (color) {
       case "Rosso":
         return "#ef4444";
@@ -43,7 +45,7 @@ export default function Card({
   }
 
   return (
-    <div className="grid grid-cols-4 border-2 border-gray-300 rounded-lg hover:border-black transition-all duration-500">
+    <button className="grid grid-cols-4 border-2 border-gray-300 rounded-lg hover:border-black  hover:bg-zinc-900 transition-all duration-500" onClick={() => navigate(`/prodotti/1`) }>
       <img
         src={image}
         className="object-cover w-full p-2 bg-gray-300 rounded-l-lg"
@@ -73,6 +75,6 @@ export default function Card({
         </div>
         <h2 className="font-semibold text-xl mt-2">Da {prezzo}€</h2>
       </div>
-    </div>
+    </button>
   );
 }

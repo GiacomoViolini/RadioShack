@@ -39,7 +39,6 @@ export default function Prodotti() {
   const products = [
     {
       title: "Iphone 12",
-      image: "../public/Prodotti.svg",
       capacità_possibili: ["64 GB", "128 GB", "256 GB"],
       colori_possibili: ["Rosso", "Blu", "Verde", "Giallo", "Viola"],
       quantità: 10,
@@ -47,7 +46,6 @@ export default function Prodotti() {
     },
     {
       title: "Iphone 12 Pro",
-      image: "../public/Prodotti.svg",
       capacità_possibili: ["128 GB", "256 GB", "512 GB"],
       colori_possibili: ["Rosso", "Blu", "Verde", "Giallo", "Viola"],
       quantità: 5,
@@ -55,7 +53,6 @@ export default function Prodotti() {
     },
     {
       title: "Iphone 12 Pro Max",
-      image: "../public/Prodotti.svg",
       capacità_possibili: ["128 GB", "256 GB", "512 GB"],
       colori_possibili: ["Rosso", "Blu", "Verde", "Giallo", "Viola"],
       quantità: 3,
@@ -63,7 +60,6 @@ export default function Prodotti() {
     },
     {
       title: "Iphone 12 Mini",
-      image: "../public/Prodotti.svg",
       capacità_possibili: ["64 GB", "128 GB", "256 GB"],
       colori_possibili: ["Rosso", "Blu", "Verde", "Giallo", "Viola"],
       quantità: 7,
@@ -71,7 +67,6 @@ export default function Prodotti() {
     },
     {
       title: "Iphone 11",
-      image: "../public/Prodotti.svg",
       capacità_possibili: ["64 GB", "128 GB", "256 GB"],
       colori_possibili: ["Rosso", "Blu", "Verde", "Giallo", "Viola"],
       quantità: 15,
@@ -79,7 +74,6 @@ export default function Prodotti() {
     },
     {
       title: "Iphone 11 Pro",
-      image: "../public/Prodotti.svg",
       capacità_possibili: ["128 GB", "256 GB", "512 GB"],
       colori_possibili: ["Rosso", "Blu", "Verde", "Giallo", "Viola"],
       quantità: 8,
@@ -87,7 +81,6 @@ export default function Prodotti() {
     },
     {
       title: "Iphone 11 Pro Max",
-      image: "../public/Prodotti.svg",
       capacità_possibili: ["128 GB", "256 GB", "512 GB"],
       colori_possibili: ["Rosso", "Blu", "Verde", "Giallo", "Viola"],
       quantità: 4,
@@ -95,7 +88,6 @@ export default function Prodotti() {
     },
     {
       title: "Iphone SE",
-      image: "../public/Prodotti.svg",
       capacità_possibili: ["64 GB", "128 GB", "256 GB"],
       colori_possibili: ["Rosso", "Blu", "Verde", "Giallo", "Viola"],
       quantità: 20,
@@ -122,7 +114,6 @@ export default function Prodotti() {
               <Card
                 key={product.title}
                 title={product.title}
-                image={product.image}
                 capacità_possibili={product.capacità_possibili}
                 colori_possibili={product.colori_possibili}
                 quantità={product.quantità}
