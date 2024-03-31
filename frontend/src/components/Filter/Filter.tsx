@@ -2,7 +2,7 @@ import { useState } from "react";
 import "../../pagestyles/Prodotti.css";
 interface FilterProps {
   title: string;
-  options: string[] | number[];
+  options: string[];
 }
 
 export default function Filter({ title, options }: FilterProps) {
@@ -21,8 +21,8 @@ export default function Filter({ title, options }: FilterProps) {
       </div>
       <div className={`filter-content ${isOpen ? "open" : "closed"} mb-2`}>
         {options.map((option) => (
-          <div className="flex items-center gap-2">
-            <input type="checkbox" className="accent-white" checked />
+          <div key={option} className="flex items-center gap-2">
+            <input type="checkbox" className="accent-white" />
             <label>{option}</label>
           </div>
         ))}
