@@ -20,7 +20,7 @@ export default function Home() {
   }
 
   return (
-    <div className="flex flex-col justify-center h-full m-6">
+    <div className="flex flex-col justify-center h-full">
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-4">
           <img src="./public/logo.png" className="w-11 h-11" />{" "}
