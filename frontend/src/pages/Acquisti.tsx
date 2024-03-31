@@ -2,15 +2,15 @@ import Navbar from "../components/Navbar/Navbar";
 import Filter from "../components/Filter/Filter";
 import Table from "../components/Table/Table";
 
-interface Vendite {
-  codice_vendita: string;
-  codice_cliente: string;
+interface Acquisti {
+  codice_acquisto: string;
   costo: number;
   quantità_articoli_acquistati: number;
   data_acquisto: Date;
+  codice_fornitore: string;
 }
 
-export default function Vendite() {
+export default function Acquisti() {
   const filters = [
     {
       title: "Stato",
@@ -45,35 +45,36 @@ export default function Vendite() {
     },
   ];
   const fields = [
-    "codice vendita",
-    "codice cliente",
+    "codice acquisto",
     "costo",
     "quantità articoli acquistati",
     "data acquisto",
+    "codice fornitore"
   ];
-  const vendite: Vendite[] = [
+  const acquisti: Acquisti[] = [
     {
-      codice_vendita: "V001",
-      codice_cliente: "123",
+      codice_acquisto: "A001",
       costo: 100.5,
       quantità_articoli_acquistati: 2,
       data_acquisto: new Date("2022-01-01"),
+      codice_fornitore: "F001"
     },
     {
-      codice_vendita: "V002",
-      codice_cliente: "456",
+      codice_acquisto: "A002",
       costo: 200.75,
       quantità_articoli_acquistati: 3,
       data_acquisto: new Date("2022-02-01"),
+      codice_fornitore: "F002"
     },
     {
-      codice_vendita: "V003",
-      codice_cliente: "789",
+      codice_acquisto: "A003",
       costo: 150.25,
       quantità_articoli_acquistati: 1,
       data_acquisto: new Date("2022-03-01"),
-    },
+      codice_fornitore: "F003"
+    }
   ];
+
   return (
     <div className="flex flex-col">
       <Navbar />
@@ -89,7 +90,7 @@ export default function Vendite() {
           ))}
         </div>
         <div className="col-span-4 flex justify-center px-8">
-          <Table fields={fields} informations={vendite} />
+          <Table fields={fields} informations={acquisti} />
         </div>
       </div>
     </div>

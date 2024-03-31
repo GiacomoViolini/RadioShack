@@ -2,15 +2,18 @@ import Navbar from "../components/Navbar/Navbar";
 import Filter from "../components/Filter/Filter";
 import Table from "../components/Table/Table";
 
-interface Vendite {
-  codice_vendita: string;
-  codice_cliente: string;
-  costo: number;
-  quantità_articoli_acquistati: number;
-  data_acquisto: Date;
+interface Fornitori {
+  nome: string;
+  email: string;
+  telefono: string;
+  indirizzo: string;
+  referente: string;
+  partita_iva: string;
+  sito_web: string;
+  iban: string;
 }
 
-export default function Vendite() {
+export default function Fornitori() {
   const filters = [
     {
       title: "Stato",
@@ -45,34 +48,46 @@ export default function Vendite() {
     },
   ];
   const fields = [
-    "codice vendita",
-    "codice cliente",
-    "costo",
-    "quantità articoli acquistati",
-    "data acquisto",
+    "nome",
+    "email",
+    "telefono",
+    "indirizzo",
+    "referente",
+    "partita iva",
+    "sito web",
+    "iban"
   ];
-  const vendite: Vendite[] = [
+  const fornitori: Fornitori[] = [
     {
-      codice_vendita: "V001",
-      codice_cliente: "123",
-      costo: 100.5,
-      quantità_articoli_acquistati: 2,
-      data_acquisto: new Date("2022-01-01"),
+      nome: "Fornitore 1",
+      email: "fornitore1@example.com",
+      telefono: "123-456-7890",
+      indirizzo: "Via Roma, 1, 00100 Roma RM",
+      referente: "Referente 1",
+      partita_iva: "01234567890",
+      sito_web: "www.fornitore1.com",
+      iban: "IT60X0542811101000000123456"
     },
     {
-      codice_vendita: "V002",
-      codice_cliente: "456",
-      costo: 200.75,
-      quantità_articoli_acquistati: 3,
-      data_acquisto: new Date("2022-02-01"),
+      nome: "Fornitore 2",
+      email: "fornitore2@example.com",
+      telefono: "098-765-4321",
+      indirizzo: "Via Milano, 2, 20100 Milano MI",
+      referente: "Referente 2",
+      partita_iva: "09876543210",
+      sito_web: "www.fornitore2.com",
+      iban: "IT60X0542811101000000654321"
     },
     {
-      codice_vendita: "V003",
-      codice_cliente: "789",
-      costo: 150.25,
-      quantità_articoli_acquistati: 1,
-      data_acquisto: new Date("2022-03-01"),
-    },
+      nome: "Fornitore 3",
+      email: "fornitore3@example.com",
+      telefono: "111-222-3333",
+      indirizzo: "Via Napoli, 3, 80100 Napoli NA",
+      referente: "Referente 3",
+      partita_iva: "11122233344",
+      sito_web: "www.fornitore3.com",
+      iban: "IT60X0542811101000000111222"
+    }
   ];
   return (
     <div className="flex flex-col">
@@ -89,7 +104,7 @@ export default function Vendite() {
           ))}
         </div>
         <div className="col-span-4 flex justify-center px-8">
-          <Table fields={fields} informations={vendite} />
+          <Table fields={fields} informations={fornitori} />
         </div>
       </div>
     </div>
