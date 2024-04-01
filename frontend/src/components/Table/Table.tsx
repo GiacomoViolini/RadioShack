@@ -42,10 +42,8 @@ interface Vendite {
 }
 
 export default function Table({ fields, informations }: TableProps) {
-  console.log(informations.length > 4 && !fields.includes("codice vendita"));
-  console.log("codice_vendita" in informations);
   return (
-    <table className="table-auto border-spacing-y-1 shadow-sm shadow-slate-300 border text-center border-slate-300 w-full rounded-md overflow-hidden">
+    <table className="border-spacing-y-1 shadow-sm shadow-slate-300 border text-center border-slate-300 w-full rounded-md overflow-hidden">
       <thead className="bg-slate-100 text-black ">
         <tr className="h-14 p-2 gap-2 ">
           {fields.map((field) => (
@@ -59,9 +57,9 @@ export default function Table({ fields, informations }: TableProps) {
           ) : null}
         </tr>
       </thead>
-      <tbody className="border-spacing-y-1 border">
+      <tbody className="border-spacing-y-1 border xl:text-xs">
         {informations.map((information, rowIndex) => (
-          <tr key={rowIndex} className="border-spacing-y-1 gap-2 border p-2">
+          <tr key={rowIndex} className="border-spacing-y-1 h-12 gap-2 border p-2">
             {Object.entries(information).map(([key, info]) => (
               <td key={key} className="mx-2">
                 {info instanceof Date ? info.toLocaleString() : info}

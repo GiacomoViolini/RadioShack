@@ -104,9 +104,9 @@ export default function Prodotti() {
   ];
   return (
     <div className="flex flex-col">
-      <Navbar />
-      <div className="grid grid-cols-5">
-        <div className="col-span-1">
+      <Navbar/>
+      <div className="flex flex-row align-top relative mt-20">
+        <div className="w-3/12 px-4 fixed">
           <h2 className="text-2xl font-semibold">Filtro</h2>
           <hr className="h-2 border-t-2" />
           {filters.map((filter) => (
@@ -116,7 +116,7 @@ export default function Prodotti() {
             </div>
           ))}
         </div>
-        <div className="col-span-4 px-4">
+        <div className="w-9/12 h-screen ml-[25%] px-4">
           <div className="grid grid-cols-2 gap-4">
             {products.map((product) => (
               <Card
