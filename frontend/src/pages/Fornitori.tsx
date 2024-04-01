@@ -1,6 +1,7 @@
 import Navbar from "../components/Navbar/Navbar";
 import Filter from "../components/Filter/Filter";
 import Table from "../components/Table/Table";
+import InstertElementButton from "../components/InsertElementButton/InsertElementButton";
 
 interface Fornitori {
   nome: string;
@@ -55,7 +56,7 @@ export default function Fornitori() {
     "referente",
     "partita iva",
     "sito web",
-    "iban"
+    "iban",
   ];
   const fornitori: Fornitori[] = [
     {
@@ -66,7 +67,7 @@ export default function Fornitori() {
       referente: "Referente 1",
       partita_iva: "01234567890",
       sito_web: "www.fornitore1.com",
-      iban: "IT60X0542811101000000123456"
+      iban: "IT60X0542811101000000123456",
     },
     {
       nome: "Fornitore 2",
@@ -76,7 +77,7 @@ export default function Fornitori() {
       referente: "Referente 2",
       partita_iva: "09876543210",
       sito_web: "www.fornitore2.com",
-      iban: "IT60X0542811101000000654321"
+      iban: "IT60X0542811101000000654321",
     },
     {
       nome: "Fornitore 3",
@@ -86,24 +87,29 @@ export default function Fornitori() {
       referente: "Referente 3",
       partita_iva: "11122233344",
       sito_web: "www.fornitore3.com",
-      iban: "IT60X0542811101000000111222"
-    }
+      iban: "IT60X0542811101000000111222",
+    },
   ];
   return (
     <div className="flex flex-col">
       <Navbar />
-      <div className="grid grid-cols-8">
-        <div className="col-span-1">
-          <h2 className="text-2xl font-semibold">Filtro</h2>
-          <hr className="h-2 border-t-2" />
-          {filters.map((filter) => (
-            <>
-              <Filter title={filter.title} options={filter.options} />
-              <hr />
-            </>
-          ))}
+      <div className="flex flex-row align-top relative mt-20">
+        <div className="w-2/12 flex flex-col justify-center gap-6 fixed">
+          <div className="w-full justify-center px-4">
+            <InstertElementButton title={"fornitori"} />
+          </div>
+          <div className="px-4 overflow-y-auto">
+            <h2 className="text-2xl font-semibold">Filtro</h2>
+            <hr className="h-2 border-t-2" />
+            {filters.map((filter) => (
+              <div key={filter.title}>
+                <Filter title={filter.title} options={filter.options} />
+                <hr />
+              </div>
+            ))}
+          </div>
         </div>
-        <div className="col-span-7 flex justify-center px-8">
+        <div className="w-10/12 ml-[17%] flex justify-center px-8">
           <Table fields={fields} informations={fornitori} />
         </div>
       </div>
