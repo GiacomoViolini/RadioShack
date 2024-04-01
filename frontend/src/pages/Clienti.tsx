@@ -2,15 +2,14 @@ import Navbar from "../components/Navbar/Navbar";
 import Filter from "../components/Filter/Filter";
 import Table from "../components/Table/Table";
 
-interface Vendite {
-  codice_vendita: string;
-  codice_cliente: string;
-  costo: number;
-  quantità_articoli_acquistati: number;
-  data_acquisto: Date;
-}
+interface Clienti {
+    nome: string;
+    email: string;
+    telefono: string;
+    indirizzo: string;
+  }
 
-export default function Vendite() {
+export default function Clienti() {
   const filters = [
     {
       title: "Stato",
@@ -45,34 +44,30 @@ export default function Vendite() {
     },
   ];
   const fields = [
-    "codice vendita",
-    "codice cliente",
-    "costo",
-    "quantità articoli acquistati",
-    "data acquisto",
+    "nome",
+    "email",
+    "telefono",
+    "indirizzo",
   ];
-  const vendite: Vendite[] = [
+  const clienti: Clienti[] = [
     {
-      codice_vendita: "V001",
-      codice_cliente: "123",
-      costo: 100.5,
-      quantità_articoli_acquistati: 2,
-      data_acquisto: new Date("2022-01-01"),
+      nome: "Cliente 1",
+      email: "cliente1@example.com",
+      telefono: "123-456-7890",
+      indirizzo: "Via Roma, 1, 00100 Roma RM"
     },
     {
-      codice_vendita: "V002",
-      codice_cliente: "456",
-      costo: 200.75,
-      quantità_articoli_acquistati: 3,
-      data_acquisto: new Date("2022-02-01"),
+      nome: "Cliente 2",
+      email: "cliente2@example.com",
+      telefono: "098-765-4321",
+      indirizzo: "Via Milano, 2, 20100 Milano MI"
     },
     {
-      codice_vendita: "V003",
-      codice_cliente: "789",
-      costo: 150.25,
-      quantità_articoli_acquistati: 1,
-      data_acquisto: new Date("2022-03-01"),
-    },
+      nome: "Cliente 3",
+      email: "cliente3@example.com",
+      telefono: "111-222-3333",
+      indirizzo: "Via Napoli, 3, 80100 Napoli NA"
+    }
   ];
   return (
     <div className="flex flex-col">
@@ -89,7 +84,7 @@ export default function Vendite() {
           ))}
         </div>
         <div className="col-span-4 flex justify-center px-8">
-          <Table fields={fields} informations={vendite} />
+          <Table fields={fields} informations={clienti} />
         </div>
       </div>
     </div>
