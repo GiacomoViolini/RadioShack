@@ -131,7 +131,7 @@ export default function Prodotto() {
   return (
     <div className="flex flex-col">
       <Navbar />
-      <div className="grid grid-cols-4 gap-x-10">
+      <div className="grid grid-cols-4 gap-x-10 mt-16">
         <div className="col-span-1 bg-emerald-500 rounded-xl border-gray-300 border-4">
           <div className="h-8 mt-4 bg-zinc-800 border-t-2 border-b-2 flex justify-center items-center">
             <h2 className="text-center text-xl font-semibold ">300€</h2>{" "}

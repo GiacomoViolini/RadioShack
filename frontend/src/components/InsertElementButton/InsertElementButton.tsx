@@ -19,7 +19,7 @@ export default function InsertElementButton({
       onClick={() => navigateTo(`Insert${title}`)}
     >
       <img src="./InsertIcon.svg" className="h-6" alt="Insert Icon" />
-      <h2 className="text-xl font-bold">{`Insert ${title}`}</h2>
+      <h2 className="text-sm font-bold">{`Insert ${title}`}</h2>
       {isAcquisti && (
         <img src="./Acquisti.svg" className="h-8 mt-2" alt="Acquisti Icon" />
       )}
