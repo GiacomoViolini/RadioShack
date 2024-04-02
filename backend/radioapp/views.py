@@ -86,6 +86,11 @@ def filterAggregatedProdotti(request):
     } for nome, data in aggregated_products_dict.items()]
     return Response(aggregated_products_list)
 
+@api_view(['GET'])
+def getProdotto(request, nome):
+    products = Prodotto.objects.filter(nome=nome)
+
+    return Response([{'id': p.id, 'nome': p.nome, 'colore': p.colore, 'capacità': p.capacità, 'stato': p.stato, 'condizione': p.condizione, 'fotocamera': p.fotocamera, 'dimensioni_schermo': p.dimensioni_schermo, 'prezzo_consigliato': p.prezzo_consigliato, "quantità": 1} for p in Prodotto.objects.filter(nome=nome)])
 
 @api_view(['GET'])
 def indexa(request):
@@ -114,3 +119,7 @@ def addFornitore(request):
                   referente=request.data['referente'], partita_iva=request.data['partita_iva'], sito_web=request.data['sito_web'], iban=request.data['iban'])
     f.save()
     return Response({'message': 'Fornitore aggiunto!'})
+
+@api_view(['GET'])
+def getFornitori(request):
+    return Response([{'id': f.id, 'nome': f.nome, 'email': f.email, 'telefono': f.telefono, 'indirizzo': f.indirizzo, 'referente': f.referente, 'partita_iva': f.partita_iva, 'sito_web': f.sito_web, 'iban': f.iban} for f in Fornitore.objects.all()])
