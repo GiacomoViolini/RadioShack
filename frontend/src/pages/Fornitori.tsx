@@ -17,7 +17,7 @@ interface Fornitori {
   iban: string;
 }
 interface Clienti {
-  id: string;
+  id: number;
   nome: string;
   email: string;
   telefono: string;
@@ -25,21 +25,19 @@ interface Clienti {
 }
 
 interface Acquisti {
-  id: string;
-  codice_acquisto: string;
+  id: number;
   costo: number;
   quantità_articoli_acquistati: number;
-  data_acquisto: Date;
-  codice_fornitore: string;
+  data_acquisto: string;
+  codice_fornitore: number;
 }
 
 interface Vendite {
-  id: string;
-  codice_vendita: string;
-  codice_cliente: string;
+  id: number;
   costo: number;
   quantità_articoli_acquistati: number;
-  data_acquisto: Date;
+  data_acquisto: string;
+  codice_cliente: number;
 }
 
 export default function Fornitori() {

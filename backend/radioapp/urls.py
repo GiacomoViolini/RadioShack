@@ -12,6 +12,10 @@ urlpatterns = [
     path("filterAggregatedProdotti/", views.filterAggregatedProdotti , name="filterAggregatedProdotti"),
     path("getProdotto/<str:nome>/", views.getProdotto, name="getProdotto"),
     path("getFornitori/", views.getFornitori, name="getFornitori"),
+    path("getClienti/", views.getClienti, name="getClienti"),
+    path("getAcquisti/", views.getAcquisti, name="getAcquisti"),
+    path("getClienti/", views.getClienti, name="getClienti"),
+    path("getVendite/", views.getAcquisti, name="getVendite"),
     path("deleteFornitore/<int:id>/", views.deleteFornitore, name="deleteFornitore"),
     path("filterProdotto/<str:nome>/", views.filterProdotto, name="filterProdotto"),
 ]
