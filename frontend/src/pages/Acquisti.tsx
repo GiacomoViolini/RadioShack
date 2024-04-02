@@ -80,7 +80,7 @@ export default function Acquisti() {
     <div className="flex flex-col">
       <Navbar />
       <div className="flex flex-row align-top relative mt-20">
-      <div className="w-2/12 flex flex-col justify-center gap-6 fixed">
+      <div className="w-3/12 flex flex-col justify-center gap-6 fixed">
           <div className="w-full justify-center px-4">
             <InstertElementButton title={"acquisto"} />
           </div>
