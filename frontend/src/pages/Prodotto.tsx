@@ -5,7 +5,7 @@ import Navbar from "../components/Navbar/Navbar";
 import { useParams } from "react-router-dom";
 // import axios from "axios";
 interface Prodotto {
-    id: number;
+  id: number;
   nome: string;
   colore: string;
   capacità: number;
@@ -19,13 +19,16 @@ interface Prodotto {
   prezzo_consigliato: number;
   codice_acquisto: string;
   codice_vendita: string;
+  quantità: number;
 }
 export default function Prodotto() {
   const [prodotti, setProdotti] = useState<Prodotto[]>([]);
   const params = useParams();
   useEffect(() => {
     async function fetchData() {
-      const res = await fetch(`http://localhost:8000/radioapp/getProdotto/${params.id}`);
+      const res = await fetch(
+        `http://localhost:8000/radioapp/getProdotto/${params.id}`
+      );
       const data = await res.json();
       setProdotti(data);
     }
@@ -162,11 +165,17 @@ export default function Prodotto() {
       <div className="mt-20 px-4 grid grid-cols-3 gap-4">
         {prodotti.map((product: Prodotto) => (
           <CardDetails
-            key={product.id}
+            key={
+              product.colore +
+              product.capacità +
+              product.condizione +
+              product.stato
+            }
             title={product.nome}
             capacità={product.capacità}
             colore={product.colore}
-            quantità={1}
+            anno_di_uscita={product.anno_di_uscita}
+            quantità={product.quantità}
             stato={product.stato}
             condizione={product.condizione}
             fotocamera={product.fotocamera}
