@@ -83,7 +83,7 @@ export default function Clienti() {
             <hr className="h-2 border-t-2" />
             {filters.map((filter) => (
               <div key={filter.title}>
-                <Filter title={filter.title} options={filter.options} />
+                <Filter title={filter.title} options={filter.options}  />
                 <hr />
               </div>
             ))}

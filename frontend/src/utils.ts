@@ -24,5 +24,21 @@ function convertiColori(color: string) {
       return color;
   }
 }
+function convertiCapacità(capacità: string) {
+    switch (capacità) {
+        case "64 GB":
+        return 64;
+        case "128 GB":
+        return 128;
+        case "256 GB":
+        return 256;
+        case "512 GB":
+        return 512;
+        case "1 TB":
+        return 1024;
+        default:
+        return capacità;
+    }
+}
 
-export { convertiColori };
+export { convertiColori , convertiCapacità};
