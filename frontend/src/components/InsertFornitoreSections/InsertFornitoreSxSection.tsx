@@ -1,23 +1,8 @@
 import React from "react";
+import { Fornitori } from "../../interfaceHelper";
+import { InsertFornitoreSectionProps } from "../../interfaceHelper";
 
-interface Fornitori {
-  nome: string;
-  email: string;
-  telefono: string;
-  indirizzo: string;
-  referente: string;
-  partita_iva: string;
-  sito_web: string;
-  iban: string;
-}
-
-interface InsertFornitoreSxSectionProps {
-  fields: string[];
-  fornitore: Fornitori;
-  setFornitore: React.Dispatch<React.SetStateAction<Fornitori>>;
-}
-
-const FirstColumn: React.FC<InsertFornitoreSxSectionProps> = ({
+const FirstColumn: React.FC<InsertFornitoreSectionProps> = ({
   fields,
   fornitore,
   setFornitore,

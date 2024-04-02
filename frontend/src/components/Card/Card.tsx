@@ -1,13 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { convertiColori } from "../../utils";
-
-interface CardProps {
-  title: string;
-  capacità_possibili: number[];
-  colori_possibili: string[];
-  quantità: number;
-  prezzo: number;
-}
+import { CardProps } from "../../interfaceHelper";
 
 export default function Card({
   title,

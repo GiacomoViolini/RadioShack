@@ -1,8 +1,5 @@
 import { useNavigate } from "react-router-dom";
-
-interface InsertElementButtonProps {
-  title: string;
-}
+import { InsertElementButtonProps } from "../../interfaceHelper"; 
 
 export default function InsertElementButton({
   title,

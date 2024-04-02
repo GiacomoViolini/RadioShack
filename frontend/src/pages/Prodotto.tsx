@@ -4,24 +4,9 @@ import CardDetails from "../components/CardDetails/CardDetails";
 import Navbar from "../components/Navbar/Navbar";
 import { useParams } from "react-router-dom";
 // import axios from "axios";
-interface Prodotto {
-  id: number;
-  nome: string;
-  colore: string;
-  capacità: number;
-  anno_di_uscita: number;
-  stato: string;
-  condizione: string;
-  fotocamera: string;
-  dimensioni_schermo: number;
-  prezzo_di_acquisto: number;
-  prezzo_di_vendita: number;
-  prezzo_consigliato: number;
-  codice_acquisto: string;
-  codice_vendita: string;
-  quantità: number;
-}
-export default function Prodotto() {
+import { Prodotto } from "../interfaceHelper";
+
+export default function ProdottoComponent() {
   const [prodotti, setProdotti] = useState<Prodotto[]>([]);
   const params = useParams();
   useEffect(() => {

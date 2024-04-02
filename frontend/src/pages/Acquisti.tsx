@@ -4,43 +4,9 @@ import Table from "../components/Table/Table";
 import InstertElementButton from "../components/InsertElementButton/InsertElementButton";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { Vendite,Acquisti,Fornitori,Clienti } from "../interfaceHelper";
 
-interface Fornitori {
-  id: string;
-  nome: string;
-  email: string;
-  telefono: string;
-  indirizzo: string;
-  referente: string;
-  partita_iva: string;
-  sito_web: string;
-  iban: string;
-}
-interface Clienti {
-  id: number;
-  nome: string;
-  email: string;
-  telefono: string;
-  indirizzo: string;
-}
-
-interface Acquisti {
-  id: number;
-  costo: number;
-  quantità_articoli_acquistati: number;
-  data_acquisto: string;
-  codice_fornitore: number;
-}
-
-interface Vendite {
-  id: number;
-  costo: number;
-  quantità_articoli_acquistati: number;
-  data_acquisto: string;
-  codice_cliente: number;
-}
-
-export default function Acquisti() {
+export default function AcquistiComponent() {
   const filters = [
     {
       title: "Stato",
@@ -110,7 +76,7 @@ export default function Acquisti() {
             <hr className="h-2 border-t-2" />
             {filters.map((filter) => (
               <div key={filter.title}>
-                <Filter title={filter.title} options={filter.options} />
+                {/*<Filter title={filter.title} options={filter.options} />*/}
                 <hr />
               </div>
             ))}

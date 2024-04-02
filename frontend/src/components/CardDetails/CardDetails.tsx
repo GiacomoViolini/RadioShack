@@ -1,19 +1,5 @@
 import { convertiColori, convertiCapacità } from "../../utils";
-
-interface CardProps {
-  title: string;
-  capacità: number;
-  colore: string;
-  quantità: number;
-  prezzo_consigliato: number;
-  stato: string;
-  condizione: string;
-  fotocamera: string;
-  dimensioni_schermo: number;
-  prezzo_di_acquisto: number;
-  prezzo_di_vendita: number;
-  anno_di_uscita: number;
-}
+import { CardDetailsProps } from "../../interfaceHelper";
 
 export default function CardDetails({
   title,
@@ -28,7 +14,7 @@ export default function CardDetails({
   prezzo_di_acquisto,
   prezzo_di_vendita,
   anno_di_uscita,
-}: CardProps) {
+}: CardDetailsProps) {
   const image = "/Prodotti.svg";
   return (
     <div className="grid grid-cols-5 border-2 border-gray-300 rounded-l">

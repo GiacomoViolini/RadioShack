@@ -1,17 +1,6 @@
 import { useState } from "react";
 import "../../pagestyles/Prodotti.css";
-
-interface FilterProps {
-  title: string;
-  options: string[];
-  checkedOptions: FilterProduct[];
-  setCheckedOptions: (options: FilterProduct[]) => void;
-}
-
-interface FilterProduct {
-  title: string;
-  options: string[];
-}
+import { FilterProps } from "../../interfaceHelper";
 
 export default function Filter({
   title,

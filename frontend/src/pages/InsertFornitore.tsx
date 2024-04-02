@@ -4,21 +4,12 @@ import axios from "axios";
 import InsertFornitoreSxSection from "../components/InsertFornitoreSections/InsertFornitoreSxSection";
 import InsertFornitoreDxSection from "../components/InsertFornitoreSections/InsertFornitoreDxSection";
 import { useNavigate } from "react-router-dom";
-
-interface Fornitori {
-  nome: string;
-  email: string;
-  telefono: string;
-  indirizzo: string;
-  referente: string;
-  partita_iva: string;
-  sito_web: string;
-  iban: string;
-}
+import { Fornitori } from "../interfaceHelper";
 
 export default function InsertFornitore() {
   const navigate = useNavigate();
   const initialFornitore: Fornitori = {
+    id:"",
     nome: "",
     email: "",
     telefono: "",

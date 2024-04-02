@@ -1,6 +1,4 @@
-interface ListElementProps {
-    title: string;
-}
+import { ListElementProps } from "../../interfaceHelper";
 
 export default function ListElementComponent({ title }: ListElementProps) {
     const isClienti = title === "clienti";

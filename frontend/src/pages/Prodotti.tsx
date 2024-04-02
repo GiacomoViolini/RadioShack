@@ -3,19 +3,9 @@ import Filter from "../components/Filter/Filter";
 import Card from "../components/Card/Card";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { Product } from "../interfaceHelper";
+import { FilterProduct } from "../interfaceHelper";
 
-interface Product {
-  id: number;
-  nome: string;
-  capacità_possibili: number[];
-  colori_possibili: string[];
-  quantità: number;
-  prezzo: number;
-}
-interface FilterProduct {
-  title: string;
-  options: string[];
-}
 export default function Prodotti() {
   const filters = [
     {
