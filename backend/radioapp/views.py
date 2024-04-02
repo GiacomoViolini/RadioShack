@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .models import Prodotto, Acquisto, Fornitore
+from .models import Prodotto, Acquisto, Fornitore, Cliente, Vendita
 from .utils import convertiCapacità
 
 
@@ -157,3 +157,15 @@ def deleteFornitore(request, id):
     f = Fornitore.objects.get(id=id)
     f.delete()
     return Response({'message': 'Fornitore eliminato!'})
+
+@api_view(['GET'])
+def getClienti(request):
+    return Response([{'id': c.id, 'nome': c.nome, 'email': c.email, 'telefono': c.telefono, 'indirizzo': c.indirizzo} for c in Cliente.objects.all()])
+
+@api_view(['GET'])
+def getAcquisti(request):
+    return Response([{'id': a.id, 'costo': a.costo, 'quantità_articoli_acquistati': a.quantità_articoli_acquistati, 'data_acquisto': a.data_acquisto, 'codice_fornitore': a.codice_fornitore.id} for a in Acquisto.objects.all()])
+
+@api_view(['GET'])
+def getVendite(request):
+    return Response([{'id': v.id, 'costo': v.costo, 'quantità_articoli_acquistati': v.quantità_articoli_acquistati, 'data_acquisto': v.data_acquisto, 'codice_cliente': v.codice_cliente.id} for v in Vendita.objects.all()])

@@ -2,6 +2,8 @@ import Navbar from "../components/Navbar/Navbar";
 import Filter from "../components/Filter/Filter";
 import Table from "../components/Table/Table";
 import InstertElementButton from "../components/InsertElementButton/InsertElementButton";
+import { useState,useEffect } from "react";
+import axios from "axios";
 
 interface Acquisti {
   codice_acquisto: string;
@@ -52,29 +54,28 @@ export default function Acquisti() {
     "data acquisto",
     "codice fornitore"
   ];
-  const acquisti: Acquisti[] = [
-    {
-      codice_acquisto: "A001",
-      costo: 100.5,
-      quantità_articoli_acquistati: 2,
-      data_acquisto: new Date("2022-01-01"),
-      codice_fornitore: "F001"
-    },
-    {
-      codice_acquisto: "A002",
-      costo: 200.75,
-      quantità_articoli_acquistati: 3,
-      data_acquisto: new Date("2022-02-01"),
-      codice_fornitore: "F002"
-    },
-    {
-      codice_acquisto: "A003",
-      costo: 150.25,
-      quantità_articoli_acquistati: 1,
-      data_acquisto: new Date("2022-03-01"),
-      codice_fornitore: "F003"
-    }
-  ];
+  const [listaAcquisti, setListaAcquisti] = useState<Acquisti[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const getAcquisti = async () => {
+      setIsLoading(true);
+      try {
+        const res = await axios.get("http://localhost:8000/radioapp/getAcquisti");
+        setListaAcquisti(res.data);
+      } catch (error) {
+        console.error("Failed to fetch Acquisti:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    getAcquisti();
+  }, []);
+
+  if (isLoading) {
+    return null; // Or your custom loading component
+  }
+
 
   return (
     <div className="flex flex-col">
@@ -96,7 +97,7 @@ export default function Acquisti() {
           </div>
         </div>
         <div className="w-9/12 ml-[25%] flex justify-center px-8">
-          <Table fields={fields} informations={acquisti} />
+          <Table fields={fields} informations={listaAcquisti} />
         </div>
       </div>
     </div>
