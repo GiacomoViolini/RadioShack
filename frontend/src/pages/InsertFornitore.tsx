@@ -2,7 +2,7 @@ import Navbar from "../components/Navbar/Navbar";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-interface Fornitori {
+interface Fornitore {
   nome: string;
   email: string;
   telefono: string;
@@ -14,27 +14,8 @@ interface Fornitori {
 }
 
 export default function InsertFornitore() {
-  const initialFornitore: Fornitori = {
-    nome: "",
-    email: "",
-    telefono: "",
-    indirizzo: "",
-    referente: "",
-    partita_iva: "",
-    sito_web: "",
-    iban: "",
-  };
-
-  const [nome, setNome] = useState("");
-  const [email, setEmail] = useState("");
-  const [telefono, setTelefono] = useState("");
-  const [indirizzo, setIndirizzo] = useState("");
-  const [referente, setReferente] = useState("");
-  const [partita_iva, setPartita_iva] = useState("");
-  const [sito_web, setSito_web] = useState("");
-  const [iban, setIban] = useState("");
-  const [info, setInfo] = useState(initialFornitore);
-
+  const [fornitore, setFornitore] = useState<Fornitore>({nome:"",email:"",telefono:"",indirizzo:"",referente:"",partita_iva:"",sito_web:"",iban:""});
+  
   const fields = [
     "nome",
     "email",
