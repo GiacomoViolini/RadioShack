@@ -1,5 +1,5 @@
 import Navbar from "../components/Navbar/Navbar";
-import { useState} from "react";
+import { useState } from "react";
 import axios from "axios";
 import InsertFornitoreSxSection from "../components/InsertFornitoreSections/InsertFornitoreSxSection";
 import InsertFornitoreDxSection from "../components/InsertFornitoreSections/InsertFornitoreDxSection";
@@ -46,33 +46,30 @@ export default function InsertFornitore() {
   return (
     <div className="flex flex-col">
       <Navbar />
-      <div className="bg-slate-50 h-[95vh] mb-20 mt-24 rounded-lg grid grid-cols-2">
-        <div className="col-span-1 bg-gray-200  rounded-l-lg flex flex-col justify-center">
-          <div className="col-span-1 bg-gray-200  rounded-l-lg flex flex-col justify-center">
-            <button
-              onClick={() => addFornitore()}
-              className="flex flex-row w-full mt-12 justify-center gap-4 items-cente hover:decoration-black hover:underline"
-            >
-              <img
-                className=""
-                src="./InsertIconVersion2.svg"
-                alt="insert icon"
-              />
-              <h2 className="text-black text-3xl font-bold mb-2">
-                Aggiungi Fornitore
-              </h2>
-            </button>
+      <div className="bg-zinc-300 h-[82vh] mt-[4.5rem] rounded-lg grid grid-cols-2">
+        <div className="bg-zinc-400 rounded-l-lg flex flex-col gap-10 justify-center items-center">
+          <button
+            onClick={() => addFornitore()}
+            className="flex border-2 px-4 py-2 rounded border-black bg-zinc-600 hover:bg-zinc-500 transition-all duration-200 w-fit justify-center gap-4 items-center"
+          >
             <img
-              src="./Fornitori.svg"
-              className="h-64 mt-16 mb-12"
-              alt="Fornitori Icon"
+              src="/InsertIconVersion2.svg"
+              alt="Insert Icon"
             />
-            <InsertFornitoreSxSection
-              fields={["sito web", "telefono"]}
-              fornitore={fornitore}
-              setFornitore={setFornitore}
-            />
-          </div>
+            <h2 className="text-2xl font-semibold">
+              Aggiungi Fornitore
+            </h2>
+          </button>
+          <img
+            src="/Fornitori.svg"
+            className="h-64"
+            alt="Fornitori Icon"
+          />
+          <InsertFornitoreSxSection
+            fields={["sito web", "telefono"]}
+            fornitore={fornitore}
+            setFornitore={setFornitore}
+          />
         </div>
         <InsertFornitoreDxSection
           fields={[

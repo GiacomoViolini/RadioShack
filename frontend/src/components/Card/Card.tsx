@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { convertiColori } from "../../utils";
+import axios from "axios";
 
 interface CardProps {
   title: string;
@@ -24,8 +25,21 @@ export default function Card({
 }: CardProps) {
   const image = "/Prodotti.svg";
   const navigate = useNavigate();
+  async function deleteProduct() {
+    const res = axios.post(
+      `http://localhost:8000/radioapp/deleteProdotto/${title}`
+    );
+    console.log(res);
+  }
   return (
-    <button className="grid grid-cols-4 border-2 border-gray-300 rounded-lg hover:border-black  hover:bg-zinc-900 transition-all duration-500" onClick={() => navigate(`/prodotti/${title}`, {state: {checkedOptions: checkedOptions}}) }>
+    <div
+      className="grid grid-cols-4 border-2 border-gray-300 rounded-lg hover:border-black  hover:bg-zinc-900 transition-all duration-500"
+      onClick={() =>
+        navigate(`/prodotti/${title}`, {
+          state: { checkedOptions: checkedOptions },
+        })
+      }
+    >
       <img
         src={image}
         className="object-cover w-full p-2 bg-gray-300 rounded-l-lg"
@@ -53,8 +67,19 @@ export default function Card({
             />
           ))}
         </div>
-        <h2 className="font-semibold text-xl mt-2">Da {prezzo}€</h2>
+        <div className="flex justify-between">
+          <h2 className="font-semibold text-xl mt-2">Da {prezzo}€</h2>
+          <button
+            className="py-1 px-1.5 rounded-lg bg-zinc-500 hover:bg-zinc-700 transition-all duration-200 flex justify-center items-center"
+            onClick={(event) => {
+              event.stopPropagation();
+              // NON CLICKARE deleteProduct();
+            }}
+          >
+            <img src="/DeleteIcon.svg" className="w-6 h-6" />
+          </button>
+        </div>
       </div>
-    </button>
+    </div>
   );
 }

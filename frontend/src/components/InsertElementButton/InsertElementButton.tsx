@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { capitalize } from "../../utils";
 
 interface InsertElementButtonProps {
   title: string;
@@ -10,20 +11,14 @@ export default function InsertElementButton({
   const isAcquisti = title === "acquisto";
   const isFornitori = title === "fornitore";
   const navigate = useNavigate();
-  function navigateTo(url: string) {
-    navigate(`/${url}`);
-  }
   return (
     <button
-      className="flex flex-row items-center justify-center gap-4 rounded-full border-2 p-2 w-full border-slate-300 "
-      onClick={() => navigateTo(`Insert${title}`)}
+      className="flex flex-row items-center justify-center gap-4 rounded-lg border-2 p-2 w-full border-slate-300 bg-zinc-900 hover:bg-zinc-800 transition-all duration-200"
+      onClick={() => navigate(`/fornitori/inserisci`)}
     >
       <img src="./InsertIcon.svg" className="h-6" alt="Insert Icon" />
-      {isAcquisti && (
-        <h2 className="text-lg font-bold">{`Insert ${title}`}</h2>
-      )}
-      {isFornitori && (
-        <h2 className="text-sm font-bold">{`Insert ${title}`}</h2>
+      {(isAcquisti || isFornitori) && (
+        <h2 className="text-lg font-bold">{`Inserisci ${capitalize(title)}`}</h2>
       )}
       {isAcquisti && (
         <img src="./Acquisti.svg" className="h-8 mt-2" alt="Acquisti Icon" />

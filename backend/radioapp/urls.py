@@ -14,8 +14,8 @@ urlpatterns = [
     path("getFornitori/", views.getFornitori, name="getFornitori"),
     path("getClienti/", views.getClienti, name="getClienti"),
     path("getAcquisti/", views.getAcquisti, name="getAcquisti"),
-    path("getClienti/", views.getClienti, name="getClienti"),
-    path("getVendite/", views.getAcquisti, name="getVendite"),
+    path("getVendite/", views.getVendite, name="getVendite"),
     path("deleteFornitore/<int:id>/", views.deleteFornitore, name="deleteFornitore"),
     path("filterProdotto/<str:nome>/", views.filterProdotto, name="filterProdotto"),
+    path("deleteProdotto/<str:nome>/", views.deleteProdotto, name="deleteProdotto"),
 ]
