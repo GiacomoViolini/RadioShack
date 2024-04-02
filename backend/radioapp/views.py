@@ -49,15 +49,20 @@ def filterAggregatedProdotti(request):
     print(request.data)
     for filter_data in request.data['checkedOptions']:
         if filter_data['title'] == 'Colore':
-            products = list(filter(lambda p: p.colore in filter_data['options'], products))
+            products = list(
+                filter(lambda p: p.colore in filter_data['options'], products))
         elif filter_data['title'] == 'Capacità':
-            products = list(filter(lambda p: convertiCapacità(p.capacità) in filter_data['options'], products))
+            products = list(filter(lambda p: convertiCapacità(
+                p.capacità) in filter_data['options'], products))
         elif filter_data['title'] == "Stato":
-            products = list(filter(lambda p: p.stato in filter_data['options'], products))
+            products = list(
+                filter(lambda p: p.stato in filter_data['options'], products))
         elif filter_data['title'] == "Condizione":
-            products = list(filter(lambda p: p.condizione in filter_data['options'], products))
+            products = list(
+                filter(lambda p: p.condizione in filter_data['options'], products))
         elif filter_data['title'] == "Fotocamera":
-            products = list(filter(lambda p: p.fotocamera in filter_data['options'], products))         
+            products = list(
+                filter(lambda p: p.fotocamera in filter_data['options'], products))
 
     aggregated_products_dict = {}
     for product in products:
@@ -86,11 +91,33 @@ def filterAggregatedProdotti(request):
     } for nome, data in aggregated_products_dict.items()]
     return Response(aggregated_products_list)
 
+
 @api_view(['GET'])
 def getProdotto(request, nome):
     products = Prodotto.objects.filter(nome=nome)
 
-    return Response([{'id': p.id, 'nome': p.nome, 'colore': p.colore, 'capacità': p.capacità, 'stato': p.stato, 'condizione': p.condizione, 'fotocamera': p.fotocamera, 'dimensioni_schermo': p.dimensioni_schermo, 'prezzo_consigliato': p.prezzo_consigliato, "quantità": 1} for p in Prodotto.objects.filter(nome=nome)])
+    prodotti_filtrati = {}
+    for product in products:
+        key = (product.colore, product.capacità,
+               product.stato, product.condizione)
+        if key not in prodotti_filtrati:
+            prodotti_filtrati[key] = {
+                'nome': product.nome,
+                'colore': product.colore,
+                'capacità': product.capacità,
+                'stato': product.stato,
+                'condizione': product.condizione,
+                'fotocamera': product.fotocamera,
+                'dimensioni_schermo': product.dimensioni_schermo,
+                'prezzo_consigliato': product.prezzo_consigliato,
+                'prezzo_di_acquisto': product.prezzo_di_acquisto,
+                'prezzo_di_vendita': product.prezzo_di_vendita,
+                'quantità': 0,
+            }
+        prodotti_filtrati[key]['quantità'] += 1
+
+    return Response([{'nome': p.nome, 'colore': p.colore, 'capacità': p.capacità, 'stato': p.stato, 'condizione': p.condizione, 'fotocamera': p.fotocamera, 'dimensioni_schermo': p.dimensioni_schermo, 'prezzo_consigliato': p.prezzo_consigliato, "prezzo_di_acquisto": p.prezzo_di_acquisto, "prezzo_di_vendita": p.prezzo_di_vendita, "quantità": p['quantità']} for p in prodotti_filtrati.values()])
+
 
 @api_view(['GET'])
 def indexa(request):
@@ -120,6 +147,13 @@ def addFornitore(request):
     f.save()
     return Response({'message': 'Fornitore aggiunto!'})
 
+
 @api_view(['GET'])
 def getFornitori(request):
     return Response([{'id': f.id, 'nome': f.nome, 'email': f.email, 'telefono': f.telefono, 'indirizzo': f.indirizzo, 'referente': f.referente, 'partita_iva': f.partita_iva, 'sito_web': f.sito_web, 'iban': f.iban} for f in Fornitore.objects.all()])
+
+@api_view(['DELETE'])
+def deleteFornitore(request):
+    f = Fornitore.objects.get(id=request.data['id'])
+    f.delete()
+    return Response({'message': 'Fornitore eliminato!'})
