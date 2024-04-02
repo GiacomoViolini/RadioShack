@@ -69,7 +69,7 @@ export default function InsertFornitore() {
         <div className="col-span-1 bg-gray-200  rounded-l-lg">
           <h2></h2>
         </div>
-        <div className="col-span-1 bg-none h-[80vh] py-4">
+        <div className="col-span-1 bg-none h-[80vh] py-4 pt-16">
           {fields.map((field) => {
             const fieldName = field.replace(" ", "_");
             return (
