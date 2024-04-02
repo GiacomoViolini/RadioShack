@@ -1,5 +1,5 @@
 import axios from "axios";
-
+import { capitalize } from "../../utils";
 interface TableProps {
   fields: string[];
   informations: Clienti[] | Vendite[] | Acquisti[] | Fornitori[];
@@ -62,7 +62,7 @@ export default function Table({ fields, informations , setInformations }: TableP
         <tr className="h-14 p-2 gap-2 ">
           {fields.map((field) => (
             <th key={field} className="mx-2">
-              {field}
+              {capitalize(field)}
             </th>
           ))}
           {informations && informations.length > 0 && Object.keys(informations[0]).length > 4 &&
