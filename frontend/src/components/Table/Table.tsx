@@ -1,6 +1,5 @@
-import visualizeIcon from "/VisualizeIcon.svg";
-import modifyIcon from "/ModifyIcon.svg";
-import deleteIcon from "/DeleteIcon.svg";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 interface TableProps {
   fields: string[];
@@ -8,6 +7,7 @@ interface TableProps {
 }
 
 interface Fornitori {
+  id: string;
   nome: string;
   email: string;
   telefono: string;
@@ -42,6 +42,28 @@ interface Vendite {
 }
 
 export default function Table({ fields, informations }: TableProps) {
+  const [trigger, setTrigger] = useState(0);
+
+  const [idToDelete, setIdToDelete] = useState<string | null>(null);
+
+  const deleteFornitore = async (id: string) => {
+    try {
+      await axios.delete(`http://localhost:8000/radioapp/deleteFornitore/${id}`);
+      alert("Fornitore eliminato con successo")
+      window.location.reload();
+      setTrigger((prev) => prev + 1);
+    } catch (error) {
+      console.error("Failed to delete fornitore:", error);
+    }
+  };
+  
+  useEffect(() => {
+    if (trigger > 0 && idToDelete !== null) {
+      deleteFornitore(idToDelete);
+      setIdToDelete(null);
+    }
+  }, [trigger, idToDelete]);
+
   return (
     <table className="border-spacing-y-1 shadow-sm shadow-slate-300 border text-center border-slate-300 w-full rounded-md overflow-hidden">
       <thead className="bg-slate-100 text-black ">
@@ -59,7 +81,10 @@ export default function Table({ fields, informations }: TableProps) {
       </thead>
       <tbody className="border-spacing-y-1 border xl:text-xs">
         {informations.map((information, rowIndex) => (
-          <tr key={rowIndex} className="border-spacing-y-1 h-12 gap-2 border p-2">
+          <tr
+            key={rowIndex}
+            className="border-spacing-y-1 h-12 gap-2 border p-2"
+          >
             {Object.entries(information).map(([key, info]) => (
               <td key={key} className="mx-2">
                 {info instanceof Date ? info.toLocaleString() : info}
@@ -72,13 +97,16 @@ export default function Table({ fields, informations }: TableProps) {
                 key={""}
               >
                 <button>
-                  <img src={visualizeIcon} alt="visualize"></img>
+                  <img src="./ModifyIcon.svg" alt="modify"></img>
                 </button>
-                <button>
-                  <img src={modifyIcon} alt="modify"></img>
-                </button>
-                <button>
-                  <img src={deleteIcon} alt="delete" className="ml-1"></img>
+                <button
+                  onClick={() => {
+                    if ("id" in information) {
+                      deleteFornitore(information.id);
+                    }
+                  }}
+                >
+                  <img src="./DeleteIcon.svg" alt="delete" className="ml-1" />
                 </button>
               </td>
             ) : null}

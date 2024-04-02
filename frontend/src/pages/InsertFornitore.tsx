@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import InsertFornitoreSxSection from "../components/InsertFornitoreSections/InsertFornitoreSxSection";
 import InsertFornitoreDxSection from "../components/InsertFornitoreSections/InsertFornitoreDxSection";
+import { useNavigate } from "react-router-dom";
 
 interface Fornitori {
   nome: string;
@@ -16,6 +17,7 @@ interface Fornitori {
 }
 
 export default function InsertFornitore() {
+  const navigate = useNavigate();
   const initialFornitore: Fornitori = {
     nome: "",
     email: "",
@@ -37,7 +39,12 @@ export default function InsertFornitore() {
     };
 
     if (trigger > 0) {
-      addFornitore();
+      addFornitore().then(() => {
+        alert("Fornitore aggiunto con successo");
+        setTimeout(() => {
+          navigate(-1);
+        }, 2000);
+      });
     }
   }, [trigger]);
 

@@ -2,8 +2,11 @@ import Navbar from "../components/Navbar/Navbar";
 import Filter from "../components/Filter/Filter";
 import Table from "../components/Table/Table";
 import InstertElementButton from "../components/InsertElementButton/InsertElementButton";
+import axios from "axios";
+import { useState,useEffect } from "react";
 
 interface Fornitori {
+  id: string;
   nome: string;
   email: string;
   telefono: string;
@@ -49,6 +52,7 @@ export default function Fornitori() {
     },
   ];
   const fields = [
+    "id",
     "nome",
     "email",
     "telefono",
@@ -58,38 +62,29 @@ export default function Fornitori() {
     "sito web",
     "iban",
   ];
-  const fornitori: Fornitori[] = [
-    {
-      nome: "Fornitore 1",
-      email: "fornitore1@example.com",
-      telefono: "123-456-7890",
-      indirizzo: "Via Roma, 1, 00100 Roma RM",
-      referente: "Referente 1",
-      partita_iva: "01234567890",
-      sito_web: "www.fornitore1.com",
-      iban: "IT60X0542811101000000123456",
-    },
-    {
-      nome: "Fornitore 2",
-      email: "fornitore2@example.com",
-      telefono: "098-765-4321",
-      indirizzo: "Via Milano, 2, 20100 Milano MI",
-      referente: "Referente 2",
-      partita_iva: "09876543210",
-      sito_web: "www.fornitore2.com",
-      iban: "IT60X0542811101000000654321",
-    },
-    {
-      nome: "Fornitore 3",
-      email: "fornitore3@example.com",
-      telefono: "111-222-3333",
-      indirizzo: "Via Napoli, 3, 80100 Napoli NA",
-      referente: "Referente 3",
-      partita_iva: "11122233344",
-      sito_web: "www.fornitore3.com",
-      iban: "IT60X0542811101000000111222",
-    },
-  ];
+
+  const [listafornitori, setListafornitori] = useState<Fornitori[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const getFornitori = async () => {
+      setIsLoading(true);
+      try {
+        const res = await axios.get("http://localhost:8000/radioapp/getFornitori");
+        setListafornitori(res.data);
+      } catch (error) {
+        console.error("Failed to fetch fornitori:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    getFornitori();
+  }, []);
+
+  if (isLoading) {
+    return null; // Or your custom loading component
+  }
+
   return (
     <div className="flex flex-col">
       <Navbar />
@@ -110,7 +105,7 @@ export default function Fornitori() {
           </div>
         </div>
         <div className="w-10/12 ml-[17%] flex justify-center px-8">
-          <Table fields={fields} informations={fornitori} />
+          <Table fields={fields} informations={listafornitori} />
         </div>
       </div>
     </div>
