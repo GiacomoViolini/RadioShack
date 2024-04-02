@@ -14,7 +14,7 @@ export default function Filter({ title, options }: FilterProps) {
         <button className="p-1 rounded-full" onClick={() => setIsOpen(!isOpen)}>
           <img
             id="arrow"
-            src={"./public/Down.svg"}
+            src={"/Down.svg"}
             className={`w-4 h-4 ${isOpen ? "rotate-up" : "rotate-down"}`}
           />
         </button>

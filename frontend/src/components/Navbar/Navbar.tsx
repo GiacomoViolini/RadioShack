@@ -23,17 +23,17 @@ export default function Navbar() {
   }, [scrollState]);
 
   return (
-    <div className={`flex items-center justify-between fixed top-0 start-0 h-20 pl-8 w-full pr-12 mb-6 z-20 ${scrollState === "top" ? "" : "bg-white"}`}>
+    <div className={`flex items-center justify-between w-full top-0 fixed left-0 px-8 h-20 z-20 ${scrollState === "top" ? "" : "bg-gray-300 transition-background-color duration-700"}`}>
       <div className="flex items-center gap-4">
-        <img src={`./public/${scrollState === "top" ? "logo.png" : "LogoBlack.svg"}`} className="w-11 h-11" />{" "}
-        <h2 className={`text-4xl font-bold ${scrollState === "top" ? "" : "text-black"}`}>RadioShack</h2>
+        <img src={`/${scrollState === "top" ? "logo.png" : "LogoBlack.svg"}`} className="w-11 h-11" />{" "}
+        <h2 className={`text-4xl font-bold ${scrollState === "top" ? "" : "text-zinc-900"}`}>RadioShack</h2>
       </div>
       <div className="flex gap-x-4">
-        <button className={`p-3 hover:bg-gray-300 rounded-full flex justify-center items-start ${scrollState === "top" ? "bg-white" : "bg-black"}`} onClick={() => navigate(-1)}>
-          <img src={`./public/${scrollState === "top" ? "Back.svg" : "BackWhite.svg"}`} className="w-5 h-5" />
+        <button className={`p-3 hover:bg-gray-400 rounded-full flex justify-center items-start ${scrollState === "top" ? "bg-gray-200" : "bg-zinc-800 transition-background-color duration-700"}`} onClick={() => navigate(-1)}>
+          <img src={`/${scrollState === "top" ? "Back.svg" : "BackWhite.svg"}`} className="w-5 h-5" />
         </button>
-        <button className={`p-3 hover:bg-gray-300 rounded-full flex justify-center items-center ${scrollState === "top" ? "bg-white" : "bg-black"}`} onClick={() => navigate("/")}>
-          <img src={`./public/${scrollState === "top" ? "Home.svg" : "HomeWhite.svg"}`} className="w-5 h-5" />
+        <button className={`p-3 hover:bg-gray-400 rounded-full flex justify-center items-center ${scrollState === "top" ? "bg-gray-200" : "bg-zinc-800 transition-background-color duration-700"}`} onClick={() => navigate("/")}>
+          <img src={`/${scrollState === "top" ? "Home.svg" : "HomeWhite.svg"}`} className="w-5 h-5" />
         </button>
       </div>
     </div>

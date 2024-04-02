@@ -3,6 +3,7 @@ import Home from "./pages/Home";
 import Statistiche from "./pages/Statistiche";
 import Prodotti from "./pages/Prodotti";
 import Vendite from "./pages/Vendite";
+import Prodotto from "./pages/Prodotto";
 import Fornitori from "./pages/Fornitori"
 import Acquisti from "./pages/Acquisti"
 import Clienti from "./pages/Clienti";
@@ -14,6 +15,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/prodotti" element={<Prodotti />} />
+        <Route path="/prodotti/:idprodotto" element={<Prodotto />} />
         <Route path="/statistiche" element={<Statistiche />} />
         <Route path="/fornitori" element={<Fornitori />}/>
         <Route path="/clienti" element={<Clienti />}/>

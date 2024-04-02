@@ -1,7 +1,9 @@
+import { useNavigate } from "react-router-dom";
+import { convertiColori } from "../../utils";
+
 interface CardProps {
   title: string;
-  image: string;
-  capacità_possibili: string[];
+  capacità_possibili: number[];
   colori_possibili: string[];
   quantità: number;
   prezzo: number;
@@ -9,41 +11,15 @@ interface CardProps {
 
 export default function Card({
   title,
-  image,
   capacità_possibili,
   colori_possibili,
   quantità,
   prezzo,
 }: CardProps) {
-  function convertiColori(color:string) {
-    switch (color) {
-      case "Rosso":
-        return "#ef4444";
-      case "Blu":
-        return "#3b82f6";
-      case "Verde":
-        return "#10b981";
-      case "Giallo":
-        return "#eab308";
-      case "Viola":
-        return "#a855f7";
-      case "Arancione":
-        return "#f97316";
-      case "Rosa":
-        return "pink-500";
-      case "Grigio":
-        return "gray-500";
-      case "Bianco":
-        return "white";
-      case "Nero":
-        return "black";
-      default:
-        return color;
-    }
-  }
-
+  const image = "/Prodotti.svg";
+  const navigate = useNavigate();
   return (
-    <div className="grid grid-cols-4 border-2 border-gray-300 rounded-lg hover:border-black transition-all duration-500">
+    <button className="grid grid-cols-4 border-2 border-gray-300 rounded-lg hover:border-black  hover:bg-zinc-900 transition-all duration-500" onClick={() => navigate(`/prodotti/${title}`) }>
       <img
         src={image}
         className="object-cover w-full p-2 bg-gray-300 rounded-l-lg"
@@ -73,6 +49,6 @@ export default function Card({
         </div>
         <h2 className="font-semibold text-xl mt-2">Da {prezzo}€</h2>
       </div>
-    </div>
+    </button>
   );
 }
