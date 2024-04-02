@@ -12,6 +12,10 @@ interface Product {
   quantità: number;
   prezzo: number;
 }
+interface FilterProduct {
+  title: string;
+  options: string[];
+}
 export default function Prodotti() {
   const filters = [
     {
@@ -46,16 +50,29 @@ export default function Prodotti() {
       ],
     },
   ];
-const [products, setProducts] = useState<Product[]>([]);
-useEffect(() => {
+  const [products, setProducts] = useState<Product[]>([]);
+  const [checkedOptions, setCheckedOptions] = useState<FilterProduct[]>([]);
+
+  useEffect(() => {
     async function fetchData() {
-        const res = await axios.get(
-            "http://localhost:8000/radioapp/getAggregatedProdotti"
-        );
-        setProducts(res.data);
+      const res = await axios.get(
+        "http://localhost:8000/radioapp/getAggregatedProdotti"
+      );
+      setProducts(res.data);
     }
-    fetchData();
-}, []);
+    async function filterData() {
+      const res = await axios.post(
+        "http://localhost:8000/radioapp/filterAggregatedProdotti/",
+        { checkedOptions }
+      );
+      setProducts(res.data);
+    }
+    if (checkedOptions.length == 0) {
+      fetchData();
+    } else {
+      filterData();
+    }
+  }, [checkedOptions]);
 
   return (
     <div className="flex flex-col">
@@ -66,7 +83,12 @@ useEffect(() => {
           <hr className="h-2 border-t-2" />
           {filters.map((filter) => (
             <div key={filter.title}>
-              <Filter title={filter.title} options={filter.options} />
+              <Filter
+                title={filter.title}
+                options={filter.options}
+                checkedOptions={checkedOptions}
+                setCheckedOptions={setCheckedOptions}
+              />
               <hr />
             </div>
           ))}

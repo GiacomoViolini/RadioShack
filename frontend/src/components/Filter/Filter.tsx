@@ -1,12 +1,58 @@
 import { useState } from "react";
 import "../../pagestyles/Prodotti.css";
+
 interface FilterProps {
+  title: string;
+  options: string[];
+  checkedOptions: FilterProduct[];
+  setCheckedOptions: (options: FilterProduct[]) => void;
+}
+
+interface FilterProduct {
   title: string;
   options: string[];
 }
 
-export default function Filter({ title, options }: FilterProps) {
+export default function Filter({
+  title,
+  options,
+  checkedOptions,
+  setCheckedOptions,
+}: FilterProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const handleCheck = (option: string) => {
+    const newOptions = checkedOptions.map((checkedOption) => {
+      if (checkedOption.title === title) {
+        if (checkedOption.options.includes(option)) {
+          return {
+            title,
+            options: checkedOption.options.filter(
+              (checkedOption) => checkedOption !== option
+            ),
+          };
+        } else {
+          return {
+            title,
+            options: [...checkedOption.options, option],
+          };
+        }
+      } else {
+        return checkedOption;
+      }
+    });
+    if (!newOptions.some((option) => option.title === title)) {
+      newOptions.push({ title, options: [option] });
+    }
+    if (newOptions.some((option) => option.options.length === 0)) {
+      newOptions.splice(
+        newOptions.findIndex((option) => option.options.length === 0),
+        1
+      );
+    }
+    setCheckedOptions(newOptions);
+    console.log(newOptions);
+  };
+
   return (
     <div className="flex flex-col">
       <div className="flex justify-between items-center">
@@ -22,7 +68,11 @@ export default function Filter({ title, options }: FilterProps) {
       <div className={`filter-content ${isOpen ? "open" : "closed"} mb-2`}>
         {options.map((option) => (
           <div key={option} className="flex items-center gap-2">
-            <input type="checkbox" className="accent-white" />
+            <input
+              type="checkbox"
+              className="accent-white"
+              onChange={() => handleCheck(option)}
+            />
             <label>{option}</label>
           </div>
         ))}
