@@ -3,7 +3,7 @@ import Filter from "../components/Filter/Filter";
 import Table from "../components/Table/Table";
 import InstertElementButton from "../components/InsertElementButton/InsertElementButton";
 import axios from "axios";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 
 interface Fornitori {
   id: string;
@@ -15,6 +15,31 @@ interface Fornitori {
   partita_iva: string;
   sito_web: string;
   iban: string;
+}
+interface Clienti {
+  id: string;
+  nome: string;
+  email: string;
+  telefono: string;
+  indirizzo: string;
+}
+
+interface Acquisti {
+  id: string;
+  codice_acquisto: string;
+  costo: number;
+  quantità_articoli_acquistati: number;
+  data_acquisto: Date;
+  codice_fornitore: string;
+}
+
+interface Vendite {
+  id: string;
+  codice_vendita: string;
+  codice_cliente: string;
+  costo: number;
+  quantità_articoli_acquistati: number;
+  data_acquisto: Date;
 }
 
 export default function Fornitori() {
@@ -64,26 +89,20 @@ export default function Fornitori() {
   ];
 
   const [listafornitori, setListafornitori] = useState<Fornitori[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const getFornitori = async () => {
-      setIsLoading(true);
       try {
-        const res = await axios.get("http://localhost:8000/radioapp/getFornitori");
+        const res = await axios.get(
+          "http://localhost:8000/radioapp/getFornitori"
+        );
         setListafornitori(res.data);
       } catch (error) {
         console.error("Failed to fetch fornitori:", error);
-      } finally {
-        setIsLoading(false);
       }
     };
     getFornitori();
   }, []);
-
-  if (isLoading) {
-    return null; // Or your custom loading component
-  }
 
   return (
     <div className="flex flex-col">
@@ -98,14 +117,24 @@ export default function Fornitori() {
             <hr className="h-2 border-t-2" />
             {filters.map((filter) => (
               <div key={filter.title}>
-                <Filter title={filter.title} options={filter.options} />
+                {/* <Filter title={filter.title} options={filter.options} /> */}
                 <hr />
               </div>
             ))}
           </div>
         </div>
         <div className="w-10/12 ml-[17%] flex justify-center px-8">
-          <Table fields={fields} informations={listafornitori} />
+          <Table
+            fields={fields}
+            informations={listafornitori}
+            setInformations={
+              setListafornitori as React.Dispatch<
+                React.SetStateAction<
+                  Clienti[] | Vendite[] | Fornitori[] | Acquisti[]
+                >
+              >
+            }
+          />
         </div>
       </div>
     </div>

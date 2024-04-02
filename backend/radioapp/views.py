@@ -152,11 +152,13 @@ def addFornitore(request):
 def getFornitori(request):
     return Response([{'id': f.id, 'nome': f.nome, 'email': f.email, 'telefono': f.telefono, 'indirizzo': f.indirizzo, 'referente': f.referente, 'partita_iva': f.partita_iva, 'sito_web': f.sito_web, 'iban': f.iban} for f in Fornitore.objects.all()])
 
+
 @api_view(['DELETE'])
 def deleteFornitore(request, id):
     f = Fornitore.objects.get(id=id)
     f.delete()
     return Response({'message': 'Fornitore eliminato!'})
+<<<<<<< HEAD
 
 @api_view(['GET'])
 def getClienti(request):
@@ -169,3 +171,5 @@ def getAcquisti(request):
 @api_view(['GET'])
 def getVendite(request):
     return Response([{'id': v.id, 'costo': v.costo, 'quantità_articoli_acquistati': v.quantità_articoli_acquistati, 'data_acquisto': v.data_acquisto, 'codice_cliente': v.codice_cliente.id} for v in Vendita.objects.all()])
+=======
+>>>>>>> 1eef03a36fb0774d801a63ae770e1f92e773f6db

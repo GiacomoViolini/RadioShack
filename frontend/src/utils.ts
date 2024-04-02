@@ -24,6 +24,7 @@ function convertiColori(color: string) {
       return color;
   }
 }
+
 function convertiCapacità(capacità: number) {
   switch (capacità) {
     case 64:
@@ -41,4 +42,8 @@ function convertiCapacità(capacità: number) {
   }
 }
 
-export { convertiColori, convertiCapacità };
+function capitalize(s: string) {
+  return s.charAt(0).toUpperCase() + s.slice(1);
+}
+
+export { convertiColori, convertiCapacità , capitalize };
