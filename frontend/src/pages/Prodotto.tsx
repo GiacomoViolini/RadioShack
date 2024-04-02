@@ -2,7 +2,8 @@
 import { useEffect, useState } from "react";
 import CardDetails from "../components/CardDetails/CardDetails";
 import Navbar from "../components/Navbar/Navbar";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
+import axios from "axios";
 // import axios from "axios";
 interface Prodotto {
   id: number;
@@ -24,16 +25,32 @@ interface Prodotto {
 export default function Prodotto() {
   const [prodotti, setProdotti] = useState<Prodotto[]>([]);
   const params = useParams();
+  const location = useLocation();
+  const { state } = location;
+  const checkedOptions = state.checkedOptions;
+
   useEffect(() => {
     async function fetchData() {
-      const res = await fetch(
+      const res = await axios.get(
         `http://localhost:8000/radioapp/getProdotto/${params.id}`
       );
-      const data = await res.json();
-      setProdotti(data);
+      setProdotti(res.data);
     }
-    fetchData();
-  }, [params.id]);
+    async function fetchFilteredData() {
+      const res = await axios.post(
+        `http://localhost:8000/radioapp/filterProdotto/${params.id}/`,
+        {
+          checkedOptions,
+        }
+      );
+      setProdotti(res.data);
+    }
+    if (checkedOptions) {
+      fetchFilteredData();
+    } else {
+      fetchData();
+    }
+  }, [params.id, checkedOptions]);
   // const prodotti = [
   //   {
   //     nome: "Iphone 12",

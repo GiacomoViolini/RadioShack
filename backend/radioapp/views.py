@@ -91,6 +91,48 @@ def filterAggregatedProdotti(request):
     } for nome, data in aggregated_products_dict.items()]
     return Response(aggregated_products_list)
 
+@api_view(['POST'])
+def filterProdotto(request, nome):
+    products = Prodotto.objects.filter(nome=nome)
+    print(request.data)
+    for filter_data in request.data['checkedOptions']:
+        if filter_data['title'] == 'Colore':
+            products = list(
+                filter(lambda p: p.colore in filter_data['options'], products))
+        elif filter_data['title'] == 'Capacità':
+            products = list(filter(lambda p: convertiCapacità(
+                p.capacità) in filter_data['options'], products))
+        elif filter_data['title'] == "Stato":
+            products = list(
+                filter(lambda p: p.stato in filter_data['options'], products))
+        elif filter_data['title'] == "Condizione":
+            products = list(
+                filter(lambda p: p.condizione in filter_data['options'], products))
+        elif filter_data['title'] == "Fotocamera":
+            products = list(
+                filter(lambda p: p.fotocamera in filter_data['options'], products))
+
+    prodotti_filtrati = {}
+    for product in products:
+        key = (product.colore, product.capacità,
+               product.stato, product.condizione)
+        if key not in prodotti_filtrati:
+            prodotti_filtrati[key] = {
+                'nome': product.nome,
+                'colore': product.colore,
+                'capacità': product.capacità,
+                'stato': product.stato,
+                'condizione': product.condizione,
+                'fotocamera': product.fotocamera,
+                'dimensioni_schermo': product.dimensioni_schermo,
+                'prezzo_consigliato': product.prezzo_consigliato,
+                'prezzo_di_acquisto': product.prezzo_di_acquisto,
+                'prezzo_di_vendita': product.prezzo_di_vendita,
+                'quantità': 0,
+                "anno_di_uscita": product.anno_di_uscita,
+            }
+        prodotti_filtrati[key]['quantità'] += 1
+    return Response([{'nome': p["nome"], 'colore': p["colore"], "anno_di_uscita": p["anno_di_uscita"], 'capacità': p["capacità"], 'stato': p["stato"], 'condizione': p["condizione"], 'fotocamera': p["fotocamera"], 'dimensioni_schermo': p["dimensioni_schermo"], 'prezzo_consigliato': p["prezzo_consigliato"], "prezzo_di_acquisto": p["prezzo_di_acquisto"], "prezzo_di_vendita": p["prezzo_di_vendita"], "quantità": p['quantità']} for p in prodotti_filtrati.values()])
 
 @api_view(['GET'])
 def getProdotto(request, nome):

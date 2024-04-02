@@ -13,4 +13,5 @@ urlpatterns = [
     path("getProdotto/<str:nome>/", views.getProdotto, name="getProdotto"),
     path("getFornitori/", views.getFornitori, name="getFornitori"),
     path("deleteFornitore/<int:id>/", views.deleteFornitore, name="deleteFornitore"),
+    path("filterProdotto/<str:nome>/", views.filterProdotto, name="filterProdotto"),
 ]

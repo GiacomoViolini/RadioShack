@@ -7,6 +7,11 @@ interface CardProps {
   colori_possibili: string[];
   quantità: number;
   prezzo: number;
+  checkedOptions: FilterProduct[];
+}
+interface FilterProduct {
+  title: string;
+  options: string[];
 }
 
 export default function Card({
@@ -15,11 +20,12 @@ export default function Card({
   colori_possibili,
   quantità,
   prezzo,
+  checkedOptions,
 }: CardProps) {
   const image = "/Prodotti.svg";
   const navigate = useNavigate();
   return (
-    <button className="grid grid-cols-4 border-2 border-gray-300 rounded-lg hover:border-black  hover:bg-zinc-900 transition-all duration-500" onClick={() => navigate(`/prodotti/${title}`) }>
+    <button className="grid grid-cols-4 border-2 border-gray-300 rounded-lg hover:border-black  hover:bg-zinc-900 transition-all duration-500" onClick={() => navigate(`/prodotti/${title}`, {state: {checkedOptions: checkedOptions}}) }>
       <img
         src={image}
         className="object-cover w-full p-2 bg-gray-300 rounded-l-lg"

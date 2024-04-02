@@ -102,6 +102,7 @@ export default function Prodotti() {
               colori_possibili={product.colori_possibili}
               quantità={product.quantità}
               prezzo={product.prezzo}
+              checkedOptions={checkedOptions}
             />
           ))}
         </div>
