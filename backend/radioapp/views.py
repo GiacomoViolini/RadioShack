@@ -153,7 +153,7 @@ def getFornitori(request):
     return Response([{'id': f.id, 'nome': f.nome, 'email': f.email, 'telefono': f.telefono, 'indirizzo': f.indirizzo, 'referente': f.referente, 'partita_iva': f.partita_iva, 'sito_web': f.sito_web, 'iban': f.iban} for f in Fornitore.objects.all()])
 
 @api_view(['DELETE'])
-def deleteFornitore(request):
-    f = Fornitore.objects.get(id=request.data['id'])
+def deleteFornitore(request, id):
+    f = Fornitore.objects.get(id=id)
     f.delete()
     return Response({'message': 'Fornitore eliminato!'})

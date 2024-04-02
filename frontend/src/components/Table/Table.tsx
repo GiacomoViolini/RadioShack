@@ -1,7 +1,5 @@
-import visualizeIcon from "/VisualizeIcon.svg";
-import modifyIcon from "/ModifyIcon.svg";
-import deleteIcon from "/DeleteIcon.svg";
 import axios from "axios";
+import { useEffect, useState } from "react";
 
 interface TableProps {
   fields: string[];
@@ -9,7 +7,7 @@ interface TableProps {
 }
 
 interface Fornitori {
-  codice_fornitore: string;
+  id: string;
   nome: string;
   email: string;
   telefono: string;
@@ -44,16 +42,28 @@ interface Vendite {
 }
 
 export default function Table({ fields, informations }: TableProps) {
-  const deleteFornitore = async (id) => {
+  const [trigger, setTrigger] = useState(0);
+
+  const [idToDelete, setIdToDelete] = useState<string | null>(null);
+
+  const deleteFornitore = async (id: string) => {
     try {
       await axios.delete(`http://localhost:8000/radioapp/deleteFornitore/${id}`);
-      // After deleting, you can update the state to remove the deleted fornitore from the list
-      // Or you can reload the page to get the updated list
+      alert("Fornitore eliminato con successo")
       window.location.reload();
+      setTrigger((prev) => prev + 1);
     } catch (error) {
       console.error("Failed to delete fornitore:", error);
     }
   };
+  
+  useEffect(() => {
+    if (trigger > 0 && idToDelete !== null) {
+      deleteFornitore(idToDelete);
+      setIdToDelete(null);
+    }
+  }, [trigger, idToDelete]);
+
   return (
     <table className="border-spacing-y-1 shadow-sm shadow-slate-300 border text-center border-slate-300 w-full rounded-md overflow-hidden">
       <thead className="bg-slate-100 text-black ">
@@ -87,13 +97,16 @@ export default function Table({ fields, informations }: TableProps) {
                 key={""}
               >
                 <button>
-                  <img src={visualizeIcon} alt="visualize"></img>
+                  <img src="./ModifyIcon.svg" alt="modify"></img>
                 </button>
-                <button>
-                  <img src={modifyIcon} alt="modify"></img>
-                </button>
-                <button onClick={() => deleteFornitore(informations.codice_fornitore)}>
-                  <img src={deleteIcon} alt="delete" className="ml-1"></img>
+                <button
+                  onClick={() => {
+                    if ("id" in information) {
+                      deleteFornitore(information.id);
+                    }
+                  }}
+                >
+                  <img src="./DeleteIcon.svg" alt="delete" className="ml-1" />
                 </button>
               </td>
             ) : null}

@@ -6,6 +6,7 @@ import axios from "axios";
 import { useState,useEffect } from "react";
 
 interface Fornitori {
+  id: string;
   nome: string;
   email: string;
   telefono: string;
@@ -51,7 +52,7 @@ export default function Fornitori() {
     },
   ];
   const fields = [
-    "codice fornitore",
+    "id",
     "nome",
     "email",
     "telefono",
@@ -95,13 +96,12 @@ export default function Fornitori() {
           <div className="px-4 overflow-y-auto">
             <h2 className="text-2xl font-semibold">Filtro</h2>
             <hr className="h-2 border-t-2" />
-            {/*
             {filters.map((filter) => (
               <div key={filter.title}>
                 <Filter title={filter.title} options={filter.options} />
                 <hr />
               </div>
-            ))}*/}
+            ))}
           </div>
         </div>
         <div className="w-10/12 ml-[17%] flex justify-center px-8">
