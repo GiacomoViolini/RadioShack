@@ -7,8 +7,8 @@ interface InsertElementButtonProps {
 export default function InsertElementButton({
   title,
 }: InsertElementButtonProps) {
-  const isAcquisti = title === "acquisti";
-  const isFornitori = title === "fornitori";
+  const isAcquisti = title === "acquisto";
+  const isFornitori = title === "fornitore";
   const navigate = useNavigate();
   function navigateTo(url: string) {
     navigate(`/${url}`);

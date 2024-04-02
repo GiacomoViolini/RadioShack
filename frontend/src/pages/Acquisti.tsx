@@ -82,7 +82,7 @@ export default function Acquisti() {
       <div className="flex flex-row align-top relative mt-20">
       <div className="w-2/12 flex flex-col justify-center gap-6 fixed">
           <div className="w-full justify-center px-4">
-            <InstertElementButton title={"acquisti"} />
+            <InstertElementButton title={"acquisto"} />
           </div>
           <div className="px-4 overflow-y-auto">
             <h2 className="text-2xl font-semibold">Filtro</h2>

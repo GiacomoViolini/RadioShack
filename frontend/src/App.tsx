@@ -6,6 +6,7 @@ import Vendite from "./pages/Vendite";
 import Fornitori from "./pages/Fornitori"
 import Acquisti from "./pages/Acquisti"
 import Clienti from "./pages/Clienti";
+import InsertFornitore from "./pages/InsertFornitore";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/clienti" element={<Clienti />}/>
         <Route path="/acquisti" element={<Acquisti />}/>
         <Route path="/vendite" element={<Vendite />} />
+        <Route path="/Insertfornitore" element={<InsertFornitore />}/>
       </Routes>
     </BrowserRouter>
   );
