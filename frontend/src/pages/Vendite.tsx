@@ -2,13 +2,42 @@ import Navbar from "../components/Navbar/Navbar";
 import Filter from "../components/Filter/Filter";
 import Table from "../components/Table/Table";
 import ListElementComponent from "../components/ListElementComponent/ListELementComponent";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
-interface Vendite {
-  codice_vendita: string;
-  codice_cliente: string;
+interface Fornitori {
+  id: string;
+  nome: string;
+  email: string;
+  telefono: string;
+  indirizzo: string;
+  referente: string;
+  partita_iva: string;
+  sito_web: string;
+  iban: string;
+}
+interface Clienti {
+  id: number;
+  nome: string;
+  email: string;
+  telefono: string;
+  indirizzo: string;
+}
+
+interface Acquisti {
+  id: number;
   costo: number;
   quantità_articoli_acquistati: number;
-  data_acquisto: Date;
+  data_acquisto: string;
+  codice_fornitore: number;
+}
+
+interface Vendite {
+  id: number;
+  costo: number;
+  quantità_articoli_acquistati: number;
+  data_acquisto: string;
+  codice_cliente: number;
 }
 
 export default function Vendite() {
@@ -46,68 +75,35 @@ export default function Vendite() {
     },
   ];
   const fields = [
-    "codice vendita",
-    "codice cliente",
+    "id",
     "costo",
-    "quantità articoli acquistati",
-    "data acquisto",
+    "quantità_articoli_acquistati",
+    "data_acquisto",
+    "codice_cliente",
   ];
-  const vendite: Vendite[] = [
-    {
-      codice_vendita: "V001",
-      codice_cliente: "123",
-      costo: 100.5,
-      quantità_articoli_acquistati: 2,
-      data_acquisto: new Date("2022-01-01"),
-    },
-    {
-      codice_vendita: "V002",
-      codice_cliente: "456",
-      costo: 200.75,
-      quantità_articoli_acquistati: 3,
-      data_acquisto: new Date("2022-02-01"),
-    },
-    {
-      codice_vendita: "V003",
-      codice_cliente: "789",
-      costo: 150.25,
-      quantità_articoli_acquistati: 1,
-      data_acquisto: new Date("2022-03-01"),
-    },
-    {
-        codice_vendita: "V001",
-        codice_cliente: "123",
-        costo: 100.5,
-        quantità_articoli_acquistati: 2,
-        data_acquisto: new Date("2022-01-01"),
-      },
-      {
-        codice_vendita: "V002",
-        codice_cliente: "456",
-        costo: 200.75,
-        quantità_articoli_acquistati: 3,
-        data_acquisto: new Date("2022-02-01"),
-      },
-      {
-        codice_vendita: "V003",
-        codice_cliente: "789",
-        costo: 150.25,
-        quantità_articoli_acquistati: 1,
-        data_acquisto: new Date("2022-03-01"),
-      },
-      {
-        codice_vendita: "V001",
-        codice_cliente: "123",
-        costo: 100.5,
-        quantità_articoli_acquistati: 2,
-        data_acquisto: new Date("2022-01-01"),
-      },
-  ];
+
+  const [listaVendite, setListaVendite] = useState<Vendite[]>([]);
+
+  useEffect(() => {
+    const getVendite = async () => {
+      try {
+        const res = await axios.get(
+          "http://localhost:8000/radioapp/getVendite"
+        );
+
+        setListaVendite(res.data);
+      } catch (error) {
+        console.error("Failed to fetch Vendite:", error);
+      }
+    };
+    getVendite();
+  }, []);
+
   return (
     <div className="flex flex-col">
       <Navbar />
       <div className="flex flex-row align-top relative mt-20">
-      <div className="w-2/12 flex flex-col justify-center gap-6 fixed">
+        <div className="w-2/12 flex flex-col justify-center gap-6 fixed">
           <div className="w-full justify-center px-4">
             <ListElementComponent title={"vendite"} />
           </div>
@@ -123,7 +119,17 @@ export default function Vendite() {
           </div>
         </div>
         <div className="w-9/12 ml-[25%] flex justify-center px-8">
-          <Table fields={fields} informations={vendite} />
+          <Table
+            fields={fields}
+            informations={listaVendite}
+            setInformations={
+              setListaVendite as React.Dispatch<
+                React.SetStateAction<
+                  Clienti[] | Vendite[] | Fornitori[] | Acquisti[]
+                >
+              >
+            }
+          />
         </div>
       </div>
     </div>

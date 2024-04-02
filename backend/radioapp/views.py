@@ -158,11 +158,10 @@ def deleteFornitore(request, id):
     f = Fornitore.objects.get(id=id)
     f.delete()
     return Response({'message': 'Fornitore eliminato!'})
-<<<<<<< HEAD
 
 @api_view(['GET'])
 def getClienti(request):
-    return Response([{'id': c.id, 'nome': c.nome, 'email': c.email, 'telefono': c.telefono, 'indirizzo': c.indirizzo} for c in Cliente.objects.all()])
+    return Response([{'nome': c.nome, 'email': c.email, 'telefono': c.telefono, 'indirizzo': c.indirizzo} for c in Cliente.objects.all()])
 
 @api_view(['GET'])
 def getAcquisti(request):
@@ -170,6 +169,4 @@ def getAcquisti(request):
 
 @api_view(['GET'])
 def getVendite(request):
-    return Response([{'id': v.id, 'costo': v.costo, 'quantità_articoli_acquistati': v.quantità_articoli_acquistati, 'data_acquisto': v.data_acquisto, 'codice_cliente': v.codice_cliente.id} for v in Vendita.objects.all()])
-=======
->>>>>>> 1eef03a36fb0774d801a63ae770e1f92e773f6db
+    return Response([{'costo': v.costo, 'quantità_articoli_acquistati': v.quantità_articoli_acquistati, 'data_acquisto': v.data_acquisto, 'codice_cliente': v.codice_cliente.id} for v in Vendita.objects.all()])

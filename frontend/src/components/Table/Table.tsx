@@ -1,5 +1,6 @@
 import axios from "axios";
 import { capitalize } from "../../utils";
+import { useState } from "react";
 interface TableProps {
   fields: string[];
   informations: Clienti[] | Vendite[] | Acquisti[] | Fornitori[];
@@ -17,9 +18,8 @@ interface Fornitori {
   sito_web: string;
   iban: string;
 }
-
 interface Clienti {
-  id: string;
+  id: number;
   nome: string;
   email: string;
   telefono: string;
@@ -27,25 +27,23 @@ interface Clienti {
 }
 
 interface Acquisti {
-  id : string;
-  codice_acquisto: string;
+  id: number;
   costo: number;
   quantità_articoli_acquistati: number;
-  data_acquisto: Date;
-  codice_fornitore: string;
+  data_acquisto: string;
+  codice_fornitore: number;
 }
 
 interface Vendite {
-  id : string;
-  codice_vendita: string;
-  codice_cliente: string;
+  id: number;
   costo: number;
   quantità_articoli_acquistati: number;
-  data_acquisto: Date;
+  data_acquisto: string;
+  codice_cliente: number;
 }
 
 export default function Table({ fields, informations , setInformations }: TableProps) {
-
+  const [flag,setFlag] = useState(false)
   const deleteFornitore = async (id: string) => {
     try {
       await axios.delete(`http://localhost:8000/radioapp/deleteFornitore/${id}`);
@@ -65,9 +63,10 @@ export default function Table({ fields, informations , setInformations }: TableP
               {capitalize(field)}
             </th>
           ))}
-          {informations && informations.length > 0 && Object.keys(informations[0]).length > 4 &&
-          !fields.includes("codice vendita") ? (
+          { fields.includes("partita iva") || fields.includes("codice fornitore") ? (
+            <>
             <th>Interagisci</th>
+            </>
           ) : null}
         </tr>
       </thead>
@@ -82,8 +81,7 @@ export default function Table({ fields, informations , setInformations }: TableP
                 {info instanceof Date ? info.toLocaleString() : info}
               </td>
             ))}
-            {information && Object.keys(informations[0]).length > 4 &&
-            !("codice_vendita" in information) ? (
+            {flag ? (
               <td
                 className="flex flex-row gap-1 justify-center items-center pt-4 mx-2"
                 key={""}

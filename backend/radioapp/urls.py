@@ -15,6 +15,6 @@ urlpatterns = [
     path("getClienti/", views.getClienti, name="getClienti"),
     path("getAcquisti/", views.getAcquisti, name="getAcquisti"),
     path("getClienti/", views.getClienti, name="getClienti"),
-    path("getAcquisti/", views.getAcquisti, name="getAcquisti"),
+    path("getVendite/", views.getAcquisti, name="getVendite"),
     path("deleteFornitore/<int:id>/", views.deleteFornitore, name="deleteFornitore"),
 ]

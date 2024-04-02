@@ -2,13 +2,43 @@ import Navbar from "../components/Navbar/Navbar";
 import Filter from "../components/Filter/Filter";
 import Table from "../components/Table/Table";
 import ListElementComponent from "../components/ListElementComponent/ListELementComponent";
+import { useState,useEffect } from "react";
+import axios from "axios";
 
+interface Fornitori {
+  id: string;
+  nome: string;
+  email: string;
+  telefono: string;
+  indirizzo: string;
+  referente: string;
+  partita_iva: string;
+  sito_web: string;
+  iban: string;
+}
 interface Clienti {
-    nome: string;
-    email: string;
-    telefono: string;
-    indirizzo: string;
-  }
+  id: number;
+  nome: string;
+  email: string;
+  telefono: string;
+  indirizzo: string;
+}
+
+interface Acquisti {
+  id: number;
+  costo: number;
+  quantità_articoli_acquistati: number;
+  data_acquisto: string;
+  codice_fornitore: number;
+}
+
+interface Vendite {
+  id: number;
+  costo: number;
+  quantità_articoli_acquistati: number;
+  data_acquisto: string;
+  codice_cliente: number;
+}
 
 export default function Clienti() {
   const filters = [
@@ -50,26 +80,23 @@ export default function Clienti() {
     "telefono",
     "indirizzo",
   ];
-  const clienti: Clienti[] = [
-    {
-      nome: "Cliente 1",
-      email: "cliente1@example.com",
-      telefono: "123-456-7890",
-      indirizzo: "Via Roma, 1, 00100 Roma RM"
-    },
-    {
-      nome: "Cliente 2",
-      email: "cliente2@example.com",
-      telefono: "098-765-4321",
-      indirizzo: "Via Milano, 2, 20100 Milano MI"
-    },
-    {
-      nome: "Cliente 3",
-      email: "cliente3@example.com",
-      telefono: "111-222-3333",
-      indirizzo: "Via Napoli, 3, 80100 Napoli NA"
-    }
-  ];
+
+  const [listaClienti, setListaClienti] = useState<Clienti[]>([]);
+
+  useEffect(() => {
+    const getClienti = async () => {
+      try {
+        const res = await axios.get(
+          "http://localhost:8000/radioapp/getClienti"
+        );
+        setListaClienti(res.data);
+      } catch (error) {
+        console.error("Failed to fetch Clienti:", error);
+      }
+    };
+    getClienti();
+  }, []);
+
   return (
     <div className="flex flex-col">
       <Navbar />
@@ -90,7 +117,16 @@ export default function Clienti() {
           </div>
         </div>
         <div className="w-9/12 ml-[25%] flex justify-center px-8">
-          <Table fields={fields} informations={clienti} />
+        <Table
+            fields={fields}
+            informations={listaClienti}
+            setInformations={
+              setListaClienti as React.Dispatch<
+                React.SetStateAction<
+                  Clienti[] | Vendite[] | Fornitori[] | Acquisti[]
+                >
+              >
+            }/>
         </div>
       </div>
     </div>
