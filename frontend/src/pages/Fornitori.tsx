@@ -64,26 +64,18 @@ export default function Fornitori() {
   ];
 
   const [listafornitori, setListafornitori] = useState<Fornitori[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-
+  
   useEffect(() => {
     const getFornitori = async () => {
-      setIsLoading(true);
       try {
         const res = await axios.get("http://localhost:8000/radioapp/getFornitori");
         setListafornitori(res.data);
       } catch (error) {
         console.error("Failed to fetch fornitori:", error);
-      } finally {
-        setIsLoading(false);
       }
     };
     getFornitori();
   }, []);
-
-  if (isLoading) {
-    return null; // Or your custom loading component
-  }
 
   return (
     <div className="flex flex-col">
@@ -98,7 +90,7 @@ export default function Fornitori() {
             <hr className="h-2 border-t-2" />
             {filters.map((filter) => (
               <div key={filter.title}>
-                <Filter title={filter.title} options={filter.options} />
+                {/* <Filter title={filter.title} options={filter.options} /> */}
                 <hr />
               </div>
             ))}

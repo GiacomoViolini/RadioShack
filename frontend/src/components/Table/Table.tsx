@@ -1,5 +1,4 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
 
 interface TableProps {
   fields: string[];
@@ -42,28 +41,17 @@ interface Vendite {
 }
 
 export default function Table({ fields, informations }: TableProps) {
-  const [trigger, setTrigger] = useState(0);
-
-  const [idToDelete, setIdToDelete] = useState<string | null>(null);
 
   const deleteFornitore = async (id: string) => {
     try {
       await axios.delete(`http://localhost:8000/radioapp/deleteFornitore/${id}`);
       alert("Fornitore eliminato con successo")
       window.location.reload();
-      setTrigger((prev) => prev + 1);
     } catch (error) {
       console.error("Failed to delete fornitore:", error);
     }
   };
   
-  useEffect(() => {
-    if (trigger > 0 && idToDelete !== null) {
-      deleteFornitore(idToDelete);
-      setIdToDelete(null);
-    }
-  }, [trigger, idToDelete]);
-
   return (
     <table className="border-spacing-y-1 shadow-sm shadow-slate-300 border text-center border-slate-300 w-full rounded-md overflow-hidden">
       <thead className="bg-slate-100 text-black ">
@@ -73,7 +61,7 @@ export default function Table({ fields, informations }: TableProps) {
               {field}
             </th>
           ))}
-          {Object.keys(informations[0]).length > 4 &&
+          {informations && informations.length > 0 && Object.keys(informations[0]).length > 4 &&
           !fields.includes("codice vendita") ? (
             <th>Visualizza</th>
           ) : null}
@@ -85,12 +73,12 @@ export default function Table({ fields, informations }: TableProps) {
             key={rowIndex}
             className="border-spacing-y-1 h-12 gap-2 border p-2"
           >
-            {Object.entries(information).map(([key, info]) => (
+            {information && Object.entries(information).map(([key, info]) => (
               <td key={key} className="mx-2">
                 {info instanceof Date ? info.toLocaleString() : info}
               </td>
             ))}
-            {Object.keys(informations[0]).length > 4 &&
+            {information && Object.keys(informations[0]).length > 4 &&
             !("codice_vendita" in information) ? (
               <td
                 className="flex flex-row gap-1 justify-center items-center pt-4 mx-2"
