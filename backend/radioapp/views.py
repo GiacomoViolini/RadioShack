@@ -113,10 +113,10 @@ def getProdotto(request, nome):
                 'prezzo_di_acquisto': product.prezzo_di_acquisto,
                 'prezzo_di_vendita': product.prezzo_di_vendita,
                 'quantità': 0,
+                "anno_di_uscita": product.anno_di_uscita,
             }
         prodotti_filtrati[key]['quantità'] += 1
-
-    return Response([{'nome': p.nome, 'colore': p.colore, 'capacità': p.capacità, 'stato': p.stato, 'condizione': p.condizione, 'fotocamera': p.fotocamera, 'dimensioni_schermo': p.dimensioni_schermo, 'prezzo_consigliato': p.prezzo_consigliato, "prezzo_di_acquisto": p.prezzo_di_acquisto, "prezzo_di_vendita": p.prezzo_di_vendita, "quantità": p['quantità']} for p in prodotti_filtrati.values()])
+    return Response([{'nome': p["nome"], 'colore': p["colore"], "anno_di_uscita": p["anno_di_uscita"], 'capacità': p["capacità"], 'stato': p["stato"], 'condizione': p["condizione"], 'fotocamera': p["fotocamera"], 'dimensioni_schermo': p["dimensioni_schermo"], 'prezzo_consigliato': p["prezzo_consigliato"], "prezzo_di_acquisto": p["prezzo_di_acquisto"], "prezzo_di_vendita": p["prezzo_di_vendita"], "quantità": p['quantità']} for p in prodotti_filtrati.values()])
 
 
 @api_view(['GET'])

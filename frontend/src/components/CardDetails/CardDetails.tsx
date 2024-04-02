@@ -12,6 +12,7 @@ interface CardProps {
   dimensioni_schermo: number;
   prezzo_di_acquisto: number;
   prezzo_di_vendita: number;
+  anno_di_uscita: number;
 }
 
 export default function CardDetails({
@@ -26,6 +27,7 @@ export default function CardDetails({
   dimensioni_schermo,
   prezzo_di_acquisto,
   prezzo_di_vendita,
+  anno_di_uscita,
 }: CardProps) {
   const image = "/Prodotti.svg";
   return (
@@ -48,6 +50,7 @@ export default function CardDetails({
           </h2>
           <h2 className="">Fotocamera: {fotocamera}</h2>
           <h2 className="">Dimensioni Schermo: {dimensioni_schermo}</h2>
+          <h2 className="">Anno di Uscita: {anno_di_uscita}</h2>
           <h2 className="">Prezzo di Acquisto: {prezzo_di_acquisto}€</h2>
           <h2 className="">Prezzo Consigliato: {prezzo_consigliato}€</h2>
           {stato == "Venduto" && (
