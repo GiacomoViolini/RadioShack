@@ -63,7 +63,7 @@ export default function Table({ fields, informations }: TableProps) {
           ))}
           {informations && informations.length > 0 && Object.keys(informations[0]).length > 4 &&
           !fields.includes("codice vendita") ? (
-            <th>Visualizza</th>
+            <th>Interagisci</th>
           ) : null}
         </tr>
       </thead>
