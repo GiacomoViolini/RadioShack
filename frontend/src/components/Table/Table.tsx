@@ -3,6 +3,7 @@ import axios from "axios";
 interface TableProps {
   fields: string[];
   informations: Clienti[] | Vendite[] | Acquisti[] | Fornitori[];
+  setInformations: React.Dispatch<React.SetStateAction<Clienti[] | Vendite[] | Acquisti[] | Fornitori[]>>;
 }
 
 interface Fornitori {
@@ -18,6 +19,7 @@ interface Fornitori {
 }
 
 interface Clienti {
+  id: string;
   nome: string;
   email: string;
   telefono: string;
@@ -25,6 +27,7 @@ interface Clienti {
 }
 
 interface Acquisti {
+  id : string;
   codice_acquisto: string;
   costo: number;
   quantità_articoli_acquistati: number;
@@ -33,6 +36,7 @@ interface Acquisti {
 }
 
 interface Vendite {
+  id : string;
   codice_vendita: string;
   codice_cliente: string;
   costo: number;
@@ -40,13 +44,13 @@ interface Vendite {
   data_acquisto: Date;
 }
 
-export default function Table({ fields, informations }: TableProps) {
+export default function Table({ fields, informations , setInformations }: TableProps) {
 
   const deleteFornitore = async (id: string) => {
     try {
       await axios.delete(`http://localhost:8000/radioapp/deleteFornitore/${id}`);
       alert("Fornitore eliminato con successo")
-      window.location.reload();
+      setInformations(informations.filter((info) => info.id !== id) as Fornitori[] | Clienti[] | Vendite[] | Acquisti[]);
     } catch (error) {
       console.error("Failed to delete fornitore:", error);
     }

@@ -24,6 +24,7 @@ function convertiColori(color: string) {
       return color;
   }
 }
+
 function convertiCapacità(capacità: number) {
   switch (capacità) {
     case 64:
@@ -40,5 +41,6 @@ function convertiCapacità(capacità: number) {
       return capacità;
   }
 }
+
 
 export { convertiColori, convertiCapacità };
