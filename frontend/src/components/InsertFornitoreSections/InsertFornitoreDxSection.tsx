@@ -1,30 +1,9 @@
-import React from "react";
-<<<<<<< HEAD
+import React, { useState, useEffect } from "react";
+import { capitalize } from "../../utils";
 import { Fornitori } from "../../interfaceHelper";
 import { InsertFornitoreSectionProps } from "../../interfaceHelper";
 
 const SecondColumn: React.FC<InsertFornitoreSectionProps> = ({
-=======
-import { capitalize } from "../../utils";
-interface Fornitori {
-  nome: string;
-  email: string;
-  telefono: string;
-  indirizzo: string;
-  referente: string;
-  partita_iva: string;
-  sito_web: string;
-  iban: string;
-}
-
-interface InsertFornitoreSxSectionProps {
-  fields: string[];
-  fornitore: Fornitori;
-  setFornitore: React.Dispatch<React.SetStateAction<Fornitori>>;
-}
-
-const SecondColumn: React.FC<InsertFornitoreSxSectionProps> = ({
->>>>>>> 85d61fbe153ab148d2ffe55dae3fb880bf4439b5
   fields,
   fornitore,
   setFornitore,
@@ -36,27 +15,35 @@ const SecondColumn: React.FC<InsertFornitoreSxSectionProps> = ({
     });
   };
 
+  const [fieldNames, setFieldNames] = useState<string[]>([]);
+
+  useEffect(() => {
+    const updatedFields = fields.map((field: string) => {
+      const updatedField = field.replace("_", " ");
+      return capitalize(updatedField);
+    });
+
+    setFieldNames(updatedFields);
+  }, [fields]);
+
   return (
-    <div className="flex flex-col justify-center px-10 gap-4">
-      {fields.map((field: string) => {
-        const fieldName = field.replace("_", " ");
-        return (
-          <div className="flex flex-col gap-1">
-            <h2 className="text-zinc-800 font-semibold">{capitalize(fieldName)}</h2>
-            <hr className="h-2 border-t-2 border-zinc-400" />
-            <input
-              type="text"
-              name={fieldName}
-              id={fieldName}
-              className="w-full rounded py-1 px-2 border-2 border-zinc-800 placeholder:text-zinc-200"
-              placeholder="Es.jiguhyftouryit"
-              value={fornitore[fieldName as keyof Fornitori] || ""}
-              onChange={handleOnChange}
-            />
-          </div>
-        );
-      })}
-    </div>
+    <form className="flex flex-col justify-center px-10 gap-4">
+      {fieldNames.map((fieldName, index) => (
+        <div key={index} className="flex flex-col gap-1">
+          <label htmlFor={fieldName} className="text-zinc-800 font-semibold">{fieldName}</label>
+          <hr className="h-2 border-t-2 border-zinc-400" />
+          <input
+            type="text"
+            name={fieldName}
+            id={fieldName}
+            className="w-full rounded py-1 px-2 border-2 border-zinc-800 placeholder:text-zinc-200"
+            placeholder={`Es.${fieldName}`}
+            value={fornitore[fieldName as keyof Fornitori] || ""}
+            onChange={handleOnChange}
+          />
+        </div>
+      ))}
+    </form>
   );
 };
 

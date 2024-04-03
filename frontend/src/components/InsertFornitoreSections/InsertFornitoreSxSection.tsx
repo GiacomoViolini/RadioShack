@@ -1,10 +1,7 @@
 import React from "react";
-<<<<<<< HEAD
 import { Fornitori } from "../../interfaceHelper";
 import { InsertFornitoreSectionProps } from "../../interfaceHelper";
-=======
 import { capitalize } from "../../utils";
->>>>>>> 85d61fbe153ab148d2ffe55dae3fb880bf4439b5
 
 const FirstColumn: React.FC<InsertFornitoreSectionProps> = ({
   fields,

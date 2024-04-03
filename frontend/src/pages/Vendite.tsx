@@ -41,7 +41,6 @@ export default function VenditeComponent() {
     },
   ];
   const fields = [
-    "id",
     "costo",
     "quantità_articoli_acquistati",
     "data_acquisto",

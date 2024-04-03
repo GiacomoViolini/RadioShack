@@ -41,7 +41,7 @@ export default function InsertFornitore() {
         <div className="bg-zinc-400 rounded-l-lg flex flex-col gap-10 justify-center items-center">
           <button
             onClick={() => addFornitore()}
-            className="flex border-2 px-4 py-2 rounded border-black bg-zinc-600 hover:bg-zinc-500 transition-all duration-200 w-fit justify-center gap-4 items-center"
+            className="flex px-4 py-2 rounded   hover:bg-zinc-500 transition-all duration-200 w-fit justify-center gap-4 items-center"
           >
             <img
               src="/InsertIconVersion2.svg"

@@ -1,3 +1,5 @@
+import { Fornitori,Acquisti,Clienti,Vendite } from "./interfaceHelper";
+
 function convertiColori(color: string) {
   switch (color) {
     case "Rosso":
@@ -45,5 +47,6 @@ function convertiCapacità(capacità: number) {
 function capitalize(s: string) {
   return s.charAt(0).toUpperCase() + s.slice(1);
 }
+
 
 export { convertiColori, convertiCapacità , capitalize };

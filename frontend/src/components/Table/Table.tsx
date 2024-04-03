@@ -1,8 +1,9 @@
 import axios from "axios";
 import { capitalize } from "../../utils";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Fornitori, Acquisti, Clienti, Vendite } from "../../interfaceHelper";
 import { TableProps } from "../../interfaceHelper";
+import { useEffect } from "react";
 
 export default function Table({
   fields,
@@ -32,6 +33,7 @@ export default function Table({
     setFlag(informations.some(info => 'partita_iva' in info || 'codice_fornitore' in info));
     console.log(flag)
   }, [informations]);
+
 
   return (
     <table className="border-spacing-y-1 shadow-sm shadow-slate-300 border text-center border-slate-300 w-full rounded-md overflow-hidden">

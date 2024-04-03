@@ -21,7 +21,7 @@ function App() {
         <Route path="/clienti" element={<Clienti />}/>
         <Route path="/acquisti" element={<Acquisti />}/>
         <Route path="/vendite" element={<Vendite />} />
-        <Route path="/fornitori/inserisci" element={<InsertFornitore />}/>
+        <Route path="/fornitore/inserisci" element={<InsertFornitore />}/>
       </Routes>
     </BrowserRouter>
   );

@@ -1,13 +1,6 @@
 import { useNavigate } from "react-router-dom";
-<<<<<<< HEAD
-import { InsertElementButtonProps } from "../../interfaceHelper"; 
-=======
 import { capitalize } from "../../utils";
-
-interface InsertElementButtonProps {
-  title: string;
-}
->>>>>>> 85d61fbe153ab148d2ffe55dae3fb880bf4439b5
+import { InsertElementButtonProps } from "../../interfaceHelper"; 
 
 export default function InsertElementButton({
   title,
@@ -18,7 +11,7 @@ export default function InsertElementButton({
   return (
     <button
       className="flex flex-row items-center justify-center gap-4 rounded-lg border-2 p-2 w-full border-slate-300 bg-zinc-900 hover:bg-zinc-800 transition-all duration-200"
-      onClick={() => navigate(`/fornitori/inserisci`)}
+      onClick={() => navigate(`/${title}/inserisci`)}
     >
       <img src="./InsertIcon.svg" className="h-6" alt="Insert Icon" />
       {(isAcquisti || isFornitori) && (
