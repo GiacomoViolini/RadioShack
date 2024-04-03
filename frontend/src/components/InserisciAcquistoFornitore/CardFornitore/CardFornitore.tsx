@@ -2,8 +2,8 @@ import { Fornitori } from "../../../interfaceHelper";
 
 interface CardFornitoreProps {
   fornitore: Fornitori;
-  selectedFornitore: Fornitori;
-  setSelectedFornitore: React.Dispatch<React.SetStateAction<Fornitori>>;
+  selectedFornitore: Fornitori | null;
+  setSelectedFornitore: React.Dispatch<React.SetStateAction<Fornitori |null>>;
 }
 
 export default function CardFornitore({

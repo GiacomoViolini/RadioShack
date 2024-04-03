@@ -3,8 +3,23 @@ import ContainerFornitore from "../components/InserisciAcquistoFornitore/Contain
 import Navbar from "../components/Navbar/Navbar";
 import { Fornitori } from "../interfaceHelper";
 import axios from "axios";
+import ContainerProdotto from "../components/InserisciAcquistoProdotto/ContainerProdotto/ContainerProdotto";
 
-export default function InsertAcquisto() {
+interface Prodotto {
+  nome: string;
+  colore: string;
+  capacità: number;
+  anno_di_uscita: number;
+  stato: string;
+  condizione: string;
+  fotocamera: string;
+  dimensioni_schermo: number;
+  prezzo_di_acquisto: number;
+  prezzo_consigliato: number;
+  quantità: number;
+}
+
+export default function InsertAcquisto({ data }: { data: Prodotto[] }) {
   const [fornitori, setFornitori] = useState<Fornitori[]>([]);
   const [selectedFornitore, setSelectedFornitore] = useState<Fornitori | null>(
     null
@@ -26,11 +41,12 @@ export default function InsertAcquisto() {
       <div className="flex mt-20">
         <div className="flex flex-col w-3/12 bg-red-500"></div>
         <div className="flex flex-col gap-10 w-9/12 p-4">
-          <ContainerFornitore fornitori={fornitori} selectedFornitore={selectedFornitore} setSelectedFornitore={setSelectedFornitore} />
-          <div className="flex flex-col items-center">
-            <h2 className="text-2xl text-center font-semibold">Prodotti</h2>
-            <hr className="h-2 border-t-2 w-40" />
-          </div>
+          <ContainerFornitore
+            fornitori={fornitori}
+            selectedFornitore={selectedFornitore}
+            setSelectedFornitore={setSelectedFornitore}
+          />
+          <ContainerProdotto data={data} />
         </div>
       </div>
     </div>

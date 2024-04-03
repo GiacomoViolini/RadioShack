@@ -104,6 +104,19 @@ export interface Fornitori {
     prezzo_di_vendita: number;
     anno_di_uscita: number;
   }
+  export interface CardOrderProps {
+    title: string;
+    capacità: number;
+    colore: string;
+    quantità: number;
+    prezzo_consigliato: number;
+    condizione: string;
+    fotocamera: string;
+    dimensioni_schermo: number;
+    prezzo_di_acquisto: number;
+    anno_di_uscita: number;
+  }
+
 
   export interface CardProps {
     title: string;

@@ -3,8 +3,8 @@ import CardFornitore from "../CardFornitore/CardFornitore";
 
 interface ContainerFornitoreProps {
   fornitori: Fornitori[];
-  selectedFornitore: Fornitori;
-  setSelectedFornitore: React.Dispatch<React.SetStateAction<Fornitori>>;
+  selectedFornitore: Fornitori | null;
+  setSelectedFornitore: React.Dispatch<React.SetStateAction<Fornitori | null>>;
 }
 
 export default function ContainerFornitore({
@@ -18,7 +18,7 @@ export default function ContainerFornitore({
       <hr className="h-2 border-t-2 w-60" />
       <div className="grid grid-cols-2 gap-y-8 gap-x-10">
         {fornitori.map((f) =>
-          <CardFornitore fornitore={f} selectedFornitore={selectedFornitore} setSelectedFornitore={setSelectedFornitore}/>
+          <CardFornitore key={f.id} fornitore={f} selectedFornitore={selectedFornitore} setSelectedFornitore={setSelectedFornitore}/>
         )}
       </div>
     </div>
