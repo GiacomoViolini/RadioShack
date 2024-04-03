@@ -29,9 +29,24 @@ export default function Table({
     }
   };
 
+  const deleteAcquisto = async (id: string) => {
+    try {
+      await axios.delete(`http://localhost:8000/radioapp/deleteAcquisto/${id}`);
+      alert("Acquisto eliminato con successo");
+      setInformations(
+        informations.filter((info) => info.id !== id) as
+          | Fornitori[]
+          | Clienti[]
+          | Vendite[]
+          | Acquisti[]
+      );
+    } catch (error) {
+      console.error("Failed to delete acquisto:", error);
+    }
+  };
+
   useEffect(() => {
     setFlag(informations.some(info => 'partita_iva' in info || 'codice_fornitore' in info));
-    console.log(flag)
   }, [informations]);
 
 
