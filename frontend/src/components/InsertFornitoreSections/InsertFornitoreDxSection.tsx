@@ -22,7 +22,7 @@ export default function SecondColumn({ fornitore, setFornitore }: SecondColumnPr
           name="nome"
           id="nome"
           className="w-full rounded py-1 px-2 border-2 border-zinc-800 placeholder:text-zinc-200"
-          placeholder="Es. Nome"
+          placeholder="Apple Inc."
           value={fornitore.nome}
           onChange={handleOnChange}
           required
@@ -36,7 +36,7 @@ export default function SecondColumn({ fornitore, setFornitore }: SecondColumnPr
           name="email"
           id="email"
           className="w-full rounded py-1 px-2 border-2 border-zinc-800 placeholder:text-zinc-200"
-          placeholder="Es. Email"
+          placeholder="apple@gmail.com"
           value={fornitore.email}
           onChange={handleOnChange}
           required
@@ -50,7 +50,7 @@ export default function SecondColumn({ fornitore, setFornitore }: SecondColumnPr
           name="iban"
           id="iban"
           className="w-full rounded py-1 px-2 border-2 border-zinc-800 placeholder:text-zinc-200"
-          placeholder="Es. Iban"
+          placeholder="IT00A00000000000"
           value={fornitore.iban}
           onChange={handleOnChange}
           required
@@ -64,7 +64,7 @@ export default function SecondColumn({ fornitore, setFornitore }: SecondColumnPr
           name="indirizzo"
           id="indirizzo"
           className="w-full rounded py-1 px-2 border-2 border-zinc-800 placeholder:text-zinc-200"
-          placeholder="Es. Indirizzo"
+          placeholder="350 Fifth Avenue, New York"
           value={fornitore.indirizzo}
           onChange={handleOnChange}
           required
@@ -78,7 +78,7 @@ export default function SecondColumn({ fornitore, setFornitore }: SecondColumnPr
           name="referente"
           id="referente"
           className="w-full rounded py-1 px-2 border-2 border-zinc-800 placeholder:text-zinc-200"
-          placeholder="Es. Referente"
+          placeholder="Steve Jobs"
           value={fornitore.referente}
           onChange={handleOnChange}
           required
@@ -92,7 +92,7 @@ export default function SecondColumn({ fornitore, setFornitore }: SecondColumnPr
           name="telefono"
           id="telefono"
           className="w-full rounded py-1 px-2 border-2 border-zinc-800 placeholder:text-zinc-200"
-          placeholder="Es. Telefono"
+          placeholder="+1 408-996-1010"
           value={fornitore.telefono}
           onChange={handleOnChange}
           required

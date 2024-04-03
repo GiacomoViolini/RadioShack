@@ -59,6 +59,7 @@ export default function FornitoriComponent() {
           "http://localhost:8000/radioapp/getFornitori"
         );
         setListafornitori(res.data);
+        console.log(res.data)
       } catch (error) {
         console.error("Failed to fetch fornitori:", error);
       }
