@@ -71,7 +71,7 @@ export default function AcquistiComponent() {
       <Navbar />
       <div className="flex flex-row align-top relative mt-20">
         <div className="w-3/12 flex flex-col justify-center gap-6 fixed">
-          <div className="w-full justify-center px-4">
+          <div className="w-full flex justify-center px-4">
             <InsertElementButtonAcquisto />
           </div>
           <div className="px-4 overflow-y-auto">

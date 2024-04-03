@@ -68,7 +68,7 @@ export default function FornitoriComponent() {
       <Navbar />
       <div className="flex flex-row align-top mt-20">
         <div className="w-2/12 flex flex-col justify-center gap-6 fixed">
-          <div className="w-full justify-center px-4">
+          <div className="w-full flex justify-center px-4">
             <InstertElementButtonFornitore />
           </div>
           <div className="px-4 ">

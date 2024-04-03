@@ -1,5 +1,5 @@
-import { CardOrderProps } from "../../interfaceHelper";
-import { convertiColori, convertiCapacità } from "../../utils";
+import { CardOrderProps } from "../../../interfaceHelper";
+import { convertiColori, convertiCapacità } from "../../../utils";
 
 export default function CardOrder({
   title,

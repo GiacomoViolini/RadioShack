@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import CardOrder from "../../CardOrder/CardOrder";
+import CardOrder from "../CardOrder/CardOrder";
 
 interface Prodotto {
   nome: string;
@@ -22,10 +22,10 @@ export default function ContainerProdotto({ data }: { data: Prodotto[] }) {
       <div className="flex items-center justify-center">
         <div>
           <h2 className="text-4xl text-center font-bold">Prodotti</h2>
-          <hr className="h-2 border-t-2 w-60" />
+          <hr className="h-2 border-t-2 w-60 mt-2" />
         </div>
         <button
-          className="bg-zinc-900 rounded-full p-2 absolute top-0 left-[95%] border-2"
+          className="bg-zinc-800 hover:bg-zinc-900 rounded-full p-2 absolute top-0 left-[95%] border-2"
           onClick={() => navigate("/acquisti/inserisci/prodotti")}
         >
           <img src="/InsertIcon.svg" className="w-7 h-7" />

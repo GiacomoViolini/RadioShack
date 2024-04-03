@@ -38,8 +38,8 @@ export default function InsertAcquisto({ data }: { data: Prodotto[] }) {
   return (
     <div className="flex flex-col">
       <Navbar />
-      <div className="flex mt-20">
-        <div className="flex flex-col gap-2 w-3/12 fixed p-4">
+      <div className="flex mt-14">
+        <div className="flex flex-col gap-2 w-3/12 fixed p-6">
           <h2 className="text-3xl font-bold">Ordine</h2>
           <hr />
           <h2 className="text-lg font-semibold">

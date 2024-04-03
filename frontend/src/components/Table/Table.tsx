@@ -58,7 +58,7 @@ export default function Table({
       <thead className="bg-slate-100 text-black ">
         <tr>
           {fields.map((field) => (
-            <th className="h-16" key={field}>
+            <th className="h-20" key={field}>
               {capitalize(field)}
             </th>
           ))}
