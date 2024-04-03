@@ -1,11 +1,12 @@
 import Navbar from "../components/Navbar/Navbar";
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import axios from "axios";
 import InsertFornitoreDxSection from "../components/InsertFornitoreSections/InsertFornitoreDxSection";
 import { useNavigate } from "react-router-dom";
 import { Fornitori } from "../interfaceHelper";
 import { toast } from "react-toastify";
 import { Bounce } from "react-toastify";
+import ConfirmationToast from "../components/ConfirmationToast/ConfirmationToast";
 
 export default function InsertFornitore() {
   const navigate = useNavigate();
@@ -24,19 +25,25 @@ export default function InsertFornitore() {
   };
 
   const [fornitore, setFornitore] = useState<Fornitori>(initialFornitore);
+  const [flag, setFlag] = useState(false);
+  const [confirmation, setConfirmation] = useState(false);
 
   const addFornitore = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const res = await axios.post(
-      "http://localhost:8000/radioapp/addFornitore/",
-      fornitore
-    );
-    console.log(res.data);
+    setFlag(true);
+    }
 
-    toast("Fornitore aggiunto con successo",
-      {
-        position: "top-right",
-        autoClose: 5000,
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await axios.post(
+        "http://localhost:8000/radioapp/addFornitore/",
+        fornitore
+      );
+      console.log(res.data);
+  
+      toast.success("Fornitore aggiunto con successo", {
+        position: "top-center",
+        autoClose: 2000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -45,14 +52,27 @@ export default function InsertFornitore() {
         theme: "light",
         transition: Bounce,
       });
-    setTimeout(() => {
-      navigate(-1);
-    }, 2000);
-  };
+      setTimeout(() => {
+        navigate(-1);
+      }, 2000);
+    };
+  
+    if (confirmation) {
+      fetchData();
+    }
+  }, [confirmation]);
 
   return (
     <div className="flex flex-col">
       <Navbar />
+      {flag ? (
+        <ConfirmationToast
+          setFlag={setFlag}
+          setConfirmation={setConfirmation}
+          title={"Conferma Inserimento"}
+          subtitle={"Sei sicuro di voler procedere?"}
+        />
+      ) : null}
       <form
         className="bg-zinc-300 h-[82vh] mt-[4.5rem] rounded-lg grid grid-cols-3"
         onSubmit={(e) => addFornitore(e)}
