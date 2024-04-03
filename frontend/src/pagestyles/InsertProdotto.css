@@ -1,4 +1,4 @@
-label {
+label .color-options {
   font-size: 1.2rem;
   font-weight: 600;
   color: rgb(39 39 42);
@@ -63,7 +63,3 @@ input[type="radio"] {
   color: white;
 }
 
-.option:focus {
-  background-color: white;
-  color: black;
-}
