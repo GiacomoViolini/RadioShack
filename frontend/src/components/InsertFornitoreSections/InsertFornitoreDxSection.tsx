@@ -25,6 +25,7 @@ export default function SecondColumn({ fornitore, setFornitore }: SecondColumnPr
           placeholder="Es. Nome"
           value={fornitore.nome}
           onChange={handleOnChange}
+          required
         />
       </div>
       <div className="flex flex-col gap-1">
@@ -38,6 +39,7 @@ export default function SecondColumn({ fornitore, setFornitore }: SecondColumnPr
           placeholder="Es. Email"
           value={fornitore.email}
           onChange={handleOnChange}
+          required
         />
       </div>
       <div className="flex flex-col gap-1">
@@ -51,6 +53,7 @@ export default function SecondColumn({ fornitore, setFornitore }: SecondColumnPr
           placeholder="Es. Iban"
           value={fornitore.iban}
           onChange={handleOnChange}
+          required
         />
       </div>
       <div className="flex flex-col gap-1">
@@ -64,6 +67,7 @@ export default function SecondColumn({ fornitore, setFornitore }: SecondColumnPr
           placeholder="Es. Indirizzo"
           value={fornitore.indirizzo}
           onChange={handleOnChange}
+          required
         />
       </div>
       <div className="flex flex-col gap-1">
@@ -77,6 +81,7 @@ export default function SecondColumn({ fornitore, setFornitore }: SecondColumnPr
           placeholder="Es. Referente"
           value={fornitore.referente}
           onChange={handleOnChange}
+          required
         />
       </div>
       <div className="flex flex-col gap-1">
@@ -90,6 +95,7 @@ export default function SecondColumn({ fornitore, setFornitore }: SecondColumnPr
           placeholder="Es. Partita Iva"
           value={fornitore.partita_iva}
           onChange={handleOnChange}
+          required
         />
       </div>
       <div className="flex flex-col gap-1">
@@ -103,6 +109,7 @@ export default function SecondColumn({ fornitore, setFornitore }: SecondColumnPr
           placeholder="Es. Sito Web"
           value={fornitore.sito_web}
           onChange={handleOnChange}
+          required
         />
       </div>
       <div className="flex flex-col gap-1">
@@ -116,6 +123,7 @@ export default function SecondColumn({ fornitore, setFornitore }: SecondColumnPr
           placeholder="Es. Telefono"
           value={fornitore.telefono}
           onChange={handleOnChange}
+          required
         />
       </div>
     </div>
