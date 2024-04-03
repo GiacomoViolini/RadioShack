@@ -12,7 +12,7 @@ interface Product {
   quantità: number;
   prezzo: number;
 }
-interface FilterProduct {
+interface FilterItems {
   title: string;
   options: string[];
 }
@@ -51,7 +51,7 @@ export default function Prodotti() {
     },
   ];
   const [products, setProducts] = useState<Product[]>([]);
-  const [checkedOptions, setCheckedOptions] = useState<FilterProduct[]>([]);
+  const [checkedOptions, setCheckedOptions] = useState<FilterItems[]>([]);
 
   useEffect(() => {
     async function fetchData() {
