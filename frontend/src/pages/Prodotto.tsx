@@ -5,9 +5,24 @@ import Navbar from "../components/Navbar/Navbar";
 import { useLocation, useParams } from "react-router-dom";
 import axios from "axios";
 // import axios from "axios";
-import { Prodotto } from "../interfaceHelper";
-
-export default function ProdottoComponent() {
+interface Prodotto {
+  id: number;
+  nome: string;
+  colore: string;
+  capacità: number;
+  anno_di_uscita: number;
+  stato: string;
+  condizione: string;
+  fotocamera: string;
+  dimensioni_schermo: number;
+  prezzo_di_acquisto: number;
+  prezzo_di_vendita: number;
+  prezzo_consigliato: number;
+  codice_acquisto: string;
+  codice_vendita: string;
+  quantità: number;
+}
+export default function Prodotto() {
   const [prodotti, setProdotti] = useState<Prodotto[]>([]);
   const params = useParams();
   const location = useLocation();

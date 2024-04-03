@@ -91,6 +91,7 @@ def filterAggregatedProdotti(request):
     } for nome, data in aggregated_products_dict.items()]
     return Response(aggregated_products_list)
 
+
 @api_view(['POST'])
 def filterProdotto(request, nome):
     products = Prodotto.objects.filter(nome=nome)
@@ -133,6 +134,7 @@ def filterProdotto(request, nome):
             }
         prodotti_filtrati[key]['quantità'] += 1
     return Response([{'nome': p["nome"], 'colore': p["colore"], "anno_di_uscita": p["anno_di_uscita"], 'capacità': p["capacità"], 'stato': p["stato"], 'condizione': p["condizione"], 'fotocamera': p["fotocamera"], 'dimensioni_schermo': p["dimensioni_schermo"], 'prezzo_consigliato': p["prezzo_consigliato"], "prezzo_di_acquisto": p["prezzo_di_acquisto"], "prezzo_di_vendita": p["prezzo_di_vendita"], "quantità": p['quantità']} for p in prodotti_filtrati.values()])
+
 
 @api_view(['GET'])
 def getProdotto(request, nome):
@@ -201,14 +203,23 @@ def deleteFornitore(request, id):
     f.delete()
     return Response({'message': 'Fornitore eliminato!'})
 
+
 @api_view(['GET'])
 def getClienti(request):
     return Response([{'nome': c.nome, 'email': c.email, 'telefono': c.telefono, 'indirizzo': c.indirizzo} for c in Cliente.objects.all()])
+
 
 @api_view(['GET'])
 def getAcquisti(request):
     return Response([{'id': a.id, 'costo': a.costo, 'quantità_articoli_acquistati': a.quantità_articoli_acquistati, 'data_acquisto': a.data_acquisto, 'codice_fornitore': a.codice_fornitore.id} for a in Acquisto.objects.all()])
 
+
 @api_view(['GET'])
 def getVendite(request):
     return Response([{'costo': v.costo, 'quantità_articoli_acquistati': v.quantità_articoli_acquistati, 'data_acquisto': v.data_acquisto, 'codice_cliente': v.codice_cliente.id} for v in Vendita.objects.all()])
+
+
+@api_view(["DELETE"])
+def deleteProdotto(request, name):
+    Prodotto.objects.filter(name=name).delete()
+    return Response({"message": "Prodotto eliminato!"})

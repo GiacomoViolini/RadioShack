@@ -68,7 +68,7 @@ export default function Table({
                 <button
                   onClick={() => {
                     if ("id" in information) {
-                      deleteFornitore(information.id);
+                      deleteFornitore(String(information.id));
                     }
                   }}
                 >
