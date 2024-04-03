@@ -17,4 +17,5 @@ urlpatterns = [
     path("getClienti/", views.getClienti, name="getClienti"),
     path("getVendite/", views.getAcquisti, name="getVendite"),
     path("deleteFornitore/<int:id>/", views.deleteFornitore, name="deleteFornitore"),
+    path("filterProdotto/<str:nome>/", views.filterProdotto, name="filterProdotto"),
 ]
