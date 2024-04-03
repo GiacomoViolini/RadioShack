@@ -1,10 +1,10 @@
 import Navbar from "../components/Navbar/Navbar";
 import Filter from "../components/Filter/Filter";
 import Table from "../components/Table/Table";
-import InstertElementButton from "../components/InsertElementButton/InsertElementButton";
+import InstertElementButtonFornitore from "../components/InsertElementButton/InsertElementButtonFornitore";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { Vendite,Acquisti,Fornitori,Clienti } from "../interfaceHelper";
+import { Vendite, Acquisti, Fornitori, Clienti } from "../interfaceHelper";
 
 export default function FornitoriComponent() {
   const filters = [
@@ -74,7 +74,7 @@ export default function FornitoriComponent() {
       <div className="flex flex-row align-top relative mt-20">
         <div className="w-2/12 flex flex-col justify-center gap-6 fixed">
           <div className="w-full justify-center px-4">
-            <InstertElementButton title={"fornitore"} />
+            <InstertElementButtonFornitore />
           </div>
           <div className="px-4 overflow-y-auto">
             <h2 className="text-2xl font-semibold">Filtro</h2>

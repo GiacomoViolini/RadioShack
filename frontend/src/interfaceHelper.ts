@@ -81,10 +81,6 @@ export interface Fornitori {
     setInformations: React.Dispatch<React.SetStateAction<Clienti[] | Vendite[] | Acquisti[] | Fornitori[]>>;
   }
 
-  export interface InsertElementButtonProps {
-    title: string;
-  }
-
   export interface FilterProps {
     title: string;
     options: string[];
