@@ -1,5 +1,3 @@
-import { Fornitori,Acquisti,Clienti,Vendite } from "./interfaceHelper";
-
 function convertiColori(color: string) {
   switch (color) {
     case "Rosso":
