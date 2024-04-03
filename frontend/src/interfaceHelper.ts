@@ -147,3 +147,11 @@ export interface Fornitori {
     sito_web: string;
     iban: string;
 }
+
+export interface ConfirmationToastProps{
+  setFlag: React.Dispatch<React.SetStateAction<boolean>>,
+  setConfirmation: React.Dispatch<React.SetStateAction<boolean>>,
+  setCounter: React.Dispatch<React.SetStateAction<number>>, //settare a uno se l'utente schiaccia su cancel così da poter renderizzare l'animazione di annullamento
+  toastTitle: string,
+  subtitle: string
+}
