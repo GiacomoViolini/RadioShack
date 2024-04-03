@@ -42,7 +42,7 @@ export default function Card({
     >
       <img
         src={image}
-        className="object-cover w-full p-2 bg-gray-300 rounded-l-lg"
+        className="object-contain col-span-1 w-full h-full bg-gray-300 rounded-l-sm"
       />
       <div className="col-span-3 flex flex-col px-4 gap-4">
         <h2 className="border-2 rounded-lg text-center mt-2">
@@ -67,7 +67,7 @@ export default function Card({
             />
           ))}
         </div>
-        <div className="flex justify-between">
+        <div className="flex justify-between py-2">
           <h2 className="font-semibold text-xl mt-2">Da {prezzo}€</h2>
           <button
             className="py-1 px-1.5 rounded-lg bg-zinc-500 hover:bg-zinc-700 transition-all duration-200 flex justify-center items-center"

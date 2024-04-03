@@ -1,4 +1,3 @@
-
 import { Fornitori } from "../../interfaceHelper";
 
 interface SecondColumnProps{
@@ -15,23 +14,6 @@ export default function SecondColumn({ fornitore, setFornitore }: SecondColumnPr
 
   return (
     <div className="col-span-2 grid grid-cols-2 justify-center p-10 gap-4">
-      {/* {fieldNames.map((fieldName, index) => (
-        <div key={index} className="flex flex-col gap-1">
-          <label htmlFor={fieldName} className="text-zinc-800 font-semibold">
-            {fieldName}
-          </label>
-          <hr className="h-2 border-t-2 border-zinc-400" />
-          <input
-            type="text"
-            name={fieldName}
-            id={fieldName}
-            className="w-full rounded py-1 px-2 border-2 border-zinc-800 placeholder:text-zinc-200"
-            placeholder={`Es.${fieldName}`}
-            value={fornitore[fieldName as keyof Fornitori] || ""}
-            onChange={handleOnChange}
-          />
-        </div>
-      ))} */}
       <div className="flex flex-col gap-1">
         <label htmlFor="nome" className="text-zinc-800 font-semibold"> Nome </label>
         <hr className="h-2 border-t-2 border-zinc-400" />
@@ -43,6 +25,7 @@ export default function SecondColumn({ fornitore, setFornitore }: SecondColumnPr
           placeholder="Es. Nome"
           value={fornitore.nome}
           onChange={handleOnChange}
+          required
         />
       </div>
       <div className="flex flex-col gap-1">
@@ -56,6 +39,7 @@ export default function SecondColumn({ fornitore, setFornitore }: SecondColumnPr
           placeholder="Es. Email"
           value={fornitore.email}
           onChange={handleOnChange}
+          required
         />
       </div>
       <div className="flex flex-col gap-1">
@@ -69,6 +53,7 @@ export default function SecondColumn({ fornitore, setFornitore }: SecondColumnPr
           placeholder="Es. Iban"
           value={fornitore.iban}
           onChange={handleOnChange}
+          required
         />
       </div>
       <div className="flex flex-col gap-1">
@@ -82,6 +67,7 @@ export default function SecondColumn({ fornitore, setFornitore }: SecondColumnPr
           placeholder="Es. Indirizzo"
           value={fornitore.indirizzo}
           onChange={handleOnChange}
+          required
         />
       </div>
       <div className="flex flex-col gap-1">
@@ -95,32 +81,7 @@ export default function SecondColumn({ fornitore, setFornitore }: SecondColumnPr
           placeholder="Es. Referente"
           value={fornitore.referente}
           onChange={handleOnChange}
-        />
-      </div>
-      <div className="flex flex-col gap-1">
-        <label htmlFor="partita iva" className="text-zinc-800 font-semibold"> Partita Iva </label>
-        <hr className="h-2 border-t-2 border-zinc-400" />
-        <input
-          type="text"
-          name="partita_iva"
-          id="partita_iva"
-          className="w-full rounded py-1 px-2 border-2 border-zinc-800 placeholder:text-zinc-200"
-          placeholder="Es. Partita Iva"
-          value={fornitore.partita_iva}
-          onChange={handleOnChange}
-        />
-      </div>
-      <div className="flex flex-col gap-1">
-        <label htmlFor="sito web" className="text-zinc-800 font-semibold"> Sito Web </label>
-        <hr className="h-2 border-t-2 border-zinc-400" />
-        <input
-          type="url"
-          name="sito_web"
-          id="sito_web"
-          className="w-full rounded py-1 px-2 border-2 border-zinc-800 placeholder:text-zinc-200"
-          placeholder="Es. Sito Web"
-          value={fornitore.sito_web}
-          onChange={handleOnChange}
+          required
         />
       </div>
       <div className="flex flex-col gap-1">
@@ -134,6 +95,7 @@ export default function SecondColumn({ fornitore, setFornitore }: SecondColumnPr
           placeholder="Es. Telefono"
           value={fornitore.telefono}
           onChange={handleOnChange}
+          required
         />
       </div>
     </div>

@@ -43,8 +43,12 @@ function convertiCapacità(capacità: number) {
 }
 
 function capitalize(s: string) {
-  return s.charAt(0).toUpperCase() + s.slice(1);
+  s = s.replace(/_/g, " ");
+  const temp = s.split(" ");
+  for (let i = 0; i < temp.length; i++) {
+    temp[i] = temp[i].charAt(0).toUpperCase() + temp[i].slice(1);
+  }
+  return temp.join(" ");
 }
 
-
-export { convertiColori, convertiCapacità , capitalize };
+export { convertiColori, convertiCapacità, capitalize };
