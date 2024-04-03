@@ -24,7 +24,7 @@ export default function InsertProdotto({
 }) {
   const [prodotto, setProdotto] = useState<Prodotto>({
     nome: "Iphone",
-    colore: "",
+    colore: "Blu",
     capacità: 64,
     anno_di_uscita: 2015,
     stato: "In arrivo",
