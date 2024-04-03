@@ -56,12 +56,15 @@ export default function AcquistiComponent() {
           "http://localhost:8000/radioapp/getAcquisti"
         );
         setListaAcquisti(res.data);
+        setNumberacquisti(listaAcquisti.length)
       } catch (error) {
         console.error("Failed to fetch Acquisti:", error);
       }
     };
     getAcquisti();
   }, []);
+
+  const [numeberAcquisti, setNumberacquisti] = useState(0)
 
   return (
     <div className="flex flex-col">

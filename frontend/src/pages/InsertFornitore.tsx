@@ -1,7 +1,6 @@
 import Navbar from "../components/Navbar/Navbar";
 import { FormEvent, useState } from "react";
 import axios from "axios";
-import InsertFornitoreSxSection from "../components/InsertFornitoreSections/InsertFornitoreSxSection";
 import InsertFornitoreDxSection from "../components/InsertFornitoreSections/InsertFornitoreDxSection";
 import { useNavigate } from "react-router-dom";
 import { Fornitori } from "../interfaceHelper";
@@ -51,11 +50,6 @@ export default function InsertFornitore() {
             <h2 className="text-2xl font-semibold">Aggiungi Fornitore</h2>
           </button>
           <img src="/Fornitori.svg" className="h-64" alt="Fornitori Icon" />
-          {/* <InsertFornitoreSxSection
-            fields={["sito web", "telefono"]}
-            fornitore={fornitore}
-            setFornitore={setFornitore}
-          /> */}
         </div>
         <InsertFornitoreDxSection
           fornitore={fornitore}

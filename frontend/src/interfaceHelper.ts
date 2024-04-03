@@ -115,3 +115,13 @@ export interface Fornitori {
     quantità: number;
     prezzo: number;
   }
+
+  export interface CheckOutListProps{
+    numberAcquisti: number
+    fornitore: Fornitori
+    prodotti: Prodotto[]
+  }
+
+  export interface InsertAcquistiProps{
+    numberAcquisti: number
+  }

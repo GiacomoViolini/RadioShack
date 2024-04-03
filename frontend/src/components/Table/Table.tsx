@@ -84,8 +84,10 @@ export default function Table({
                 </button>
                 <button
                   onClick={() => {
-                    if ("id" in information) {
+                    if ("id" in information && "partita iva") {
                       deleteFornitore(String(information.id));
+                    } else {
+                      deleteAcquisto(String(information.id))
                     }
                   }}
                 >
