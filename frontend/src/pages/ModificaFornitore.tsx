@@ -36,7 +36,7 @@ export default function ModificaFornitore() {
   const ModifyFornitore = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const res = await axios.put(
-      `http://localhost:8000/radioapp/modifyFornitore/${params.id}`,
+      `http://localhost:8000/radioapp/modifyfornitore/${params.id}/`,
       fornitore
     );
     console.log(res.data);

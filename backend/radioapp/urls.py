@@ -21,5 +21,5 @@ urlpatterns = [
     path("deleteAcquisto/<str:nome>/", views.deleteAcqusito, name="deleteacquisto"),
     path("filterFornitori", views.filterFornitori, name="filterFornitori"),
     path('getfornitore/<int:id>/', views.getFornitore, name='getFornitore'),
-    path('getfornitore/<int:id>/', views.getFornitore, name='getFornitore'),
+    path('modifyfornitore/<int:id>/', views.modifyFornitore, name='modifyFornitore'),
 ]
