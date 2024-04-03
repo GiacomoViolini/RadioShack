@@ -27,11 +27,35 @@ export default function InsertFornitore() {
   const [fornitore, setFornitore] = useState<Fornitori>(initialFornitore);
   const [flag, setFlag] = useState(false);
   const [confirmation, setConfirmation] = useState(false);
+  const [counter, setCounter] = useState<Number>(0);
 
   const addFornitore = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setFlag(true);
+  };
+
+  useEffect(() => {
+    const ShowCancelToast = async () => {
+      if (flag == false && confirmation == false && counter == 1) {
+        toast.error("Annulamento aggiunta fornitore", {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce,
+        });
+        setCounter(0);
+        setTimeout(() => {
+          navigate(-1);
+        }, 2000);
+      }
     }
+    ShowCancelToast
+  }, [counter]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -40,7 +64,7 @@ export default function InsertFornitore() {
         fornitore
       );
       console.log(res.data);
-  
+
       toast.success("Fornitore aggiunto con successo", {
         position: "top-center",
         autoClose: 2000,
@@ -56,7 +80,7 @@ export default function InsertFornitore() {
         navigate(-1);
       }, 2000);
     };
-  
+
     if (confirmation) {
       fetchData();
     }
@@ -69,6 +93,7 @@ export default function InsertFornitore() {
         <ConfirmationToast
           setFlag={setFlag}
           setConfirmation={setConfirmation}
+          setCounter={setCounter}
           title={"Conferma Inserimento"}
           subtitle={"Sei sicuro di voler procedere?"}
         />
