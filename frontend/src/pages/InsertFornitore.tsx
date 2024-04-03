@@ -4,6 +4,8 @@ import axios from "axios";
 import InsertFornitoreDxSection from "../components/InsertFornitoreSections/InsertFornitoreDxSection";
 import { useNavigate } from "react-router-dom";
 import { Fornitori } from "../interfaceHelper";
+import { toast } from "react-toastify";
+import { Bounce } from "react-toastify";
 
 export default function InsertFornitore() {
   const navigate = useNavigate();
@@ -17,8 +19,8 @@ export default function InsertFornitore() {
     partita_iva: "",
     sito_web: "",
     iban: "",
-    quantità_articoli_acquistati:0,
-    capitale_investito:0
+    quantità_articoli_acquistati: 0,
+    capitale_investito: 0,
   };
 
   const [fornitore, setFornitore] = useState<Fornitori>(initialFornitore);
@@ -30,7 +32,19 @@ export default function InsertFornitore() {
       fornitore
     );
     console.log(res.data);
-    alert("Fornitore aggiunto con successo");
+
+    toast("Fornitore aggiunto con successo",
+      {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      });
     setTimeout(() => {
       navigate(-1);
     }, 2000);
