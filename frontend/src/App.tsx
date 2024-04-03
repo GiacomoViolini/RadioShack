@@ -8,6 +8,7 @@ import Fornitori from "./pages/Fornitori"
 import Acquisti from "./pages/Acquisti"
 import Clienti from "./pages/Clienti";
 import InsertFornitore from "./pages/InsertFornitore";
+import ModificaFornitore from "./pages/ModificaFornitore";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="/acquisti" element={<Acquisti />}/>
         <Route path="/vendite" element={<Vendite />} />
         <Route path="/fornitori/inserisci" element={<InsertFornitore />}/>
+        <Route path="/fornitori/modifica/:id" element={<ModificaFornitore />} />
       </Routes>
     </BrowserRouter>
   );

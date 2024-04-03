@@ -20,4 +20,6 @@ urlpatterns = [
     path("deleteProdotto/<str:nome>/", views.deleteProdotto, name="deleteProdotto"),
     path("deleteAcquisto/<str:nome>/", views.deleteAcqusito, name="deleteacquisto"),
     path("filterFornitori", views.filterFornitori, name="filterFornitori"),
+    path('getfornitore/<int:id>/', views.getFornitore, name='getFornitore'),
+    path('getfornitore/<int:id>/', views.getFornitore, name='getFornitore'),
 ]

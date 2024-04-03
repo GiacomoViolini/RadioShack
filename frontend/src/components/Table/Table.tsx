@@ -85,9 +85,9 @@ export default function Table({
                 <button
                   onClick={() => {
                     if ("id" in information && "iban") {
-                      navigate("/fornitori/modifica")
+                      navigate(`/fornitori/modifica/${information.id}`)
                     } else {
-                      navigate("/acquisti/modifica")
+                      navigate(`/acquisti/modifica/${information.id}`)
                     }
                   }}
                 >
