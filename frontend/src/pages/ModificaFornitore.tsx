@@ -4,6 +4,9 @@ import axios from "axios";
 import SecondColumnModifyFornitore from "../components/ModifyElementButton/ModifyFornitoreSection";
 import { useNavigate, useParams } from "react-router-dom";
 import { Fornitore } from "../interfaceHelper";
+import { toast } from "react-toastify";
+import { Bounce } from "react-toastify";
+import ConfirmationToast from "../components/ConfirmationToast/ConfirmationToast";
 
 export default function ModificaFornitore() {
   const navigate = useNavigate();
@@ -21,6 +24,9 @@ export default function ModificaFornitore() {
 
   const [fornitore, setFornitore] = useState<Fornitore>(initialFornitore);
   const params = useParams();
+  const [flag, setFlag] = useState(false);
+  const [confirmation, setConfirmation] = useState(false);
+  const [counter, setCounter] = useState<number>(0);
 
   useEffect(() => {
     async function fetchData() {
@@ -35,20 +41,72 @@ export default function ModificaFornitore() {
 
   const ModifyFornitore = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setFlag(true);
+  };
+
+  useEffect(() => {
+    function ShowCancelToast() {
+      if (flag == false && confirmation == false && counter == 1) {
+        toast.error("Annulamento modifica fornitore", {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce,
+        });
+        setCounter(0);
+        setTimeout(() => {
+          navigate(-1);
+        }, 2000);
+      }
+    }
+    ShowCancelToast()
+    console.log(counter)
+  }, [counter]);
+
+  useEffect(() => {
+    const fetchData = async () => {
     const res = await axios.put(
       `http://localhost:8000/radioapp/modifyfornitore/${params.id}/`,
       fornitore
     );
-    console.log(res.data);
-    alert("Fornitore modificato con successo");
+    console.log(res)
+    toast.success("Fornitore Modificato con successo", {
+      position: "top-center",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      transition: Bounce,
+    });
     setTimeout(() => {
       navigate(-1);
     }, 2000);
-  };
+  }
+    if (confirmation) {
+      fetchData();
+    }
+  }, [confirmation]);
 
   return (
     <div className="flex flex-col">
       <Navbar />
+      {flag ? (
+        <ConfirmationToast
+          setFlag={setFlag}
+          setConfirmation={setConfirmation}
+          setCounter={setCounter}
+          toastTitle={"Conferma Modifica"}
+          subtitle={"Sei sicuro di voler procedere?"}
+        />
+      ) : null}
       <form
         className="bg-zinc-300 h-[82vh] mt-[4.5rem] rounded-lg grid grid-cols-3"
         onSubmit={(e) => ModifyFornitore(e)}

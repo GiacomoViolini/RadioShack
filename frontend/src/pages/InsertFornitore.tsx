@@ -27,7 +27,7 @@ export default function InsertFornitore() {
   const [fornitore, setFornitore] = useState<Fornitori>(initialFornitore);
   const [flag, setFlag] = useState(false);
   const [confirmation, setConfirmation] = useState(false);
-  const [counter, setCounter] = useState<Number>(0);
+  const [counter, setCounter] = useState<number>(0);
 
   const addFornitore = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -35,7 +35,7 @@ export default function InsertFornitore() {
   };
 
   useEffect(() => {
-    const ShowCancelToast = async () => {
+    function ShowCancelToast() {
       if (flag == false && confirmation == false && counter == 1) {
         toast.error("Annulamento aggiunta fornitore", {
           position: "top-center",
@@ -54,7 +54,8 @@ export default function InsertFornitore() {
         }, 2000);
       }
     }
-    ShowCancelToast
+    ShowCancelToast()
+    console.log(counter)
   }, [counter]);
 
   useEffect(() => {
@@ -94,7 +95,7 @@ export default function InsertFornitore() {
           setFlag={setFlag}
           setConfirmation={setConfirmation}
           setCounter={setCounter}
-          title={"Conferma Inserimento"}
+          toastTitle={"Conferma Inserimento"}
           subtitle={"Sei sicuro di voler procedere?"}
         />
       ) : null}
