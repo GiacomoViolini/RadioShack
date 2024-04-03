@@ -1,14 +1,16 @@
 export interface Fornitori {
-    id: string;
-    nome: string;
-    email: string;
-    telefono: string;
-    indirizzo: string;
-    referente: string;
-    partita_iva: string;
-    sito_web: string;
-    iban: string;
-  }
+  id: string;
+  nome: string;
+  email: string;
+  telefono: string;
+  indirizzo: string;
+  referente: string;
+  partita_iva: string;
+  sito_web: string;
+  iban: string;
+  quantità_articoli_acquistati: number;
+  capitale_investito: number;
+}
   export interface Clienti {
     id: number;
     nome: string;
