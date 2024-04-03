@@ -71,12 +71,12 @@ export default function FornitoriComponent() {
   return (
     <div className="flex flex-col">
       <Navbar />
-      <div className="flex flex-row align-top relative mt-20">
+      <div className="flex flex-row align-top mt-20">
         <div className="w-2/12 flex flex-col justify-center gap-6 fixed">
           <div className="w-full justify-center px-4">
             <InstertElementButtonFornitore />
           </div>
-          <div className="px-4 overflow-y-auto">
+          <div className="px-4 ">
             <h2 className="text-2xl font-semibold">Filtro</h2>
             <hr className="h-2 border-t-2" />
             {filters.map((filter) => (
@@ -87,7 +87,7 @@ export default function FornitoriComponent() {
             ))}
           </div>
         </div>
-        <div className="w-10/12 ml-[17%] flex justify-center px-8">
+        <div className="w-10/12 ml-[17%] flex justify-center">
           <Table
             fields={fields}
             informations={listafornitori}

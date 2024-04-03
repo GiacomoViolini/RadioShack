@@ -36,11 +36,11 @@ export default function Table({
 
 
   return (
-    <table className="border-spacing-y-1 shadow-sm shadow-slate-300 border text-center border-slate-300 w-full rounded-md overflow-hidden">
+    <table className="shadow-sm table-fixed shadow-slate-300 border text-center border-slate-300 w-full rounded-md overflow-hidden">
       <thead className="bg-slate-100 text-black ">
-        <tr className="h-14 p-2 gap-2 ">
+        <tr>
           {fields.map((field) => (
-            <th key={field} className="mx-2">
+            <th className="h-16" key={field}>
               {capitalize(field)}
             </th>
           ))}

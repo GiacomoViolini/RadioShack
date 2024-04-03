@@ -1,7 +1,6 @@
 import Navbar from "../components/Navbar/Navbar";
 import { FormEvent, useState } from "react";
 import axios from "axios";
-import InsertFornitoreSxSection from "../components/InsertFornitoreSections/InsertFornitoreSxSection";
 import InsertFornitoreDxSection from "../components/InsertFornitoreSections/InsertFornitoreDxSection";
 import { useNavigate } from "react-router-dom";
 import { Fornitori } from "../interfaceHelper";
@@ -45,7 +44,7 @@ export default function InsertFornitore() {
         <div className="col-span-1 bg-zinc-400 rounded-l-lg flex flex-col gap-10 justify-center items-center">
           <button
             type="submit"
-            className="flex px-4 py-2 rounded-lg border-2 bg-zinc-600 hover:bg-zinc-500 transition-all duration-200 w-fit justify-center gap-4 items-center"
+            className="flex px-4 py-2 text-zinc-700 rounded-lg border-2 bg-zinc-200 hover:bg-zinc-300 transition-all duration-200 w-fit justify-center gap-4 items-center"
           >
             <img src="/InsertIconVersion2.svg" alt="Insert Icon" />
             <h2 className="text-2xl font-semibold">Aggiungi Fornitore</h2>

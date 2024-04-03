@@ -1,4 +1,3 @@
-
 import { Fornitori } from "../../interfaceHelper";
 
 interface SecondColumnProps{
@@ -15,23 +14,6 @@ export default function SecondColumn({ fornitore, setFornitore }: SecondColumnPr
 
   return (
     <div className="col-span-2 grid grid-cols-2 justify-center p-10 gap-4">
-      {/* {fieldNames.map((fieldName, index) => (
-        <div key={index} className="flex flex-col gap-1">
-          <label htmlFor={fieldName} className="text-zinc-800 font-semibold">
-            {fieldName}
-          </label>
-          <hr className="h-2 border-t-2 border-zinc-400" />
-          <input
-            type="text"
-            name={fieldName}
-            id={fieldName}
-            className="w-full rounded py-1 px-2 border-2 border-zinc-800 placeholder:text-zinc-200"
-            placeholder={`Es.${fieldName}`}
-            value={fornitore[fieldName as keyof Fornitori] || ""}
-            onChange={handleOnChange}
-          />
-        </div>
-      ))} */}
       <div className="flex flex-col gap-1">
         <label htmlFor="nome" className="text-zinc-800 font-semibold"> Nome </label>
         <hr className="h-2 border-t-2 border-zinc-400" />

@@ -65,12 +65,7 @@ export interface Fornitori {
     options: string[];
   }
 
-  export interface InsertFornitoreSectionProps {
-    fields: string[];
-    fornitore: Fornitori;
-    setFornitore: React.Dispatch<React.SetStateAction<Fornitori>>;
-  }
-
+ 
   export interface ListElementProps {
     title: string;
   }
