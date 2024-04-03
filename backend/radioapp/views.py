@@ -230,10 +230,11 @@ def deleteProdotto(request, name):
     Prodotto.objects.filter(name=name).delete()
     return Response({"message": "Prodotto eliminato!"})
 
-@api_view(["DELETE"])
-def deleteAcqusito(request, name):
-    Acquisto.objects.filter(name=name).delete()
-    return Response({"message": "acquisto eliminato!"})
+@api_view(['DELETE'])
+def deleteAcquisto(request, id):
+    f = Acquisto.objects.get(id=id)
+    f.delete()
+    return Response({'message': 'Acquisto eliminato!'})
 
 @api_view(["POST"])
 def filterFornitori(request):
@@ -269,3 +270,29 @@ def filterFornitori(request):
                         filter(lambda f: sum([a.costo for a in Acquisto.objects.filter(codice_fornitore=f.id)]) > 10000, fornitori))
     return Response([{'id': f.id, 'nome': f.nome, 'email': f.email, 'telefono': f.telefono,
                       'indirizzo': f.indirizzo, 'referente': f.referente, 'iban': f.iban, "quantità_articoli_acquistati": sum([a.quantità_articoli_acquistati for a in Acquisto.objects.filter(codice_fornitore=f.id)]), "capitale_investito": sum([a.costo for a in Acquisto.objects.filter(codice_fornitore=f.id)])} for f in fornitori])
+
+@api_view(['GET'])
+def getFornitore(request, id):
+    f = Fornitore.objects.get(id=id)
+    return Response({'id': f.id, 'nome': f.nome, 'email': f.email, 'telefono': f.telefono, 'indirizzo': f.indirizzo, 'referente': f.referente, 'iban': f.iban})
+
+@api_view(['PUT'])
+def modifyFornitore(request, id):
+    f = Fornitore.objects.get(id=id)
+    data = request.data
+    f.nome, f.email, f.telefono, f.indirizzo, f.referente, f.iban = data.get('nome', f.nome), data.get('email', f.email), data.get('telefono', f.telefono), data.get('indirizzo', f.indirizzo), data.get('referente', f.referente), data.get('iban', f.iban)
+    f.save()
+    return Response({'id': f.id, 'nome': f.nome, 'email': f.email, 'telefono': f.telefono, 'indirizzo': f.indirizzo, 'referente': f.referente, 'iban': f.iban})
+
+@api_view(['GET'])
+def getAcquisto(request, id):
+    a = Acquisto.objects.get(id=id)
+    return Response({'id': a.id, 'nome': a.nome, 'quantita': a.quantita, 'prezzo': a.prezzo, 'fornitore': a.fornitore.id})
+
+@api_view(['PUT'])
+def modifyAcquisto(request, id):
+    a = Acquisto.objects.get(id=id)
+    data = request.data
+    a.nome, a.quantita, a.prezzo, a.fornitore = data.get('nome', a.nome), data.get('quantita', a.quantita), data.get('prezzo', a.prezzo), data.get('fornitore', a.fornitore)
+    a.save()
+    return Response({'id': a.id, 'nome': a.nome, 'quantita': a.quantita, 'prezzo': a.prezzo, 'fornitore': a.fornitore.id})

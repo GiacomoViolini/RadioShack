@@ -18,6 +18,10 @@ urlpatterns = [
     path("deleteFornitore/<int:id>/", views.deleteFornitore, name="deleteFornitore"),
     path("filterProdotto/<str:nome>/", views.filterProdotto, name="filterProdotto"),
     path("deleteProdotto/<str:nome>/", views.deleteProdotto, name="deleteProdotto"),
-    path("deleteAcquisto/<str:nome>/", views.deleteAcqusito, name="deleteacquisto"),
+    path("deleteAcquisto/<int:id>/", views.deleteAcquisto, name="deleteAcquisto"),
     path("filterFornitori", views.filterFornitori, name="filterFornitori"),
+    path('getfornitore/<int:id>/', views.getFornitore, name='getFornitore'),
+    path('modifyfornitore/<int:id>/', views.modifyFornitore, name='modifyFornitore'),
+    path('getacquisto/<int:id>/', views.getAcquisto, name='getAcquisto'),
+    path('modifyacquisto/<int:id>/', views.modifyAcquisto, name='modifyAcquisto'),
 ]

@@ -8,6 +8,7 @@ import Fornitori from "./pages/Fornitori";
 import Acquisti from "./pages/Acquisti";
 import Clienti from "./pages/Clienti";
 import InsertFornitore from "./pages/InsertFornitore";
+import ModificaFornitore from "./pages/ModificaFornitore";
 import InsertAcquisto from "./pages/InsertAcquisto";
 import InsertProdotto from "./pages/InsertProdotto";
 import { useState } from "react";
@@ -72,6 +73,7 @@ function App() {
         <Route path="/acquisti" element={<Acquisti />} />
         <Route path="/vendite" element={<Vendite />} />
         <Route path="/fornitori/inserisci" element={<InsertFornitore />} />
+        <Route path="/fornitori/modifica/:id" element={<ModificaFornitore />} />
         <Route
           path="/acquisti/inserisci"
           element={<InsertAcquisto data={data} />}

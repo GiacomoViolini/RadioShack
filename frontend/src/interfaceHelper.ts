@@ -135,3 +135,15 @@ export interface Fornitori {
   export interface InsertAcquistiProps{
     numberAcquisti: number
   }
+
+  export interface Fornitore {
+    id: string;
+    nome: string;
+    email: string;
+    telefono: string;
+    indirizzo: string;
+    referente: string;
+    partita_iva: string;
+    sito_web: string;
+    iban: string;
+}
