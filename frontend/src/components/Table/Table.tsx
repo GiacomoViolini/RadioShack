@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Fornitori, Acquisti, Clienti, Vendite } from "../../interfaceHelper";
 import { TableProps } from "../../interfaceHelper";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Table({
   fields,
@@ -11,6 +12,7 @@ export default function Table({
   setInformations,
 }: TableProps) {
   const [flag, setFlag] = useState(false);
+  const navigate = useNavigate();
   const deleteFornitore = async (id: string) => {
     try {
       await axios.delete(
@@ -26,6 +28,22 @@ export default function Table({
       );
     } catch (error) {
       console.error("Failed to delete fornitore:", error);
+    }
+  };
+
+  const deleteAcquisto = async (id: string) => {
+    try {
+      await axios.delete(`http://localhost:8000/radioapp/deleteAcquisto/${id}`);
+      alert("Acquisto eliminato con successo");
+      setInformations(
+        informations.filter((info) => info.id !== id) as
+          | Fornitori[]
+          | Clienti[]
+          | Vendite[]
+          | Acquisti[]
+      );
+    } catch (error) {
+      console.error("Failed to delete acquisto:", error);
     }
   };
 
@@ -64,13 +82,23 @@ export default function Table({
                 className="flex flex-row gap-1 justify-center items-center pt-4 mx-2"
                 key={""}
               >
-                <button>
+                <button
+                  onClick={() => {
+                    if ("id" in information && "iban") {
+                      navigate("/fornitori/modifica")
+                    } else {
+                      navigate("/acquisti/modifica")
+                    }
+                  }}
+                >
                   <img src="./ModifyIcon.svg" alt="modify"></img>
                 </button>
                 <button
                   onClick={() => {
-                    if ("id" in information) {
+                    if ("id" in information && "iban") {
                       deleteFornitore(String(information.id));
+                    } else {
+                      deleteAcquisto(String(information.id))
                     }
                   }}
                 >

@@ -230,6 +230,10 @@ def deleteProdotto(request, name):
     Prodotto.objects.filter(name=name).delete()
     return Response({"message": "Prodotto eliminato!"})
 
+@api_view(["DELETE"])
+def deleteAcqusito(request, name):
+    Acquisto.objects.filter(name=name).delete()
+    return Response({"message": "acquisto eliminato!"})
 
 @api_view(["POST"])
 def filterFornitori(request):

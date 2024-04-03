@@ -30,6 +30,8 @@ export default function FornitoriComponent() {
     "indirizzo",
     "referente",
     "iban",
+    "quantità_articoli_acquistati",
+    "capitale_investito",
   ];
 
   const [listafornitori, setListafornitori] = useState<Fornitori[]>([]);

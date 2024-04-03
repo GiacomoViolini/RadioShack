@@ -18,5 +18,6 @@ urlpatterns = [
     path("deleteFornitore/<int:id>/", views.deleteFornitore, name="deleteFornitore"),
     path("filterProdotto/<str:nome>/", views.filterProdotto, name="filterProdotto"),
     path("deleteProdotto/<str:nome>/", views.deleteProdotto, name="deleteProdotto"),
+    path("deleteAcquisto/<str:nome>/", views.deleteAcqusito, name="deleteacquisto"),
     path("filterFornitori", views.filterFornitori, name="filterFornitori"),
 ]

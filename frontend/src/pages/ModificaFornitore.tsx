@@ -5,7 +5,7 @@ import InsertFornitoreDxSection from "../components/InsertFornitoreSections/Inse
 import { useNavigate } from "react-router-dom";
 import { Fornitori } from "../interfaceHelper";
 
-export default function InsertFornitore() {
+export default function ModificaFornitore(fornitore:Fornitori) {
   const navigate = useNavigate();
   const initialFornitore: Fornitori = {
     id: "",
