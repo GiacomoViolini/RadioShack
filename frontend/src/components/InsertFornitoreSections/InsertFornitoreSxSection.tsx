@@ -1,6 +1,10 @@
 import React from "react";
+<<<<<<< HEAD
 import { Fornitori } from "../../interfaceHelper";
 import { InsertFornitoreSectionProps } from "../../interfaceHelper";
+=======
+import { capitalize } from "../../utils";
+>>>>>>> 85d61fbe153ab148d2ffe55dae3fb880bf4439b5
 
 const FirstColumn: React.FC<InsertFornitoreSectionProps> = ({
   fields,
@@ -15,28 +19,26 @@ const FirstColumn: React.FC<InsertFornitoreSectionProps> = ({
   };
 
   return (
-    <div className="w-full flex flex-col px-8">
+    <div className="w-full flex flex-col px-16 gap-4">
       {fields.map((field) => {
         const fieldName = field.replace(" ", "_");
         return (
-          <div className="h-2 flex-row justify-center border-black border-dashed border-t-2 border-b-2 flex items-center py-8 mx-16 my-4">
-            <div className="w-80 flex gap-4 ml-4">
-              <h2 className="text-black font-bold text-md">{field}</h2>
+          <div className="flex justify-center items-center">
+              <h2 className="text-black text-lg font-semibold mr-2">{capitalize(field)}</h2>
               <img
-                className=""
+                className="h-6 w-6 object-contain"
                 src={
                   field == "sito web"
-                    ? "./SitoWebIcon.svg"
-                    : "./TelefonoIcon.svg"
+                    ? "/SitoWebIcon.svg"
+                    : "/TelefonoIcon.svg"
                 }
-                alt="icon"
+                alt="Icon"
               />
-            </div>
             <input
               type="text"
               name={fieldName}
               id={fieldName}
-              className="w-full rounded-md py-1.5 pl-4 pr-20 h-8 text-md bg-opacity-90 border-2 border-black placeholder:text-white"
+              className="rounded-md w-60 px-2 ml-20 text-md bg-opacity-90 border-2 border-black placeholder:text-zinc-300"
               placeholder="Es.jiguhyftouryit"
               value={fornitore[fieldName as keyof Fornitori] || ""}
               onChange={handleOnChange}
