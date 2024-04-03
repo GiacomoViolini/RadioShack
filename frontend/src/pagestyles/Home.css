@@ -9,10 +9,9 @@
   -webkit-user-drag: none;
 }
 
-.home-text{
-    font-size: 2.25rem;
-    line-height: 2.5rem;
-    margin: 1rem 0;
-    font-weight: 800;
+.home-text {
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+  margin: 1rem 0;
+  font-weight: 800;
 }
-

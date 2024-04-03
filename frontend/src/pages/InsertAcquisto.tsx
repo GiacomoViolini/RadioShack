@@ -39,8 +39,29 @@ export default function InsertAcquisto({ data }: { data: Prodotto[] }) {
     <div className="flex flex-col">
       <Navbar />
       <div className="flex mt-20">
-        <div className="flex flex-col w-3/12 bg-red-500"></div>
-        <div className="flex flex-col gap-10 w-9/12 p-4">
+        <div className="flex flex-col gap-2 w-3/12 fixed p-4">
+          <h2 className="text-3xl font-bold">Ordine</h2>
+          <hr />
+          <h2 className="text-lg font-semibold">
+            Fornitore selezionato:{" "}
+            {selectedFornitore ? selectedFornitore.nome : "Nessuno"}
+          </h2>
+          <h2 className="text-lg font-semibold">Prodotti selezionati: </h2>
+          <ul className=" px-4 list-disc">
+            {data.map((product: Prodotto) => (
+              <li>
+                {product.quantità}x {product.nome} ({product.colore},{" "}
+                {product.capacità}, {product.condizione})  {product.prezzo_di_acquisto * product.quantità}€
+              </li>
+            ))}
+          </ul>
+          <hr/>
+          <h2 className="text-lg font-semibold">Totale: {data.reduce((acc, product) => acc + product.prezzo_di_acquisto * product.quantità, 0)}€</h2>
+          <button className="bg-zinc-600 border-2 rounded-lg p-2 mt-4 font-semibold text-lg">
+            Aggiungi Ordine
+          </button>
+        </div>
+        <div className="flex flex-col gap-10 ml-[25%] w-9/12 p-4">
           <ContainerFornitore
             fornitori={fornitori}
             selectedFornitore={selectedFornitore}

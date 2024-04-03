@@ -3,6 +3,7 @@ import "../pagestyles/InsertProdotto.css";
 import { useState } from "react";
 import { convertiColori } from "../utils";
 import { useNavigate } from "react-router-dom";
+
 interface Prodotto {
   nome: string;
   colore: string;
@@ -22,17 +23,17 @@ export default function InsertProdotto({
   handleInsert: (newData: Prodotto) => void;
 }) {
   const [prodotto, setProdotto] = useState<Prodotto>({
-    nome: "",
+    nome: "Iphone",
     colore: "",
-    capacità: 0,
-    anno_di_uscita: 0,
+    capacità: 64,
+    anno_di_uscita: 2015,
     stato: "In arrivo",
-    condizione: "",
-    fotocamera: "",
-    dimensioni_schermo: 0,
-    prezzo_di_acquisto: 0,
-    prezzo_consigliato: 0,
-    quantità: 0,
+    condizione: "Accettabile",
+    fotocamera: "Singola",
+    dimensioni_schermo: 4.0,
+    prezzo_di_acquisto: 300,
+    prezzo_consigliato: 300,
+    quantità: 1,
   });
 
   const navigate = useNavigate();
@@ -70,7 +71,7 @@ export default function InsertProdotto({
         </div>
         <div className="col-span-2 grid grid-cols-2 justify-center p-10 gap-1 ">
           <div className="flex flex-col gap-1">
-            <label htmlFor="nome">Nome</label>
+            <label htmlFor="nome">Nome (Iphone..)</label>
             <input
               type="text"
               id="nome"
@@ -80,33 +81,144 @@ export default function InsertProdotto({
                 setProdotto({ ...prodotto, nome: e.target.value })
               }
               required
+              pattern="^Iphone*"
             />
           </div>
-          <div className="flex flex-col gap-1">
+          <div className="flex flex-col gap-4">
             <label htmlFor="colore">Colore</label>
-            <input
-              type="text"
-              id="colore"
-              className="p-2 rounded-lg border-2"
-              value={prodotto.colore}
-              onChange={(e) =>
-                setProdotto({ ...prodotto, colore: e.target.value })
-              }
-              required
-            />
+            <div className="color-options justify-center items-center">
+              <input
+                type="radio"
+                id="rosso"
+                name="colore"
+                value="Rosso"
+                className="bg-red-500"
+                checked={prodotto.colore === "Rosso"}
+                onChange={(e) =>
+                  setProdotto({ ...prodotto, colore: e.target.value })
+                }
+              />
+              <label htmlFor="rosso" className="color-option red" />
+              <input
+                type="radio"
+                id="blu"
+                name="colore"
+                value="Blu"
+                checked={prodotto.colore === "Blu"}
+                onChange={(e) =>
+                  setProdotto({ ...prodotto, colore: e.target.value })
+                }
+              />
+              <label htmlFor="blu" className="color-option blue" />
+              <input
+                type="radio"
+                id="verde"
+                name="colore"
+                value="Verde"
+                checked={prodotto.colore === "Verde"}
+                onChange={(e) =>
+                  setProdotto({ ...prodotto, colore: e.target.value })
+                }
+              />
+              <label htmlFor="verde" className="color-option green" />
+              <input
+                type="radio"
+                id="giallo"
+                name="colore"
+                value="Giallo"
+                checked={prodotto.colore === "Giallo"}
+                onChange={(e) =>
+                  setProdotto({ ...prodotto, colore: e.target.value })
+                }
+              />
+              <label htmlFor="giallo" className="color-option yellow" />
+              <input
+                type="radio"
+                id="nero"
+                name="colore"
+                value="Nero"
+                checked={prodotto.colore === "Nero"}
+                onChange={(e) =>
+                  setProdotto({ ...prodotto, colore: e.target.value })
+                }
+              />
+              <label htmlFor="nero" className="color-option black" />
+              <input
+                type="radio"
+                id="bianco"
+                name="colore"
+                value="Bianco"
+                checked={prodotto.colore === "Bianco"}
+                onChange={(e) =>
+                  setProdotto({ ...prodotto, colore: e.target.value })
+                }
+              />
+              <label htmlFor="bianco" className="color-option white" />
+              <input
+                type="radio"
+                id="viola"
+                name="colore"
+                value="Viola"
+                checked={prodotto.colore === "Viola"}
+                onChange={(e) =>
+                  setProdotto({ ...prodotto, colore: e.target.value })
+                }
+              />
+              <label htmlFor="viola" className="color-option purple" />
+              <input
+                type="radio"
+                id="arancione"
+                name="colore"
+                value="Arancione"
+                checked={prodotto.colore === "Arancione"}
+                onChange={(e) =>
+                  setProdotto({ ...prodotto, colore: e.target.value })
+                }
+              />
+              <label htmlFor="arancione" className="color-option orange" />
+              <input
+                type="radio"
+                id="rosa"
+                name="colore"
+                value="Rosa"
+                checked={prodotto.colore === "Rosa"}
+                onChange={(e) =>
+                  setProdotto({ ...prodotto, colore: e.target.value })
+                }
+              />
+              <label htmlFor="rosa" className="color-option pink" />
+              <input
+                type="radio"
+                id="grigio"
+                name="colore"
+                value="Grigio"
+                checked={prodotto.colore === "Grigio"}
+                onChange={(e) =>
+                  setProdotto({ ...prodotto, colore: e.target.value })
+                }
+              />
+              <label htmlFor="grigio" className="color-option gray" />
+            </div>
           </div>
           <div className="flex flex-col gap-1">
             <label htmlFor="capacità">Capacità</label>
-            <input
-              type="number"
+            <select
               id="capacità"
               className="p-2 rounded-lg border-2"
               value={prodotto.capacità}
               onChange={(e) =>
-                setProdotto({ ...prodotto, capacità: +e.target.value })
+                setProdotto({ ...prodotto, capacità: parseInt(e.target.value) })
               }
               required
-            />
+            >
+              <option className="option" value={64}>
+                64 GB
+              </option>
+              <option value={128}>128 GB</option>
+              <option value={256}>256 GB</option>
+              <option value={512}>512 GB</option>
+              <option value={1024}>1 TB</option>
+            </select>
           </div>
           <div className="flex flex-col gap-1">
             <label htmlFor="anno_di_uscita">Anno di uscita</label>
@@ -118,13 +230,13 @@ export default function InsertProdotto({
               onChange={(e) =>
                 setProdotto({ ...prodotto, anno_di_uscita: +e.target.value })
               }
+              min="2015"
               required
             />
           </div>
           <div className="flex flex-col gap-1">
             <label htmlFor="condizione">Condizione</label>
-            <input
-              type="text"
+            <select
               id="condizione"
               className="p-2 rounded-lg border-2"
               value={prodotto.condizione}
@@ -132,12 +244,15 @@ export default function InsertProdotto({
                 setProdotto({ ...prodotto, condizione: e.target.value })
               }
               required
-            />
+            >
+              <option value="Accettabile">Accettabile</option>
+              <option value="Ottimo">Ottimo</option>
+              <option value="Eccellente">Eccellente</option>
+            </select>
           </div>
           <div className="flex flex-col gap-1">
             <label htmlFor="fotocamera">Fotocamera</label>
-            <input
-              type="text"
+            <select
               id="fotocamera"
               className="p-2 rounded-lg border-2"
               value={prodotto.fotocamera}
@@ -145,7 +260,11 @@ export default function InsertProdotto({
                 setProdotto({ ...prodotto, fotocamera: e.target.value })
               }
               required
-            />
+            >
+              <option value="Singola">Singola</option>
+              <option value="Doppia">Doppia</option>
+              <option value="Tripla">Tripla</option>
+            </select>
           </div>
           <div className="flex flex-col gap-1">
             <label htmlFor="dimensioni_schermo">Dimensioni Schermo</label>
@@ -161,6 +280,8 @@ export default function InsertProdotto({
                 })
               }
               required
+              min={4.0}
+              max={7.0}
             />
           </div>
           <div className="flex flex-col gap-1">
@@ -206,6 +327,7 @@ export default function InsertProdotto({
                 setProdotto({ ...prodotto, quantità: +e.target.value })
               }
               required
+              min={1}
             />
           </div>
         </div>

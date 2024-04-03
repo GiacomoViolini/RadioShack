@@ -25,7 +25,7 @@ export default function ContainerProdotto({ data }: { data: Prodotto[] }) {
           <hr className="h-2 border-t-2 w-60" />
         </div>
         <button
-          className="bg-zinc-700 rounded-full p-3 absolute top-0 left-[95%] border-2"
+          className="bg-zinc-900 rounded-full p-2 absolute top-0 left-[95%] border-2"
           onClick={() => navigate("/acquisti/inserisci/prodotti")}
         >
           <img src="/InsertIcon.svg" className="w-7 h-7" />
