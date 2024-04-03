@@ -47,8 +47,6 @@ export default function FornitoriComponent() {
     "telefono",
     "indirizzo",
     "referente",
-    "partita iva",
-    "sito web",
     "iban",
   ];
 

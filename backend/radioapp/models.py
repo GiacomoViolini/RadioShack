@@ -9,8 +9,6 @@ class Fornitore(models.Model):
     telefono = models.CharField(max_length=20)
     indirizzo = models.CharField(max_length=100)
     referente = models.CharField(max_length=50)
-    partita_iva = models.CharField(max_length=20)
-    sito_web = models.URLField()
     iban = models.CharField(max_length=30)
 
     def __str__(self):

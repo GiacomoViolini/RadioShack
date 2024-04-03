@@ -85,34 +85,6 @@ export default function SecondColumn({ fornitore, setFornitore }: SecondColumnPr
         />
       </div>
       <div className="flex flex-col gap-1">
-        <label htmlFor="partita iva" className="text-zinc-800 font-semibold"> Partita Iva </label>
-        <hr className="h-2 border-t-2 border-zinc-400" />
-        <input
-          type="text"
-          name="partita_iva"
-          id="partita_iva"
-          className="w-full rounded py-1 px-2 border-2 border-zinc-800 placeholder:text-zinc-200"
-          placeholder="Es. Partita Iva"
-          value={fornitore.partita_iva}
-          onChange={handleOnChange}
-          required
-        />
-      </div>
-      <div className="flex flex-col gap-1">
-        <label htmlFor="sito web" className="text-zinc-800 font-semibold"> Sito Web </label>
-        <hr className="h-2 border-t-2 border-zinc-400" />
-        <input
-          type="url"
-          name="sito_web"
-          id="sito_web"
-          className="w-full rounded py-1 px-2 border-2 border-zinc-800 placeholder:text-zinc-200"
-          placeholder="Es. Sito Web"
-          value={fornitore.sito_web}
-          onChange={handleOnChange}
-          required
-        />
-      </div>
-      <div className="flex flex-col gap-1">
         <label htmlFor="telefono" className="text-zinc-800 font-semibold"> Telefono </label>
         <hr className="h-2 border-t-2 border-zinc-400" />
         <input

@@ -187,14 +187,15 @@ def addAcquisto(request):
 @api_view(['POST'])
 def addFornitore(request):
     f = Fornitore(nome=request.data['nome'], email=request.data['email'], telefono=request.data['telefono'], indirizzo=request.data['indirizzo'],
-                  referente=request.data['referente'], partita_iva=request.data['partita_iva'], sito_web=request.data['sito_web'], iban=request.data['iban'])
+                  referente=request.data['referente'], iban=request.data['iban'])
     f.save()
     return Response({'message': 'Fornitore aggiunto!'})
 
 
 @api_view(['GET'])
 def getFornitori(request):
-    return Response([{'id': f.id, 'nome': f.nome, 'email': f.email, 'telefono': f.telefono, 'indirizzo': f.indirizzo, 'referente': f.referente, 'partita_iva': f.partita_iva, 'sito_web': f.sito_web, 'iban': f.iban} for f in Fornitore.objects.all()])
+    
+    return Response([{'id': f.id, 'nome': f.nome, 'email': f.email, 'telefono': f.telefono, 'indirizzo': f.indirizzo, 'referente': f.referente, 'iban': f.iban} for f in Fornitore.objects.all()])
 
 
 @api_view(['DELETE'])

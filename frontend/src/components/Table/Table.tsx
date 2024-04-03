@@ -30,7 +30,7 @@ export default function Table({
   };
 
   useEffect(() => {
-    setFlag(informations.some(info => 'partita_iva' in info || 'codice_fornitore' in info));
+    setFlag(informations.some(info => 'iban' in info || 'codice_fornitore' in info));
     console.log(flag)
   }, [informations]);
 
