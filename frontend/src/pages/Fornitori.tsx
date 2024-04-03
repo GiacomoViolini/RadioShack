@@ -6,38 +6,20 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { Vendite, Acquisti, Fornitori, Clienti } from "../interfaceHelper";
 
+interface FilterItems {
+  title: string;
+  options: string[];
+}
+
 export default function FornitoriComponent() {
   const filters = [
     {
-      title: "Stato",
-      options: ["In arrivo", "In magazzino", "Venduto"],
+      title: "Quantità Articoli Acquistati",
+      options: ["< 10", "10 - 50", "50 - 100", "> 100"],
     },
     {
-      title: "Capacità",
-      options: ["64 GB", "128 GB", "256 GB", "512 GB", "1 TB"],
-    },
-    {
-      title: "Condizione",
-      options: ["Accettabile", "Ottimo", "Eccellente"],
-    },
-    {
-      title: "Fotocamera",
-      options: ["Singola", "Doppia", "Tripla"],
-    },
-    {
-      title: "Colore",
-      options: [
-        "Nero",
-        "Bianco",
-        "Blu",
-        "Rosso",
-        "Verde",
-        "Giallo",
-        "Viola",
-        "Arancione",
-        "Rosa",
-        "Grigio",
-      ],
+      title: "Capitale Investito",
+      options: ["< 1000", "1000 - 5000", "5000 - 10000", "> 10000"],
     },
   ];
   const fields = [
@@ -53,6 +35,7 @@ export default function FornitoriComponent() {
   ];
 
   const [listafornitori, setListafornitori] = useState<Fornitori[]>([]);
+  const [checkedOptions, setCheckedOptions] = useState<FilterItems[]>([]);
 
   useEffect(() => {
     const getFornitori = async () => {
@@ -61,13 +44,24 @@ export default function FornitoriComponent() {
           "http://localhost:8000/radioapp/getFornitori"
         );
         setListafornitori(res.data);
-        console.log(res.data)
+        console.log(res.data);
       } catch (error) {
         console.error("Failed to fetch fornitori:", error);
       }
     };
-    getFornitori();
-  }, []);
+    const getFilteredFornitori = async () => {
+      const res = await axios.post(
+        "http://localhost:8000/radioapp/filterFornitori",
+        { checkedOptions }
+      );
+      setListafornitori(res.data);
+    };
+    if (checkedOptions.length) {
+      getFilteredFornitori();
+    } else {
+      getFornitori();
+    }
+  }, [checkedOptions]);
 
   return (
     <div className="flex flex-col">
@@ -82,7 +76,12 @@ export default function FornitoriComponent() {
             <hr className="h-2 border-t-2" />
             {filters.map((filter) => (
               <div key={filter.title}>
-                {/* <Filter title={filter.title} options={filter.options} /> */}
+                <Filter
+                  title={filter.title}
+                  options={filter.options}
+                  checkedOptions={checkedOptions}
+                  setCheckedOptions={setCheckedOptions}
+                />
                 <hr />
               </div>
             ))}

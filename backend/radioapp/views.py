@@ -234,3 +234,38 @@ def deleteProdotto(request, name):
 def deleteAcqusito(request, name):
     Acquisto.objects.filter(name=name).delete()
     return Response({"message": "acquisto eliminato!"})
+
+@api_view(["POST"])
+def filterFornitori(request):
+    fornitori = Fornitore.objects.all()
+    for filter_data in request.data['checkedOptions']:
+        if filter_data['title'] == 'Quantità Articoli Acquistati':
+            for fil in filter_data['options']:
+                if fil == "< 10":
+                    fornitori = list(
+                        filter(lambda f: sum([a.quantità_articoli_acquistati for a in Acquisto.objects.filter(codice_fornitore=f.id)]) < 10, fornitori))
+                elif fil == "10 - 50":
+                    fornitori = list(
+                        filter(lambda f: 10 <= sum([a.quantità_articoli_acquistati for a in Acquisto.objects.filter(codice_fornitore=f.id)]) <= 50, fornitori))
+                elif fil == "50 - 100":
+                    fornitori = list(filter(lambda f: 50 <= sum(
+                        [a.quantità_articoli_acquistati for a in Acquisto.objects.filter(codice_fornitore=f.id)]) <= 100, fornitori))
+                elif fil == "> 100":
+                    fornitori = list(
+                        filter(lambda f: sum([a.quantità_articoli_acquistati for a in Acquisto.objects.filter(codice_fornitore=f.id)]) > 100, fornitori))
+        elif filter_data['title'] == 'Capitale Investito':
+            for fil in filter_data['options']:
+                if fil == "< 1000":
+                    fornitori = list(
+                        filter(lambda f: sum([a.costo for a in Acquisto.objects.filter(codice_fornitore=f.id)]) < 1000, fornitori))
+                elif fil == "1000 - 5000":
+                    fornitori = list(
+                        filter(lambda f: 1000 <= sum([a.costo for a in Acquisto.objects.filter(codice_fornitore=f.id)]) <= 5000, fornitori))
+                elif fil == "5000 - 10000":
+                    fornitori = list(
+                        filter(lambda f: 5000 <= sum([a.costo for a in Acquisto.objects.filter(codice_fornitore=f.id)]) <= 10000, fornitori))
+                elif fil == "> 10000":
+                    fornitori = list(
+                        filter(lambda f: sum([a.costo for a in Acquisto.objects.filter(codice_fornitore=f.id)]) > 10000, fornitori))
+    return Response([{'id': f.id, 'nome': f.nome, 'email': f.email, 'telefono': f.telefono,
+                      'indirizzo': f.indirizzo, 'referente': f.referente, 'iban': f.iban, "quantità_articoli_acquistati": sum([a.quantità_articoli_acquistati for a in Acquisto.objects.filter(codice_fornitore=f.id)]), "capitale_investito": sum([a.costo for a in Acquisto.objects.filter(codice_fornitore=f.id)])} for f in fornitori])
