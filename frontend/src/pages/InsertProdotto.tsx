@@ -71,7 +71,7 @@ export default function InsertProdotto({
         </div>
         <div className="col-span-2 grid grid-cols-2 justify-center p-10 gap-1 ">
           <div className="flex flex-col gap-1">
-            <label htmlFor="nome">Nome (Iphone..)</label>
+            <label className="title" htmlFor="nome">Nome (Iphone..)</label>
             <input
               type="text"
               id="nome"
@@ -85,7 +85,7 @@ export default function InsertProdotto({
             />
           </div>
           <div className="flex flex-col gap-4">
-            <label htmlFor="colore">Colore</label>
+            <label className="title" htmlFor="colore">Colore</label>
             <div className="color-options justify-center items-center">
               <input
                 type="radio"
@@ -201,7 +201,7 @@ export default function InsertProdotto({
             </div>
           </div>
           <div className="flex flex-col gap-1">
-            <label htmlFor="capacità">Capacità</label>
+            <label  className="title" htmlFor="capacità">Capacità</label>
             <select
               id="capacità"
               className="p-2 rounded-lg border-2"
@@ -221,7 +221,7 @@ export default function InsertProdotto({
             </select>
           </div>
           <div className="flex flex-col gap-1">
-            <label htmlFor="anno_di_uscita">Anno di uscita</label>
+            <label  className="title" htmlFor="anno_di_uscita">Anno di uscita</label>
             <input
               type="number"
               id="anno_di_uscita"
@@ -235,7 +235,7 @@ export default function InsertProdotto({
             />
           </div>
           <div className="flex flex-col gap-1">
-            <label htmlFor="condizione">Condizione</label>
+            <label  className="title" htmlFor="condizione">Condizione</label>
             <select
               id="condizione"
               className="p-2 rounded-lg border-2"
@@ -251,7 +251,7 @@ export default function InsertProdotto({
             </select>
           </div>
           <div className="flex flex-col gap-1">
-            <label htmlFor="fotocamera">Fotocamera</label>
+            <label  className="title" htmlFor="fotocamera">Fotocamera</label>
             <select
               id="fotocamera"
               className="p-2 rounded-lg border-2"
@@ -267,7 +267,7 @@ export default function InsertProdotto({
             </select>
           </div>
           <div className="flex flex-col gap-1">
-            <label htmlFor="dimensioni_schermo">Dimensioni Schermo</label>
+            <label  className="title" htmlFor="dimensioni_schermo">Dimensioni Schermo</label>
             <input
               type="number"
               id="dimensioni_schermo"
@@ -285,7 +285,7 @@ export default function InsertProdotto({
             />
           </div>
           <div className="flex flex-col gap-1">
-            <label htmlFor="prezzo_di_acquisto">Prezzo di Acquisto</label>
+            <label  className="title" htmlFor="prezzo_di_acquisto">Prezzo di Acquisto</label>
             <input
               type="number"
               id="prezzo_di_acquisto"
@@ -301,7 +301,7 @@ export default function InsertProdotto({
             />
           </div>
           <div className="flex flex-col gap-1">
-            <label htmlFor="prezzo_consigliato">Prezzo Consigliato</label>
+            <label  className="title" htmlFor="prezzo_consigliato">Prezzo Consigliato</label>
             <input
               type="number"
               id="prezzo_consigliato"
@@ -317,7 +317,7 @@ export default function InsertProdotto({
             />
           </div>
           <div className="flex flex-col gap-1">
-            <label htmlFor="quantità">Quantità</label>
+            <label  className="title" htmlFor="quantità">Quantità</label>
             <input
               type="number"
               id="quantità"
