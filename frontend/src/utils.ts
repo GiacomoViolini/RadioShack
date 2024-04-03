@@ -13,9 +13,9 @@ function convertiColori(color: string) {
     case "Arancione":
       return "#f97316";
     case "Rosa":
-      return "pink-500";
+      return "#ec4899";
     case "Grigio":
-      return "gray-500";
+      return "#6b7280";
     case "Bianco":
       return "white";
     case "Nero":
