@@ -31,6 +31,7 @@ class Acquisto(models.Model):
     data_acquisto = models.DateField(auto_now=True)
     codice_fornitore = models.ForeignKey(
         Fornitore, on_delete=models.DO_NOTHING)
+    stato = models.CharField(max_length=30, default="In arrivo")
 
     def __str__(self):
         return str(self.costo) + " " + str(self.quantità_articoli_acquistati) + " " + str(self.data_acquisto)
@@ -47,15 +48,9 @@ class Vendita(models.Model):
 
 
 class Prodotto(models.Model):
-    CAPACITA = {
-        128: "128 GB",
-        256: "256 GB",
-        512: "512 GB",
-        1024: "1 TB",
-    }
     nome = models.CharField(max_length=50)
     colore = models.CharField(max_length=50)
-    capacità = models.IntegerField(choices=CAPACITA)
+    capacità = models.IntegerField()
     anno_di_uscita = models.IntegerField()
     stato = models.CharField(max_length=20)
     condizione = models.CharField(max_length=20)
