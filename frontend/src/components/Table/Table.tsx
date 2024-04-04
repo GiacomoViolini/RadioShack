@@ -12,6 +12,7 @@ export default function Table({
   setInformations,
 }: TableProps) {
   const [flag, setFlag] = useState(false);
+  const [checkBox, setCheckBox] = useState(false);
   const navigate = useNavigate();
   const deleteFornitore = async (id: string) => {
     try {
@@ -48,10 +49,12 @@ export default function Table({
   };
 
   useEffect(() => {
-    setFlag(informations.some(info => 'iban' in info || 'codice_fornitore' in info));
-    console.log(flag)
+    setFlag(
+      informations.some((info) => "iban" in info || "codice_fornitore" in info)
+    );
+    setCheckBox(informations.some((info) => "codice_fornitore" in info));
+    console.log(flag);
   }, [informations]);
-
 
   return (
     <table className="shadow-sm table-fixed shadow-slate-300 border text-center border-slate-300 w-full rounded-md overflow-hidden">
@@ -79,30 +82,35 @@ export default function Table({
               ))}
             {flag ? (
               <td
-                className="flex flex-row gap-1 justify-center items-center pt-4 mx-2"
+                className="flex flex-row gap-1 justify-center items-center pt-2 mx-2"
                 key={""}
               >
+                {checkBox ? 
+                  <button>
+                    <img src="./InNegozioIcon.svg" alt="modify" className=" h-8 p-1"></img>
+                  </button>
+                 : null}
                 <button
                   onClick={() => {
                     if ("id" in information && "iban") {
-                      navigate(`/fornitori/modifica/${information.id}`)
+                      navigate(`/fornitori/modifica/${information.id}`);
                     } else {
-                      navigate(`/acquisti/modifica/${information.id}`)
+                      navigate(`/acquisti/modifica/${information.id}`);
                     }
                   }}
                 >
-                  <img src="./ModifyIcon.svg" alt="modify"></img>
+                  <img src="./ModifyIcon.svg" className="h-8 p-1" alt="modify"></img>
                 </button>
                 <button
                   onClick={() => {
                     if ("id" in information && "iban") {
                       deleteFornitore(String(information.id));
                     } else {
-                      deleteAcquisto(String(information.id))
+                      deleteAcquisto(String(information.id));
                     }
                   }}
                 >
-                  <img src="./DeleteIcon.svg" alt="delete" className="ml-1" />
+                  <img src="./DeleteIcon.svg" alt="delete" className="h-8 p-1" />
                 </button>
               </td>
             ) : null}

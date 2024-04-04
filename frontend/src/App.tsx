@@ -49,7 +49,7 @@ function App() {
         ) {
           return {
             ...item,
-            quantità: item.quantità + newData.quantità
+            quantità: item.quantità + newData.quantità,
           };
         }
         return item;
