@@ -74,6 +74,8 @@ export default function InsertAcquisto({
         });
       });
       setData([]);
+      setSelectedFornitore(null);
+      
     } else {
       alert("Seleziona un fornitore e almeno un prodotto");
     }

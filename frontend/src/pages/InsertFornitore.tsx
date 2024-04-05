@@ -11,7 +11,7 @@ import ConfirmationToast from "../components/ConfirmationToast/ConfirmationToast
 export default function InsertFornitore() {
   const navigate = useNavigate();
   const initialFornitore: Fornitori = {
-    id: "",
+    id: 0,
     nome: "",
     email: "",
     telefono: "",
@@ -55,8 +55,7 @@ export default function InsertFornitore() {
       }
     }
     ShowCancelToast()
-    console.log(counter)
-  }, [counter]);
+  }, [confirmation, counter, flag, navigate]);
 
   useEffect(() => {
     const fetchData = async () => {
