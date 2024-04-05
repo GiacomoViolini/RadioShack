@@ -6,7 +6,6 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { Vendite, Acquisti, Fornitori, Clienti } from "../interfaceHelper";
 import { FilterItems } from "../interfaceHelper";
-import ConfirmationToast from "../components/ConfirmationToast/ConfirmationToast";
 
 export default function FornitoriComponent() {
   const filters = [
@@ -33,8 +32,6 @@ export default function FornitoriComponent() {
 
   const [listafornitori, setListafornitori] = useState<Fornitori[]>([]);
   const [checkedOptions, setCheckedOptions] = useState<FilterItems[]>([]);
-  const [flag, setFlag] = useState(false);
-  const [confirmation, setConfirmation] = useState(false);
 
   useEffect(() => {
     const getFornitori = async () => {
@@ -65,14 +62,6 @@ export default function FornitoriComponent() {
   return (
     <div className="flex flex-col">
       <Navbar />
-      {flag ? (
-        <ConfirmationToast
-          setFlag={setFlag}
-          setConfirmation={setConfirmation}
-          toastTitle={"Conferma Inserimento"}
-          subtitle={"Sei sicuro di voler procedere?"}
-        />
-      ) : null}
       <div className="flex flex-row align-top mt-20">
         <div className="w-2/12 flex flex-col justify-center gap-6 fixed">
           <div className="w-full flex justify-center px-4">
@@ -105,8 +94,6 @@ export default function FornitoriComponent() {
                 >
               >
             }
-            setFlag={setFlag}
-            confirmation={confirmation}
           />
         </div>
       </div>

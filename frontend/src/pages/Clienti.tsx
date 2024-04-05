@@ -48,8 +48,6 @@ export default function ClientiComponent() {
   ];
 
   const [listaClienti, setListaClienti] = useState<Clienti[]>([]);
-  const [flag, setFlag] = useState(false);
-  const [confirmation, setConfirmation] = useState(false);
 
   useEffect(() => {
     const getClienti = async () => {
@@ -93,10 +91,8 @@ export default function ClientiComponent() {
                 React.SetStateAction<
                   Clienti[] | Vendite[] | Fornitori[] | Acquisti[]
                 >
-              >}
-              setFlag={setFlag}
-              confirmation={confirmation}
-            />
+              >
+            }/>
         </div>
       </div>
     </div>

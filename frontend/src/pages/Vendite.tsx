@@ -48,8 +48,6 @@ export default function VenditeComponent() {
   ];
 
   const [listaVendite, setListaVendite] = useState<Vendite[]>([]);
-  const [flag, setFlag] = useState(false);
-  const [confirmation, setConfirmation] = useState(false);
 
   useEffect(() => {
     const getVendite = async () => {
@@ -96,8 +94,6 @@ export default function VenditeComponent() {
                 >
               >
             }
-            setFlag={setFlag}
-            confirmation={confirmation}
           />
         </div>
       </div>
