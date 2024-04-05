@@ -1,5 +1,5 @@
 import { Chart, registerables } from "chart.js";
-import { useState, useEffect } from "react";
+import { useState, useEffect,useRef } from "react";
 import { CustomChartsProps } from "../../interfaceHelper";
 import { AssignColor } from "../../utils";
 
@@ -9,11 +9,11 @@ export default function CustomLineChart({
   XPairs,
   YScale,
   Label,
-  chartRef,
   Category,
 }: CustomChartsProps) {
   const [BackColor, setBackColor] = useState<string[]>([]);
   const [BorColor, setBorColor] = useState<string[]>([]);
+  const chartRef = useRef<Chart | null>(null);
 
   useEffect(() => {
     if (XPairs && Category) {
@@ -35,7 +35,7 @@ export default function CustomLineChart({
     }
 
     chartRef.current = new Chart(ctx, {
-        type: "line", // Change this line
+        type: "line",
         data: {
           labels: XPairs.map((XPair) => XPair[0]),
           datasets: [
@@ -87,7 +87,7 @@ export default function CustomLineChart({
           maintainAspectRatio: false,
         },
       });
-  }, [XPairs, Category, BackColor, BorColor]);
+  }, [XPairs, Category, BackColor, BorColor, Label, YScale, chartRef]);
 
   return (
     <div className="container w-full h-80 2xl:h-5/6 bg-none rounded-md">
