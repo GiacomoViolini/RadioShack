@@ -2,19 +2,18 @@ import { ConfirmationToastProps } from "../../interfaceHelper";
 
 export default function ConfirmationToast({
   setFlag,
-  setConfirmation,
-  setCounter,
   toastTitle,
   subtitle,
+  fetchData
 }: ConfirmationToastProps) {
   function closeToast() {
-    setConfirmation(true);
+    fetchData();
     setFlag(false);
   }
   function annullamentAggiunta() {
     setFlag(false);
-    setCounter(1);
   }
+
   return (
     <div className=" z-30 h-[100vh] flex justify-center w-full -ml-6 bg-black fixed top-0 bg-opacity-90 backdrop-blur-sm">
       <div className="bg-zinc-800 h-44 w-96 rounded-lg z-40 mt-60 flex-row flex">

@@ -31,151 +31,152 @@ export default function Statistiche() {
 
   useEffect(() => {
     const getPiuVenduti = async () => {
-        try {
-          const res = await axios.get(
-            "http://localhost:8000/radioapp/getPiuVenduti"
-          );
-          setGrafico1(res.data);
-          console.log(res.data);
-        } catch (error) {
-          console.error("Failed to fetch fornitori:", error);
-        }
-      };
-      const getMenoVenduti = async () => {
-        try {
-          const res = await axios.get(
-            "http://localhost:8000/radioapp/getMenoVenduti"
-          );
-          setGrafico1(res.data);
-          console.log(res.data);
-        } catch (error) {
-          console.error("Failed to fetch fornitori:", error);
-        }
-      };
-      const getPiuRemunerativi = async () => {
-        try {
-          const res = await axios.get(
-            "http://localhost:8000/radioapp/getPiuRemunerativi"
-          );
-          setGrafico1(res.data);
-          console.log(res.data);
-        } catch (error) {
-          console.error("Failed to fetch fornitori:", error);
-        }
-      };
+      try {
+        const res = await axios.get(
+          "http://localhost:8000/radioapp/getPiuVenduti"
+        );
+        setGrafico1(res.data);
+        console.log(res.data);
+      } catch (error) {
+        console.error("Failed to fetch fornitori:", error);
+      }
+    };
+    const getMenoVenduti = async () => {
+      try {
+        const res = await axios.get(
+          "http://localhost:8000/radioapp/getMenoVenduti"
+        );
+        setGrafico1(res.data);
+        console.log(res.data);
+      } catch (error) {
+        console.error("Failed to fetch fornitori:", error);
+      }
+    };
+    const getPiuRemunerativi = async () => {
+      try {
+        const res = await axios.get(
+          "http://localhost:8000/radioapp/getPiuRemunerativi"
+        );
+        setGrafico1(res.data);
+        console.log(res.data);
+      } catch (error) {
+        console.error("Failed to fetch fornitori:", error);
+      }
+    };
     switch (ProdottiOption) {
       case "Più venduti":
-        getPiuVenduti
+        getPiuVenduti();
         break;
       case "Meno venduti":
-        getMenoVenduti
+        getMenoVenduti();
         break;
       case "Più remunerativi":
-        getPiuRemunerativi
+        getPiuRemunerativi();
         break;
     }
-  }),[ProdottiOption];
+  }, [ProdottiOption]);
 
   useEffect(() => {
     const getFornitoriPiuRemunerativi = async () => {
-        try {
-          const res = await axios.get(
-            "http://localhost:8000/radioapp/getFornitoriPiuRemunerativi"
-          );
-          setGrafico2(res.data);
-          console.log(res.data);
-        } catch (error) {
-          console.error("Failed to fetch fornitori:", error);
-        }
-      };
-      const getPiuOrdini = async () => {
-        try {
-          const res = await axios.get(
-            "http://localhost:8000/radioapp/getPiuOrdini"
-          );
-          setGrafico2(res.data);
-          console.log(res.data);
-        } catch (error) {
-          console.error("Failed to fetch fornitori:", error);
-        }
-      };
+      try {
+        const res = await axios.get(
+          "http://localhost:8000/radioapp/getFornitoriPiuRemunerativi"
+        );
+        setGrafico2(res.data);
+        console.log(res.data);
+      } catch (error) {
+        console.error("Failed to fetch fornitori:", error);
+      }
+    };
+    const getFornitoriConPiùAcquisti = async () => {
+      try {
+        const res = await axios.get(
+          "http://localhost:8000/radioapp/getFornitoriPiùOrdinati"
+        );
+        setGrafico2(res.data);
+        console.log(res.data);
+      } catch (error) {
+        console.error("Failed to fetch fornitori:", error);
+      }
+    };
+    console.log(FornitoriOption);
     switch (FornitoriOption) {
       case "Più remunerativi":
-        getFornitoriPiuRemunerativi
+        getFornitoriPiuRemunerativi();
         break;
-      case "Che effetuano più ordini":
-        getPiuOrdini
+      case "Da cui effettuiamo più acquisti":
+        getFornitoriConPiùAcquisti();
         break;
     }
-  }),[FornitoriOption];
+  }, [FornitoriOption]);
 
   useEffect(() => {
     const getClientiPiuRemunerativi = async () => {
-        try {
-          const res = await axios.get(
-            "http://localhost:8000/radioapp/getClientiPiuRemunerativi"
-          );
-          setGrafico3(res.data);
-          console.log(res.data);
-        } catch (error) {
-          console.error("Failed to fetch fornitori:", error);
-        }
-      };
-      const getClientiPiuAcquisti = async () => {
-        try {
-          const res = await axios.get(
-            "http://localhost:8000/radioapp/getClientiPiuAcquisti"
-          );
-          setGrafico3(res.data);
-          console.log(res.data);
-        } catch (error) {
-          console.error("Failed to fetch fornitori:", error);
-        }
-      };
+      try {
+        const res = await axios.get(
+          "http://localhost:8000/radioapp/getClientiPiuRemunerativi"
+        );
+        setGrafico3(res.data);
+        console.log(res.data);
+      } catch (error) {
+        console.error("Failed to fetch fornitori:", error);
+      }
+    };
+    const getClientiPiuAcquisti = async () => {
+      try {
+        const res = await axios.get(
+          "http://localhost:8000/radioapp/getClientiPiuAcquisti"
+        );
+        setGrafico3(res.data);
+        console.log(res.data);
+      } catch (error) {
+        console.error("Failed to fetch fornitori:", error);
+      }
+    };
     switch (ClientiOption) {
       case "Più remunerativi":
-        getClientiPiuRemunerativi
+        getClientiPiuRemunerativi;
         break;
       case "Da cui effettuiamo più acquisti":
-        getClientiPiuAcquisti
+        getClientiPiuAcquisti;
         break;
     }
-  }),[ClientiOption];
+  }, [ClientiOption]);
 
-   const XPairs1 = [
-     ["Product A", 10],
-     ["Product B", 20],
-     ["Product C", 30],
-     ["Product A", 10],
-     ["Product B", 20],
-     ["Product C", 30],
-     ["Product A", 10],
-     ["Product B", 20],
-     ["Product C", 30],
-   ];
-   const XPairs2 = [
-     ["Supplier X", 40],
-     ["Supplier Y", 50],
-     ["Supplier Z", 60],
-     ["Supplier X", 40],
-     ["Supplier Y", 50],
-     ["Supplier Z", 60],
-     ["Supplier X", 40],
-     ["Supplier Y", 50],
-     ["Supplier Z", 60],
-   ];
-   const XPairs3 = [
-     ["Customer 1", 70],
-     ["Customer 2", 80],
-     ["Customer 3", 90],
-     ["Customer 1", 70],
-     ["Customer 2", 80],
-     ["Customer 3", 90],
-     ["Customer 1", 70],
-     ["Customer 2", 80],
-     ["Customer 3", 90],
-   ];
-const XPairs4 = [
+  const XPairs1 = [
+    ["Product A", 10],
+    ["Product B", 20],
+    ["Product C", 30],
+    ["Product A", 10],
+    ["Product B", 20],
+    ["Product C", 30],
+    ["Product A", 10],
+    ["Product B", 20],
+    ["Product C", 30],
+  ];
+  const XPairs2 = [
+    ["Supplier X", 40],
+    ["Supplier Y", 50],
+    ["Supplier Z", 60],
+    ["Supplier X", 40],
+    ["Supplier Y", 50],
+    ["Supplier Z", 60],
+    ["Supplier X", 40],
+    ["Supplier Y", 50],
+    ["Supplier Z", 60],
+  ];
+  const XPairs3 = [
+    ["Customer 1", 70],
+    ["Customer 2", 80],
+    ["Customer 3", 90],
+    ["Customer 1", 70],
+    ["Customer 2", 80],
+    ["Customer 3", 90],
+    ["Customer 1", 70],
+    ["Customer 2", 80],
+    ["Customer 3", 90],
+  ];
+  const XPairs4 = [
     ["12/07/2023", 70],
     ["13/07/2023", 30],
     ["14/07/2023", 90],
@@ -185,17 +186,17 @@ const XPairs4 = [
     ["12/07/2023", 70],
     ["13/07/2023", 30],
     ["14/07/2023", 90],
-];
+  ];
 
-   const YScale: [number, number] = [0, 100];
-   const Category = "Fornitori";
-   const Category1 = "Prodotti";
-   const Category2 = "Clienti";
-   const Category3 = "Statistiche";
-   const Label = "Sample Data";
-   const Label1 = "Sample Data1";
-   const Label2 = "Sample Data2";
-   const Label3 = "Sample Data3";
+  const YScale: [number, number] = [0, 100];
+  const Category = "Fornitori";
+  const Category1 = "Prodotti";
+  const Category2 = "Clienti";
+  const Category3 = "Statistiche";
+  const Label = "Sample Data";
+  const Label1 = "Sample Data1";
+  const Label2 = "Sample Data2";
+  const Label3 = "Sample Data3";
 
   return (
     <div className="flex flex-col">
@@ -223,24 +224,24 @@ const XPairs4 = [
           </div>
         </div>
         <div className="w-9/12 ml-[25%] justify-center px-8 py-8 h-[90vh] grid grid-cols-2 fixe">
-        <div className="bg-none rounded-xl flex flex-col justify-top items-center py-2 border-2 px-2 border-slate-100 mx-4 my-4">
+          <div className="bg-none rounded-xl flex flex-col justify-top items-center py-2 border-2 px-2 border-slate-100 mx-4 my-4">
             <h1 className=" text-3xl font-bold">Prodotti</h1>
             <CustomChart
-                XPairs={XPairs1 as [string, number][]}
-                YScale={YScale ?? [0, 100]}
-                Label={Label ?? "Sample Data"}
-                Category={Category1 ?? "Prodotti"}
+              XPairs={XPairs1 as [string, number][]}
+              YScale={YScale ?? [0, 100]}
+              Label={Label ?? "Sample Data"}
+              Category={Category1 ?? "Prodotti"}
             />
-        </div>
-        <div className="bg-none rounded-xl flex flex-col justify-top items-center py-2 border-2 px-2 border-slate-100 mx-4 my-4">
+          </div>
+          <div className="bg-none rounded-xl flex flex-col justify-top items-center py-2 border-2 px-2 border-slate-100 mx-4 my-4">
             <h1 className=" text-3xl font-bold">Fornitori</h1>
             <CustomChart
-                XPairs={XPairs2 as [string, number][]}
-                YScale={YScale ?? [0, 100]}
-                Label={Label1 ?? "Sample Data"}
-                Category={Category ?? "Fornitori"}
+              XPairs={XPairs2 as [string, number][]}
+              YScale={YScale ?? [0, 100]}
+              Label={Label1 ?? "Sample Data"}
+              Category={Category ?? "Fornitori"}
             />
-        </div>
+          </div>
           <div className="bg-none rounded-xl flex flex-col justify-top items-center py-2 border-2 px-2 border-slate-100 mx-4 my-4">
             <h1 className=" text-3xl font-bold">Clienti</h1>
             <CustomChart

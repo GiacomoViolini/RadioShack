@@ -25,15 +25,13 @@ export default function ModificaFornitore() {
   const [fornitore, setFornitore] = useState<Fornitore>(initialFornitore);
   const params = useParams();
   const [flag, setFlag] = useState(false);
-  const [confirmation, setConfirmation] = useState(false);
-  const [counter, setCounter] = useState<number>(0);
 
   useEffect(() => {
     async function fetchData() {
       const res = await axios.get(
         `http://localhost:8000/radioapp/getfornitore/${params.id}`
       );
-      console.log(res)
+      console.log(res);
       setFornitore(res.data);
     }
     fetchData();
@@ -44,43 +42,15 @@ export default function ModificaFornitore() {
     setFlag(true);
   };
 
-  useEffect(() => {
-    function ShowCancelToast() {
-      if (flag == false && confirmation == false && counter == 1) {
-        toast.error("Annulamento modifica fornitore", {
-          position: "top-center",
-          autoClose: 2000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-          transition: Bounce,
-        });
-        setCounter(0);
-        setTimeout(() => {
-          navigate(-1);
-        }, 2000);
-      }
-    }
-    ShowCancelToast()
-    console.log(counter)
-  }, [counter]);
-
-  useEffect(() => {
-    const fetchData = async () => {
+  const fetchData = async () => {
     const res = await axios.put(
       `http://localhost:8000/radioapp/modifyfornitore/${params.id}/`,
       fornitore
     );
-    console.log(res)
+    console.log(res);
     toast.success("Fornitore Modificato con successo", {
       position: "top-center",
       autoClose: 2000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
       draggable: true,
       progress: undefined,
       theme: "dark",
@@ -89,24 +59,19 @@ export default function ModificaFornitore() {
     setTimeout(() => {
       navigate(-1);
     }, 2000);
-  }
-    if (confirmation) {
-      fetchData();
-    }
-  }, [confirmation]);
+  };
 
   return (
     <div className="flex flex-col">
       <Navbar />
-      {flag ? (
+      {flag && (
         <ConfirmationToast
           setFlag={setFlag}
-          setConfirmation={setConfirmation}
-          setCounter={setCounter}
+          fetchData={fetchData}
           toastTitle={"Conferma Modifica"}
           subtitle={"Sei sicuro di voler procedere?"}
         />
-      ) : null}
+      )}
       <form
         className="bg-zinc-300 h-[82vh] mt-[4.5rem] rounded-lg grid grid-cols-3"
         onSubmit={(e) => ModifyFornitore(e)}
