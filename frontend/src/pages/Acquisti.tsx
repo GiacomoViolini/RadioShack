@@ -4,42 +4,26 @@ import Table from "../components/Table/Table";
 import InsertElementButtonAcquisto from "../components/InsertElementButton/InsertElementButtonAcquisto";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { Vendite, Acquisti, Fornitori, Clienti } from "../interfaceHelper";
+import {
+  Vendite,
+  Acquisti,
+  Fornitori,
+  Clienti,
+  FilterItems,
+} from "../interfaceHelper";
 
 export default function AcquistiComponent() {
   const filters = [
     {
-      title: "Stato",
-      options: ["In arrivo", "In magazzino", "Venduto"],
+      title: "Costo",
+      options: ["< 1000", "1000 - 5000", "> 5000"],
     },
     {
-      title: "Capacità",
-      options: ["64 GB", "128 GB", "256 GB", "512 GB", "1 TB"],
-    },
-    {
-      title: "Condizione",
-      options: ["Accettabile", "Ottimo", "Eccellente"],
-    },
-    {
-      title: "Fotocamera",
-      options: ["Singola", "Doppia", "Tripla"],
-    },
-    {
-      title: "Colore",
-      options: [
-        "Nero",
-        "Bianco",
-        "Blu",
-        "Rosso",
-        "Verde",
-        "Giallo",
-        "Viola",
-        "Arancione",
-        "Rosa",
-        "Grigio",
-      ],
+      title: "Quantità articoli acquistati",
+      options: ["< 10", "10 - 50", "> 50"],
     },
   ];
+  const [checkedOptions, setCheckedOptions] = useState<FilterItems[]>([]);
   const fields = [
     "id",
     "costo",
@@ -62,8 +46,19 @@ export default function AcquistiComponent() {
         console.error("Failed to fetch Acquisti:", error);
       }
     };
-    getAcquisti();
-  }, []);
+    const getFilteredAcquisti = async () => {
+      const res = await axios.post(
+        "http://localhost:8000/radioapp/filterAcquisti/",
+        { checkedOptions }
+      );
+      setListaAcquisti(res.data);
+    };
+    if (checkedOptions.length) {
+      getFilteredAcquisti();
+    } else {
+      getAcquisti();
+    }
+  }, [checkedOptions]);
 
   return (
     <div className="flex flex-col">
@@ -78,7 +73,12 @@ export default function AcquistiComponent() {
             <hr className="h-2 border-t-2" />
             {filters.map((filter) => (
               <div key={filter.title}>
-                {/*<Filter title={filter.title} options={filter.options} />*/}
+                <Filter
+                  title={filter.title}
+                  options={filter.options}
+                  checkedOptions={checkedOptions}
+                  setCheckedOptions={setCheckedOptions}
+                />
                 <hr />
               </div>
             ))}
