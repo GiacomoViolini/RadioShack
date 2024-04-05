@@ -73,7 +73,7 @@ export default function Card({
             className="py-1 px-1.5 rounded-lg bg-zinc-500 hover:bg-zinc-700 transition-all duration-200 flex justify-center items-center"
             onClick={(event) => {
               event.stopPropagation();
-              // NON CLICKARE deleteProduct();
+              deleteProduct();
             }}
           >
             <img src="/DeleteIcon.svg" className="w-6 h-6" />

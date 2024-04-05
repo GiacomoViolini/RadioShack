@@ -296,3 +296,19 @@ def modifyAcquisto(request, id):
     a.nome, a.quantita, a.prezzo, a.fornitore = data.get('nome', a.nome), data.get('quantita', a.quantita), data.get('prezzo', a.prezzo), data.get('fornitore', a.fornitore)
     a.save()
     return Response({'id': a.id, 'nome': a.nome, 'quantita': a.quantita, 'prezzo': a.prezzo, 'fornitore': a.fornitore.id})
+
+@api_view(["POST"])
+def insertAcquisto(request):
+    data = request.data['acquisto']
+    a = Acquisto(costo=data['costo'], quantità_articoli_acquistati=data[
+                 'quantità_articoli_acquistati'], codice_fornitore=Fornitore.objects.get(id=data['codice_fornitore']))
+    a.save()
+    return Response({"id" : a.id})
+
+@api_view(["POST"])
+def insertProdotto(request):
+    data = request.data['prodotto']
+    p = Prodotto(nome=data['nome'], colore=data['colore'], capacità=data['capacità'], anno_di_uscita=data['anno_di_uscita'], condizione=data['condizione'],
+                 fotocamera=data['fotocamera'], dimensioni_schermo=data['dimensioni_schermo'], prezzo_di_acquisto=data['prezzo_di_acquisto'], prezzo_consigliato=data['prezzo_consigliato'], codice_acquisto=Acquisto.objects.get(id=data['codice_acquisto']))
+    p.save()
+    return Response({"id" : p.id})

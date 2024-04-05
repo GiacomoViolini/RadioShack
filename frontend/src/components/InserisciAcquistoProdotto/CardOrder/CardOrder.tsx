@@ -12,8 +12,10 @@ export default function CardOrder({
   dimensioni_schermo,
   prezzo_di_acquisto,
   anno_di_uscita,
+  handleDelete,
 }: CardOrderProps) {
   const image = "/Prodotti.svg";
+  const nome = title;
   return (
     <div className="grid grid-cols-5 border-2 border-gray-300 rounded-l">
       <img
@@ -21,7 +23,7 @@ export default function CardOrder({
         className="object-cover col-span-2 w-full h-full p-4 rounded-l-sm"
         style={{ backgroundColor: convertiColori(colore) }}
       />
-      <div className="col-span-3 flex flex-col py-2 px-4 gap-2">
+      <div className="col-span-3 flex flex-col py-2 px-4 gap-2 relative">
         <h2 className="border-2 rounded-lg text-center">
           N° Prodotti scelti: {quantità}
         </h2>
@@ -37,6 +39,14 @@ export default function CardOrder({
           <h2 className="">Prezzo di Acquisto: {prezzo_di_acquisto}€</h2>
           <h2 className="">Prezzo Consigliato: {prezzo_consigliato}€</h2>
         </div>
+        <button
+          className="absolute top-[85%] left-[85%] py-1 px-1.5 w-8 rounded-lg bg-zinc-500 hover:bg-zinc-700 transition-all duration-200 flex justify-center items-center"
+          onClick={() => {
+            handleDelete({nome,capacità,colore,quantità,prezzo_consigliato,condizione,fotocamera,dimensioni_schermo,prezzo_di_acquisto,anno_di_uscita})
+          }}
+        >
+          <img src="/DeleteIcon.svg" className="w-6 h-6" />
+        </button>
       </div>
     </div>
   );
