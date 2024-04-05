@@ -2,6 +2,15 @@ import { useNavigate } from "react-router-dom";
 import { convertiColori } from "../../utils";
 import axios from "axios";
 
+interface Product {
+  id: number;
+  nome: string;
+  capacità_possibili: number[];
+  colori_possibili: string[];
+  quantità: number;
+  prezzo: number;
+}
+
 interface CardProps {
   title: string;
   capacità_possibili: number[];
@@ -9,6 +18,7 @@ interface CardProps {
   quantità: number;
   prezzo: number;
   checkedOptions: FilterProduct[];
+  setProducts: React.Dispatch<React.SetStateAction<Product[]>>;
 }
 interface FilterProduct {
   title: string;
@@ -22,14 +32,16 @@ export default function Card({
   quantità,
   prezzo,
   checkedOptions,
+  setProducts,
 }: CardProps) {
   const image = "/Prodotti.svg";
   const navigate = useNavigate();
   async function deleteProduct() {
-    const res = axios.post(
-      `http://localhost:8000/radioapp/deleteProdotto/${title}`
+    const res = axios.delete(
+      `http://localhost:8000/radioapp/deleteProdotto/` + title + `/`
     );
     console.log(res);
+    setProducts((prev) => prev.filter((product) => product.nome !== title));
   }
   return (
     <div
@@ -42,7 +54,7 @@ export default function Card({
     >
       <img
         src={image}
-        className="object-contain col-span-1 w-full h-full bg-gray-300 rounded-l-sm"
+        className="col-span-1 w-full h-full bg-gray-300 rounded-l-sm p-2"
       />
       <div className="col-span-3 flex flex-col px-4 gap-4">
         <h2 className="border-2 rounded-lg text-center mt-2">
@@ -73,7 +85,7 @@ export default function Card({
             className="py-1 px-1.5 rounded-lg bg-zinc-500 hover:bg-zinc-700 transition-all duration-200 flex justify-center items-center"
             onClick={(event) => {
               event.stopPropagation();
-              // NON CLICKARE deleteProduct();
+              deleteProduct();
             }}
           >
             <img src="/DeleteIcon.svg" className="w-6 h-6" />

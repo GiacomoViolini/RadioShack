@@ -52,7 +52,7 @@ class Prodotto(models.Model):
     colore = models.CharField(max_length=50)
     capacità = models.IntegerField()
     anno_di_uscita = models.IntegerField()
-    stato = models.CharField(max_length=20)
+    stato = models.CharField(max_length=20, default="In arrivo")
     condizione = models.CharField(max_length=20)
     fotocamera = models.CharField(max_length=20)
     dimensioni_schermo = models.FloatField()

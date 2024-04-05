@@ -1,7 +1,7 @@
 import { Chart } from "chart.js";
 
 export interface Fornitori {
-  id: string;
+  id: number;
   nome: string;
   email: string;
   telefono: string;
@@ -117,6 +117,7 @@ export interface Fornitori {
     dimensioni_schermo: number;
     prezzo_di_acquisto: number;
     anno_di_uscita: number;
+    handleDelete: (newData: Prodotto) => void;
   }
 
 

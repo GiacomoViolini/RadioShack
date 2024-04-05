@@ -60,6 +60,32 @@ function App() {
       setData([...data, newData]);
     }
   };
+  const handleDelete = ({
+    nome,
+    quantità,
+    condizione,
+    colore,
+    capacità,
+    prezzo_di_acquisto,
+  }: {
+    nome: string;
+    quantità: number;
+    condizione: string;
+    colore: string;
+    capacità: number;
+    prezzo_di_acquisto: number;
+  }) => {
+    const updatedData = data.filter(
+      (item) =>
+        item.nome !== nome &&
+        item.quantità !== quantità &&
+        item.condizione !== condizione &&
+        item.colore !== colore &&
+        item.capacità !== capacità &&
+        item.prezzo_di_acquisto !== prezzo_di_acquisto
+    );
+    setData(updatedData);
+  };
 
   return (
     <BrowserRouter>
@@ -76,7 +102,13 @@ function App() {
         <Route path="/fornitori/modifica/:id" element={<ModificaFornitore />} />
         <Route
           path="/acquisti/inserisci"
-          element={<InsertAcquisto data={data} />}
+          element={
+            <InsertAcquisto
+              data={data}
+              setData={setData}
+              handleDelete={handleDelete}
+            />
+          }
         />
         <Route
           path="/acquisti/inserisci/prodotti"

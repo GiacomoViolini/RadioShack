@@ -15,7 +15,7 @@ interface Prodotto {
   quantità: number;
 }
 
-export default function ContainerProdotto({ data }: { data: Prodotto[] }) {
+export default function ContainerProdotto({ data , handleDelete }: { data: Prodotto[] , handleDelete: (newData: Prodotto) => void}) {
   const navigate = useNavigate();
   return (
     <div className="flex flex-col relative">
@@ -50,6 +50,7 @@ export default function ContainerProdotto({ data }: { data: Prodotto[] }) {
             dimensioni_schermo={product.dimensioni_schermo}
             prezzo_di_acquisto={product.prezzo_di_acquisto}
             prezzo_consigliato={product.prezzo_consigliato}
+            handleDelete={handleDelete}
           />
         ))}
       </div>

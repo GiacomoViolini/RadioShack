@@ -19,7 +19,15 @@ interface Prodotto {
   quantità: number;
 }
 
-export default function InsertAcquisto({ data }: { data: Prodotto[] }) {
+export default function InsertAcquisto({
+  data,
+  handleDelete,
+  setData,
+}: {
+  data: Prodotto[];
+  handleDelete: (newData: Prodotto) => void;
+  setData: React.Dispatch<React.SetStateAction<Prodotto[]>>;
+}) {
   const [fornitori, setFornitori] = useState<Fornitori[]>([]);
   const [selectedFornitore, setSelectedFornitore] = useState<Fornitori | null>(
     null
@@ -35,6 +43,41 @@ export default function InsertAcquisto({ data }: { data: Prodotto[] }) {
     fetchData();
   }, []);
 
+  const handlePost = async () => {
+    console.log(data);
+    const acquisto = {
+      codice_fornitore: selectedFornitore?.id,
+      costo: data.reduce(
+        (acc, product) => acc + product.prezzo_di_acquisto * product.quantità,
+        0
+      ),
+      quantità_articoli_acquistati: data.reduce(
+        (acc, product) => acc + product.quantità,
+        0
+      ),
+    };
+    if (selectedFornitore && acquisto.quantità_articoli_acquistati > 0) {
+      const res = await axios.post(
+        "http://localhost:8000/radioapp/insertAcquisto/",
+        {
+          acquisto,
+        }
+      );
+      console.log(res.data.id);
+      data.forEach(async (product) => {
+        const prodotto = {
+          ...product,
+          codice_acquisto: res.data.id,
+        };
+        await axios.post("http://localhost:8000/radioapp/insertProdotto/", {
+          prodotto,
+        });
+      });
+      setData([]);
+    } else {
+      alert("Seleziona un fornitore e almeno un prodotto");
+    }
+  };
   return (
     <div className="flex flex-col">
       <Navbar />
@@ -49,15 +92,27 @@ export default function InsertAcquisto({ data }: { data: Prodotto[] }) {
           <h2 className="text-lg font-semibold">Prodotti selezionati: </h2>
           <ul className=" px-4 list-disc">
             {data.map((product: Prodotto) => (
-              <li>
+              <li key={product.nome + product.quantità + product.condizione}>
                 {product.quantità}x {product.nome} ({product.colore},{" "}
-                {product.capacità}, {product.condizione})  {product.prezzo_di_acquisto * product.quantità}€
+                {product.capacità}, {product.condizione}){" "}
+                {product.prezzo_di_acquisto * product.quantità}€
               </li>
             ))}
           </ul>
-          <hr/>
-          <h2 className="text-lg font-semibold">Totale: {data.reduce((acc, product) => acc + product.prezzo_di_acquisto * product.quantità, 0)}€</h2>
-          <button className="bg-zinc-600 border-2 rounded-lg p-2 mt-4 font-semibold text-lg">
+          <hr />
+          <h2 className="text-lg font-semibold">
+            Totale:{" "}
+            {data.reduce(
+              (acc, product) =>
+                acc + product.prezzo_di_acquisto * product.quantità,
+              0
+            )}
+            €
+          </h2>
+          <button
+            className="bg-zinc-600 border-2 rounded-lg p-2 mt-4 font-semibold text-lg"
+            onClick={handlePost}
+          >
             Aggiungi Ordine
           </button>
         </div>
@@ -67,7 +122,7 @@ export default function InsertAcquisto({ data }: { data: Prodotto[] }) {
             selectedFornitore={selectedFornitore}
             setSelectedFornitore={setSelectedFornitore}
           />
-          <ContainerProdotto data={data} />
+          <ContainerProdotto data={data} handleDelete={handleDelete} />
         </div>
       </div>
     </div>

@@ -103,6 +103,7 @@ export default function Prodotti() {
               quantità={product.quantità}
               prezzo={product.prezzo}
               checkedOptions={checkedOptions}
+              setProducts={setProducts}
             />
           ))}
         </div>

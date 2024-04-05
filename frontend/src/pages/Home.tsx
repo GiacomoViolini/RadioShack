@@ -23,7 +23,7 @@ export default function Home() {
     <div className="flex flex-col justify-center h-full">
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-4">
-          <img src="./public/logo.png" className="w-11 h-11" />{" "}
+          <img src="/logo.png" className="w-11 h-11" />{" "}
           <h2 className="text-4xl font-bold">RadioShack</h2>
         </div>
         <h2 className="text-xl font-semibold">{date}</h2>
@@ -31,7 +31,7 @@ export default function Home() {
       <div className="grid grid-cols-3 gap-x-32 gap-y-4">
         <div className="relative flex flex-col items-center">
           <img
-            src="./public/Prodotti.svg"
+            src="/Prodotti.svg"
             className="home-image hover:bg-purple-500"
             onClick={() => navigateTo(routes[0])}
           />
@@ -41,7 +41,7 @@ export default function Home() {
         </div>
         <div className="flex flex-col items-center">
           <img
-            src="./public/Statistiche.svg"
+            src="/Statistiche.svg"
             className="home-image hover:bg-blue-500 "
             onClick={() => navigateTo(routes[1])}
           />
@@ -51,7 +51,7 @@ export default function Home() {
         </div>
         <div className="flex flex-col items-center">
           <img
-            src="./public/Fornitori.svg"
+            src="/Fornitori.svg"
             className="home-image hover:bg-emerald-500 "
             onClick={() => navigateTo(routes[2])}
           />
@@ -61,7 +61,7 @@ export default function Home() {
         </div>
         <div className="flex flex-col items-center">
           <img
-            src="./public/Clienti.svg"
+            src="/Clienti.svg"
             className="home-image hover:bg-amber-500 "
             onClick={() => navigateTo(routes[3])}
           />
@@ -71,7 +71,7 @@ export default function Home() {
         </div>
         <div className="flex flex-col items-center">
           <img
-            src="./public/Acquisti.svg"
+            src="/Acquisti.svg"
             className="home-image hover:bg-pink-500 "
             onClick={() => navigateTo(routes[4])}
           />
@@ -81,7 +81,7 @@ export default function Home() {
         </div>
         <div className="flex flex-col items-center">
           <img
-            src="./public/Vendite.svg"
+            src="/Vendite.svg"
             className="home-image hover:bg-red-500"
             onClick={() => navigateTo(routes[5])}
           />

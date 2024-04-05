@@ -26,4 +26,6 @@ urlpatterns = [
     path('modifyacquisto/<int:id>/', views.modifyAcquisto, name='modifyAcquisto'),
     path('api/getPiuVenduti/', views.getPiuVenduti, name='getPiuVenduti'),
     path('api/getMenoVenduti/', views.getMenoVenduti, name='getMenoVenduti'),
+    path("insertAcquisto/", views.insertAcquisto, name="insertAcquisto"),
+    path("insertProdotto/", views.insertProdotto, name="insertProdotto"),
 ]
