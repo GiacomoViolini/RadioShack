@@ -226,8 +226,11 @@ def getVendite(request):
 
 
 @api_view(["DELETE"])
-def deleteProdotto(request, name):
-    Prodotto.objects.filter(name=name).delete()
+def deleteProdotto(request, nome):
+    print(nome)
+    p = Prodotto.objects.filter(nome=nome)
+    p.delete()
+    print(p)
     return Response({"message": "Prodotto eliminato!"})
 
 @api_view(['DELETE'])

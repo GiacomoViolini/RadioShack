@@ -13,25 +13,24 @@ export default function Table({
 }: TableProps) {
   const [flag, setFlag] = useState(false);
   const navigate = useNavigate();
-  const deleteFornitore = async (id: string) => {
+  const deleteFornitore = async (id: number) => {
     try {
       await axios.delete(
         `http://localhost:8000/radioapp/deleteFornitore/${id}`
       );
       alert("Fornitore eliminato con successo");
-      setInformations(
-        informations.filter((info) => info.id !== id) as
-          | Fornitori[]
-          | Clienti[]
-          | Vendite[]
-          | Acquisti[]
-      );
+      const newInfo = informations.filter((info) => info.id !== id) as
+        | Fornitori[]
+        | Clienti[]
+        | Vendite[]
+        | Acquisti[];
+      setInformations(newInfo);
     } catch (error) {
       console.error("Failed to delete fornitore:", error);
     }
   };
 
-  const deleteAcquisto = async (id: string) => {
+  const deleteAcquisto = async (id: number) => {
     try {
       await axios.delete(`http://localhost:8000/radioapp/deleteAcquisto/${id}`);
       alert("Acquisto eliminato con successo");
@@ -48,10 +47,11 @@ export default function Table({
   };
 
   useEffect(() => {
-    setFlag(informations.some(info => 'iban' in info || 'codice_fornitore' in info));
-    console.log(flag)
+    setFlag(
+      informations.some((info) => "iban" in info || "codice_fornitore" in info)
+    );
+    console.log(flag);
   }, [informations]);
-
 
   return (
     <table className="shadow-sm table-fixed shadow-slate-300 border text-center border-slate-300 w-full rounded-md overflow-hidden">
@@ -85,9 +85,9 @@ export default function Table({
                 <button
                   onClick={() => {
                     if ("id" in information && "iban") {
-                      navigate(`/fornitori/modifica/${information.id}`)
+                      navigate(`/fornitori/modifica/${information.id}`);
                     } else {
-                      navigate(`/acquisti/modifica/${information.id}`)
+                      navigate(`/acquisti/modifica/${information.id}`);
                     }
                   }}
                 >
@@ -96,9 +96,9 @@ export default function Table({
                 <button
                   onClick={() => {
                     if ("id" in information && "iban") {
-                      deleteFornitore(String(information.id));
+                      deleteFornitore(information.id);
                     } else {
-                      deleteAcquisto(String(information.id))
+                      deleteAcquisto(information.id);
                     }
                   }}
                 >

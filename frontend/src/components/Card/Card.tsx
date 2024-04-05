@@ -2,6 +2,15 @@ import { useNavigate } from "react-router-dom";
 import { convertiColori } from "../../utils";
 import axios from "axios";
 
+interface Product {
+  id: number;
+  nome: string;
+  capacità_possibili: number[];
+  colori_possibili: string[];
+  quantità: number;
+  prezzo: number;
+}
+
 interface CardProps {
   title: string;
   capacità_possibili: number[];
@@ -9,6 +18,7 @@ interface CardProps {
   quantità: number;
   prezzo: number;
   checkedOptions: FilterProduct[];
+  setProducts: React.Dispatch<React.SetStateAction<Product[]>>;
 }
 interface FilterProduct {
   title: string;
@@ -22,14 +32,16 @@ export default function Card({
   quantità,
   prezzo,
   checkedOptions,
+  setProducts,
 }: CardProps) {
   const image = "/Prodotti.svg";
   const navigate = useNavigate();
   async function deleteProduct() {
-    const res = axios.post(
-      `http://localhost:8000/radioapp/deleteProdotto/${title}`
+    const res = axios.delete(
+      `http://localhost:8000/radioapp/deleteProdotto/` + title + `/`
     );
     console.log(res);
+    setProducts((prev) => prev.filter((product) => product.nome !== title));
   }
   return (
     <div
