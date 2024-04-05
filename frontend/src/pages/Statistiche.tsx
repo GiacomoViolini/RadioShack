@@ -1,17 +1,12 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import Navbar from "../components/Navbar/Navbar";
-import { Chart } from "chart.js";
 import { CustomCharts } from "../interfaceHelper";
 import CustomLineChart from "../components/CustomChart/CustomLineChart";
 import StatisticheFilter from "../components/Filter/StatisticheFilter";
 import CustomChart from "../components/CustomChart/CustomChart";
 
 export default function Statistiche() {
-  const chartRef1 = useRef<Chart | null>(null);
-  const chartRef2 = useRef<Chart | null>(null);
-  const chartRef3 = useRef<Chart | null>(null);
-  const chartRef4 = useRef<Chart | null>(null);
   const [ProdottiOption, setProdottiOption] = useState("");
   const [FornitoriOption, setFornitoriOption] = useState("");
   const [ClientiOption, setClientiOption] = useState("");
@@ -35,128 +30,114 @@ export default function Statistiche() {
   ];
 
   useEffect(() => {
+    const getPiuVenduti = async () => {
+        try {
+          const res = await axios.get(
+            "http://localhost:8000/radioapp/getPiuVenduti"
+          );
+          setGrafico1(res.data);
+          console.log(res.data);
+        } catch (error) {
+          console.error("Failed to fetch fornitori:", error);
+        }
+      };
+      const getMenoVenduti = async () => {
+        try {
+          const res = await axios.get(
+            "http://localhost:8000/radioapp/getMenoVenduti"
+          );
+          setGrafico1(res.data);
+          console.log(res.data);
+        } catch (error) {
+          console.error("Failed to fetch fornitori:", error);
+        }
+      };
+      const getPiuRemunerativi = async () => {
+        try {
+          const res = await axios.get(
+            "http://localhost:8000/radioapp/getPiuRemunerativi"
+          );
+          setGrafico1(res.data);
+          console.log(res.data);
+        } catch (error) {
+          console.error("Failed to fetch fornitori:", error);
+        }
+      };
     switch (ProdottiOption) {
       case "Più venduti":
-        {
-            const getPiuVenduti = async () => {
-                try {
-                  const res = await axios.get(
-                    "http://localhost:8000/radioapp/getPiuVenduti"
-                  );
-                  setGrafico1(res.data);
-                  console.log(res.data);
-                } catch (error) {
-                  console.error("Failed to fetch fornitori:", error);
-                }
-              };
-              getPiuVenduti
-        }
+        getPiuVenduti
         break;
       case "Meno venduti":
-        {
-            const getMenoVenduti = async () => {
-                try {
-                  const res = await axios.get(
-                    "http://localhost:8000/radioapp/getMenoVenduti"
-                  );
-                  setGrafico1(res.data);
-                  console.log(res.data);
-                } catch (error) {
-                  console.error("Failed to fetch fornitori:", error);
-                }
-              };
-              getMenoVenduti
-        }
+        getMenoVenduti
         break;
       case "Più remunerativi":
-        {
-            const getPiuRemunerativi = async () => {
-                try {
-                  const res = await axios.get(
-                    "http://localhost:8000/radioapp/getPiuRemunerativi"
-                  );
-                  setGrafico1(res.data);
-                  console.log(res.data);
-                } catch (error) {
-                  console.error("Failed to fetch fornitori:", error);
-                }
-              };
-              getPiuRemunerativi
-        }
+        getPiuRemunerativi
         break;
     }
   }),[ProdottiOption];
 
   useEffect(() => {
+    const getFornitoriPiuRemunerativi = async () => {
+        try {
+          const res = await axios.get(
+            "http://localhost:8000/radioapp/getFornitoriPiuRemunerativi"
+          );
+          setGrafico2(res.data);
+          console.log(res.data);
+        } catch (error) {
+          console.error("Failed to fetch fornitori:", error);
+        }
+      };
+      const getPiuOrdini = async () => {
+        try {
+          const res = await axios.get(
+            "http://localhost:8000/radioapp/getPiuOrdini"
+          );
+          setGrafico2(res.data);
+          console.log(res.data);
+        } catch (error) {
+          console.error("Failed to fetch fornitori:", error);
+        }
+      };
     switch (FornitoriOption) {
       case "Più remunerativi":
-        {
-            const getFornitoriPiuRemunerativi = async () => {
-                try {
-                  const res = await axios.get(
-                    "http://localhost:8000/radioapp/getFornitoriPiuRemunerativi"
-                  );
-                  setGrafico2(res.data);
-                  console.log(res.data);
-                } catch (error) {
-                  console.error("Failed to fetch fornitori:", error);
-                }
-              };
-              getFornitoriPiuRemunerativi
-        }
+        getFornitoriPiuRemunerativi
         break;
       case "Che effetuano più ordini":
-        {
-            const getPiuOrdini = async () => {
-                try {
-                  const res = await axios.get(
-                    "http://localhost:8000/radioapp/getPiuOrdini"
-                  );
-                  setGrafico2(res.data);
-                  console.log(res.data);
-                } catch (error) {
-                  console.error("Failed to fetch fornitori:", error);
-                }
-              };
-              getPiuOrdini
-        }
+        getPiuOrdini
         break;
     }
   }),[FornitoriOption];
 
   useEffect(() => {
+    const getClientiPiuRemunerativi = async () => {
+        try {
+          const res = await axios.get(
+            "http://localhost:8000/radioapp/getClientiPiuRemunerativi"
+          );
+          setGrafico3(res.data);
+          console.log(res.data);
+        } catch (error) {
+          console.error("Failed to fetch fornitori:", error);
+        }
+      };
+      const getClientiPiuAcquisti = async () => {
+        try {
+          const res = await axios.get(
+            "http://localhost:8000/radioapp/getClientiPiuAcquisti"
+          );
+          setGrafico3(res.data);
+          console.log(res.data);
+        } catch (error) {
+          console.error("Failed to fetch fornitori:", error);
+        }
+      };
     switch (ClientiOption) {
       case "Più remunerativi":
-        {
-            const getClientiPiuRemunerativi = async () => {
-                try {
-                  const res = await axios.get(
-                    "http://localhost:8000/radioapp/getClientiPiuRemunerativi"
-                  );
-                  setGrafico3(res.data);
-                  console.log(res.data);
-                } catch (error) {
-                  console.error("Failed to fetch fornitori:", error);
-                }
-              };
-              getClientiPiuRemunerativi
-        }
+        getClientiPiuRemunerativi
         break;
       case "Da cui effettuiamo più acquisti":
-        {
-            const getClientiPiuAcquisti = async () => {
-                try {
-                  const res = await axios.get(
-                    "http://localhost:8000/radioapp/getClientiPiuAcquisti"
-                  );
-                  setGrafico3(res.data);
-                  console.log(res.data);
-                } catch (error) {
-                  console.error("Failed to fetch fornitori:", error);
-                }
-              };
-              getClientiPiuAcquisti
-        }
+        getClientiPiuAcquisti
         break;
     }
   }),[ClientiOption];
@@ -248,7 +229,6 @@ const XPairs4 = [
                 XPairs={XPairs1 as [string, number][]}
                 YScale={YScale ?? [0, 100]}
                 Label={Label ?? "Sample Data"}
-                chartRef={chartRef1}
                 Category={Category1 ?? "Prodotti"}
             />
         </div>
@@ -258,7 +238,6 @@ const XPairs4 = [
                 XPairs={XPairs2 as [string, number][]}
                 YScale={YScale ?? [0, 100]}
                 Label={Label1 ?? "Sample Data"}
-                chartRef={chartRef2}
                 Category={Category ?? "Fornitori"}
             />
         </div>
@@ -268,7 +247,6 @@ const XPairs4 = [
               XPairs={XPairs3 as [string, number][]}
               YScale={YScale ?? [0, 100]}
               Label={Label2 ?? "Sample Data"}
-              chartRef={chartRef3}
               Category={Category2 ?? "Fornitori"}
             />
           </div>
@@ -278,7 +256,6 @@ const XPairs4 = [
               XPairs={XPairs4 as [string, number][]}
               YScale={YScale}
               Label={Label3}
-              chartRef={chartRef4}
               Category={Category3}
             />
           </div>

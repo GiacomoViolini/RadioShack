@@ -163,7 +163,6 @@ export interface CustomChartsProps {
   XPairs: [string, number][];//the string value is the one dysplayed in the x-axis and the number value linked to that field that will be showed
   YScale: [number, number];
   Label: string;
-  chartRef: React.RefObject<Chart>;
   Category: string
 }
 
