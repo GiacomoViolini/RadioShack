@@ -78,6 +78,8 @@ export interface Fornitori {
     fields: string[];
     informations: Clienti[] | Vendite[] | Acquisti[] | Fornitori[];
     setInformations: React.Dispatch<React.SetStateAction<Clienti[] | Vendite[] | Acquisti[] | Fornitori[]>>;
+    setFlag: React.Dispatch<React.SetStateAction<boolean>>,
+    confirmation:boolean,
   }
 
   export interface FilterProps {
@@ -154,7 +156,6 @@ export interface Fornitori {
 export interface ConfirmationToastProps{
   setFlag: React.Dispatch<React.SetStateAction<boolean>>,
   setConfirmation: React.Dispatch<React.SetStateAction<boolean>>,
-  setCounter: React.Dispatch<React.SetStateAction<number>>, //settare a uno se l'utente schiaccia su cancel così da poter renderizzare l'animazione di annullamento
   toastTitle: string,
   subtitle: string
 }

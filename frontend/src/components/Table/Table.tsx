@@ -1,23 +1,68 @@
 import axios from "axios";
 import { capitalize } from "../../utils";
-import { Fornitori, Acquisti, Clienti, Vendite } from "../../interfaceHelper";
-import { TableProps } from "../../interfaceHelper";
+import { Fornitori, Acquisti, Clienti, Vendite, TableProps } from "../../interfaceHelper";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState,useEffect } from "react";
+import { Bounce, toast } from "react-toastify";
 
 export default function Table({
   fields,
   informations,
   setInformations,
+  setFlag,
+  confirmation,
 }: TableProps) {
   const [checkBox, setCheckBox] = useState(false);
   const navigate = useNavigate();
+  const [ID, setID] = useState<number|null>(null);
+
+  useEffect(() => {
+    if (ID !== null) {
+      console.log(ID);
+      addFornitore();
+    }
+  }, [ID]);
+
+  const addFornitore = async () => {
+    setFlag(true);
+  };
+
+  useEffect(() => {
+    const DeleteData = async (ID : number) => {
+      if (informations.some((info) => "iban" in info)) {
+        await axios.delete(`http://localhost:8000/radioapp/deleteFornitore/${ID}`);
+      } else {
+        await axios.delete(`http://localhost:8000/radioapp/deleteAcquisto/${ID}`);
+      }
+      console.log(ID)
+      const newInfo = informations.filter((info) => info.id !== ID) as
+        | Fornitori[]
+        | Clienti[]
+        | Vendite[]
+        | Acquisti[];
+      setInformations(newInfo);
+      toast.success("Fornitore eliminato con successo", {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        transition: Bounce,
+      });
+    };
+    if (confirmation) {
+      DeleteData(ID);
+    }
+  }, [confirmation]);
+
   const deleteFornitore = async (id: number) => {
     try {
       await axios.delete(
         `http://localhost:8000/radioapp/deleteFornitore/${id}`
       );
-      alert("Fornitore eliminato con successo");
       const newInfo = informations.filter((info) => info.id !== id) as
         | Fornitori[]
         | Clienti[]
@@ -32,7 +77,6 @@ export default function Table({
   const deleteAcquisto = async (id: number) => {
     try {
       await axios.delete(`http://localhost:8000/radioapp/deleteAcquisto/${id}`);
-      alert("Acquisto eliminato con successo");
       setInformations(
         informations.filter((info) => info.id !== id) as
           | Fornitori[]
@@ -45,7 +89,7 @@ export default function Table({
     }
   };
 
-  const flag = informations.some(
+  const flag1 = informations.some(
     (info) => "iban" in info || "codice_fornitore" in info
   );
 
@@ -58,7 +102,7 @@ export default function Table({
               {capitalize(field)}
             </th>
           ))}
-          {flag && <th>Interagisci</th>}
+          {flag1 && <th>Interagisci</th>}
         </tr>
       </thead>
       <tbody className="border-spacing-y-1 border xl:text-xs">
@@ -73,7 +117,7 @@ export default function Table({
                   {info instanceof Date ? info.toLocaleString() : info}
                 </td>
               ))}
-            {flag && (
+            {flag1 && (
               <td
                 className="flex flex-row gap-1 justify-center items-center pt-2 mx-2"
                 key={""}
@@ -96,11 +140,7 @@ export default function Table({
                 </button>
                 <button
                   onClick={() => {
-                    if ("id" in information && "iban") {
-                      deleteFornitore(information.id);
-                    } else {
-                      deleteAcquisto(information.id);
-                    }
+                      setID(information.id)
                   }}
                 >
                   <img src="./DeleteIcon.svg" alt="delete" className="h-8 p-1" />

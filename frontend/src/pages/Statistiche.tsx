@@ -13,7 +13,7 @@ export default function Statistiche() {
   const [Grafico1, setGrafico1] = useState<CustomCharts>();
   const [Grafico2, setGrafico2] = useState<CustomCharts>();
   const [Grafico3, setGrafico3] = useState<CustomCharts>();
-
+  
   const filters = [
     {
       title: "Top 10 dei Prodotti",

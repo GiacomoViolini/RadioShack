@@ -3,7 +3,6 @@ import { ConfirmationToastProps } from "../../interfaceHelper";
 export default function ConfirmationToast({
   setFlag,
   setConfirmation,
-  setCounter,
   toastTitle,
   subtitle,
 }: ConfirmationToastProps) {
@@ -13,7 +12,6 @@ export default function ConfirmationToast({
   }
   function annullamentAggiunta() {
     setFlag(false);
-    setCounter(1);
   }
   return (
     <div className=" z-30 h-[100vh] flex justify-center w-full -ml-6 bg-black fixed top-0 bg-opacity-90 backdrop-blur-sm">

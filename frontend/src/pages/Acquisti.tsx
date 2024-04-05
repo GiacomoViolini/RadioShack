@@ -48,6 +48,8 @@ export default function AcquistiComponent() {
     "codice fornitore",
   ];
   const [listaAcquisti, setListaAcquisti] = useState<Acquisti[]>([]);
+  const [flag, setFlag] = useState(false);
+  const [confirmation, setConfirmation] = useState(false);
 
   useEffect(() => {
     const getAcquisti = async () => {
@@ -93,6 +95,8 @@ export default function AcquistiComponent() {
                 >
               >
             }
+            setFlag={setFlag}
+            confirmation={confirmation}
           />
         </div>
       </div>

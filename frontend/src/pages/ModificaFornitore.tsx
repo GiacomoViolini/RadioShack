@@ -26,7 +26,6 @@ export default function ModificaFornitore() {
   const params = useParams();
   const [flag, setFlag] = useState(false);
   const [confirmation, setConfirmation] = useState(false);
-  const [counter, setCounter] = useState<number>(0);
 
   useEffect(() => {
     async function fetchData() {
@@ -43,30 +42,6 @@ export default function ModificaFornitore() {
     e.preventDefault();
     setFlag(true);
   };
-
-  useEffect(() => {
-    function ShowCancelToast() {
-      if (flag == false && confirmation == false && counter == 1) {
-        toast.error("Annulamento modifica fornitore", {
-          position: "top-center",
-          autoClose: 2000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-          transition: Bounce,
-        });
-        setCounter(0);
-        setTimeout(() => {
-          navigate(-1);
-        }, 2000);
-      }
-    }
-    ShowCancelToast()
-    console.log(counter)
-  }, [counter]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -102,7 +77,6 @@ export default function ModificaFornitore() {
         <ConfirmationToast
           setFlag={setFlag}
           setConfirmation={setConfirmation}
-          setCounter={setCounter}
           toastTitle={"Conferma Modifica"}
           subtitle={"Sei sicuro di voler procedere?"}
         />
