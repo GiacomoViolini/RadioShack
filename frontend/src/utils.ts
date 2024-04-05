@@ -69,6 +69,11 @@ const Colors: {
       ["rgba(254, 243, 199, 1)", "rgba(249, 168, 37, 1)"],
       ["rgba(255, 251, 235, 1)", "rgba(253, 230, 138, 1)"]
   ],
+  "Statistiche": [
+      ["rgba(219, 234, 254, 1)", "rgba(96, 165, 250, 1)"],  
+      ["rgba(219, 234, 254, 1)", "rgba(96, 165, 250, 1)"],
+      ["rgba(219, 234, 254, 1)", "rgba(96, 165, 250, 1)"],
+  ],
 };
 
 function AssignColor(Coppie:[string, number][], Category:string):[string[],string[]] {

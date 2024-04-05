@@ -165,3 +165,23 @@ export interface CustomChartsProps {
   chartRef: React.RefObject<Chart>;
   Category: string
 }
+
+export interface CustomCharts {
+  XPairs: [string, number][];
+  YScale: [number, number];
+  Label: string;
+  Category: string
+}
+
+export interface FilterItems {
+  title: string;
+  options: string[];
+}
+
+export interface FilterPropsStatistiche {
+  title: string;
+  options: string[];
+  setProdottiOption: React.Dispatch<React.SetStateAction<string>>
+  setFornitoriOption: React.Dispatch<React.SetStateAction<string>>
+  setClientiOption: React.Dispatch<React.SetStateAction<string>>
+}

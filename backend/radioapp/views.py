@@ -3,6 +3,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .models import Prodotto, Acquisto, Fornitore, Cliente, Vendita
 from .utils import convertiCapacità
+from django.db.models import Count, F
 
 
 @api_view(['GET'])
@@ -296,3 +297,52 @@ def modifyAcquisto(request, id):
     a.nome, a.quantita, a.prezzo, a.fornitore = data.get('nome', a.nome), data.get('quantita', a.quantita), data.get('prezzo', a.prezzo), data.get('fornitore', a.fornitore)
     a.save()
     return Response({'id': a.id, 'nome': a.nome, 'quantita': a.quantita, 'prezzo': a.prezzo, 'fornitore': a.fornitore.id})
+
+@api_view(['GET'])
+def getPiuVenduti(request):
+    p = (Prodotto.objects
+            .values('nome')
+            .annotate(sold_units=Count('codice_vendita'))
+            .order_by('-sold_units')[:10])
+    xpairs = [[product['nome'], product['sold_units']] for product in p]
+    max_sold_units = max(product['sold_units'] for product in p)
+    result = {
+        'XPairs': xpairs,
+        'YScale': [0, max_sold_units],
+        'Label': "Prodotti più venduti",
+        'Category': "Prodotti"
+    }
+    return Response(result)
+
+@api_view(['GET'])
+def getMenoVenduti(request):
+    p = (Prodotto.objects
+            .values('nome')
+            .annotate(sold_units=Count('codice_vendita'))
+            .order_by('sold_units')[:10])
+    xpairs = [[product['nome'], product['sold_units']] for product in p]
+    max_sold_units = max(product['sold_units'] for product in p)
+    result = {
+        'XPairs': xpairs,
+        'YScale': [0, max_sold_units],
+        'Label': "Prodotti meno venduti",
+        'Category': "Prodotti"
+    }
+    return Response(result)
+
+@api_view(['GET'])
+def getPiuRemunerativi(request):
+    profitable_products = (Prodotto.objects
+                           .values('nome')
+                           .annotate(profit=F('prezzo_di_vendita') - F('prezzo_di_acquisto'),
+                                     sold_units=Count('codice_vendita'))
+                           .order_by('-profit')[:10])
+    xpairs = [[product['nome'], product['profit'] * product['sold_units']] for product in profitable_products]
+    max_profit = max(product['profit'] * product['sold_units'] for product in profitable_products)
+    result = {
+        'XPairs': xpairs,
+        'YScale': [0, max_profit],
+        'Label': "Prodotti più remunerativi",
+        'Category': "Prodotti"
+    }
+    return Response(result)

@@ -50,27 +50,36 @@ export default function CustomChart({
       },
       options: {
         scales: {
+          x: {
+            ticks: {
+              color: "white",
+            },
+            grid: {
+              color: "white",
+            },
+          },
           y: {
             beginAtZero: true,
             min: YScale[0],
             max: YScale[1],
             ticks: {
-              color: "rgba(255, 255, 255, 1)",
-               // changes the color of the axis labels
+              color: "#FFFFFF",
+            },
+            grid: {
+              color: "white",
             },
           },
         },
         plugins: {
           legend: {
             labels: {
-              color: "rgba(255, 255, 255, 1)",
-               // changes the color of the legend labels
+              color: "white",
             },
           },
         },
         elements: {
           point: {
-            backgroundColor: "rgba(255, 255, 255, 1)", // changes the color of the data points
+            backgroundColor: "#FFFFFF",
           },
         },
         maintainAspectRatio: false,
@@ -79,7 +88,7 @@ export default function CustomChart({
   }, [XPairs, Category, BackColor, BorColor]);
 
   return (
-    <div className="container w-full h-80 bg-none rounded-md">
+    <div className="container w-full h-80 2xl:h-5/6 bg-none rounded-md">
       <canvas id={Label}></canvas>
     </div>
   );

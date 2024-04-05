@@ -5,11 +5,7 @@ import InstertElementButtonFornitore from "../components/InsertElementButton/Ins
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { Vendite, Acquisti, Fornitori, Clienti } from "../interfaceHelper";
-
-interface FilterItems {
-  title: string;
-  options: string[];
-}
+import { FilterItems } from "../interfaceHelper";
 
 export default function FornitoriComponent() {
   const filters = [

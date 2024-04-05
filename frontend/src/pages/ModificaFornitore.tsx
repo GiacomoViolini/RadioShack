@@ -55,7 +55,7 @@ export default function ModificaFornitore() {
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-          theme: "light",
+          theme: "dark",
           transition: Bounce,
         });
         setCounter(0);
@@ -83,7 +83,7 @@ export default function ModificaFornitore() {
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
-      theme: "light",
+      theme: "dark",
       transition: Bounce,
     });
     setTimeout(() => {
