@@ -33,4 +33,5 @@ urlpatterns = [
     path('getClientiPiuAcquisti/', views.getClientiPiuAcquisti, name='getClientiPiuAcquisti'),
     path("insertAcquisto/", views.insertAcquisto, name="insertAcquisto"),
     path("insertProdotto/", views.insertProdotto, name="insertProdotto"),
+    path("filterAcquisti/", views.filterAcquisti, name="filterAcquisti"),
 ]

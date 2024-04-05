@@ -429,3 +429,29 @@ def getClientiPiuAcquisti(request):
         'Category': "Clienti"
     }
     return Response(result)
+
+@api_view(['POST'])
+def filterAcquisti(request):
+    acquisti = Acquisto.objects.all()
+    for filter_data in request.data['checkedOptions']:
+        if filter_data['title'] == 'Quantità Articoli Acquistati':
+            for fil in filter_data['options']:
+                if fil == "< 10":
+                    acquisti = list(
+                        filter(lambda a: a.quantità_articoli_acquistati < 10, acquisti))
+                elif fil == "10 - 50":
+                    acquisti = list(
+                        filter(lambda a: 10 <= a.quantità_articoli_acquistati <= 50, acquisti))
+                elif fil == "> 50":
+                    acquisti = list(filter(lambda a: a.quantità_articoli_acquistati > 50, acquisti))
+        elif filter_data['title'] == 'Costo':
+            for fil in filter_data['options']:
+                if fil == "< 1000":
+                    acquisti = list(
+                        filter(lambda a: a.costo < 1000, acquisti))
+                elif fil == "1000 - 5000":
+                    acquisti = list(
+                        filter(lambda a: 1000 <= a.costo <= 5000, acquisti))
+                elif fil == "> 5000":
+                    acquisti = list(filter(lambda a: a.costo > 5000, acquisti))
+    return Response([{'id': a.id, 'costo': a.costo, 'quantità_articoli_acquistati': a.quantità_articoli_acquistati, 'data_acquisto': a.data_acquisto, 'codice_fornitore': a.codice_fornitore.id} for a in acquisti])
