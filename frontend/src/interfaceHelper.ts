@@ -1,3 +1,5 @@
+import { Chart } from "chart.js";
+
 export interface Fornitori {
   id: number;
   nome: string;
@@ -155,4 +157,32 @@ export interface ConfirmationToastProps{
   setCounter: React.Dispatch<React.SetStateAction<number>>, //settare a uno se l'utente schiaccia su cancel così da poter renderizzare l'animazione di annullamento
   toastTitle: string,
   subtitle: string
+}
+
+export interface CustomChartsProps {
+  XPairs: [string, number][];//the string value is the one dysplayed in the x-axis and the number value linked to that field that will be showed
+  YScale: [number, number];
+  Label: string;
+  chartRef: React.RefObject<Chart>;
+  Category: string
+}
+
+export interface CustomCharts {
+  XPairs: [string, number][];
+  YScale: [number, number];
+  Label: string;
+  Category: string
+}
+
+export interface FilterItems {
+  title: string;
+  options: string[];
+}
+
+export interface FilterPropsStatistiche {
+  title: string;
+  options: string[];
+  setProdottiOption: React.Dispatch<React.SetStateAction<string>>
+  setFornitoriOption: React.Dispatch<React.SetStateAction<string>>
+  setClientiOption: React.Dispatch<React.SetStateAction<string>>
 }

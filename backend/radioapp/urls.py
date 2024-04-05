@@ -24,6 +24,13 @@ urlpatterns = [
     path('modifyfornitore/<int:id>/', views.modifyFornitore, name='modifyFornitore'),
     path('getacquisto/<int:id>/', views.getAcquisto, name='getAcquisto'),
     path('modifyacquisto/<int:id>/', views.modifyAcquisto, name='modifyAcquisto'),
+    path('getPiuVenduti/', views.getPiuVenduti, name='getPiuVenduti'),
+    path('getMenoVenduti/', views.getMenoVenduti, name='getMenoVenduti'),
+    path('getPiuRemunerativi/', views.getPiuRemunerativi, name='getPiuRemunerativi'),
+    path('getFornitoriPiuRemunerativi/', views.getFornitoriPiuRemunerativi, name='getFornitoriPiuRemunerativi'),
+    path('getFornitoriPiuOrdinati/', views.getFornitoriPiuOrdinati, name='getFornitoriPiuOrdinati'),
+    path('getClientiPiuRemunerativi/', views.getClientiPiuRemunerativi, name='getClientiPiuRemunerativi'),
+    path('getClientiPiuAcquisti/', views.getClientiPiuAcquisti, name='getClientiPiuAcquisti'),
     path("insertAcquisto/", views.insertAcquisto, name="insertAcquisto"),
     path("insertProdotto/", views.insertProdotto, name="insertProdotto"),
 ]

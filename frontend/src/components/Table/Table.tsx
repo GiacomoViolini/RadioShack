@@ -3,12 +3,14 @@ import { capitalize } from "../../utils";
 import { Fornitori, Acquisti, Clienti, Vendite } from "../../interfaceHelper";
 import { TableProps } from "../../interfaceHelper";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 export default function Table({
   fields,
   informations,
   setInformations,
 }: TableProps) {
+  const [checkBox, setCheckBox] = useState(false);
   const navigate = useNavigate();
   const deleteFornitore = async (id: number) => {
     try {
@@ -73,9 +75,14 @@ export default function Table({
               ))}
             {flag && (
               <td
-                className="flex flex-row gap-1 justify-center items-center pt-4 mx-2"
+                className="flex flex-row gap-1 justify-center items-center pt-2 mx-2"
                 key={""}
               >
+                {checkBox ? 
+                  <button>
+                    <img src="./InNegozioIcon.svg" alt="modify" className=" h-8 p-1"></img>
+                  </button>
+                 : null}
                 <button
                   onClick={() => {
                     if ("id" in information && "iban") {
@@ -85,7 +92,7 @@ export default function Table({
                     }
                   }}
                 >
-                  <img src="./ModifyIcon.svg" alt="modify"></img>
+                  <img src="./ModifyIcon.svg" className="h-8 p-1" alt="modify"></img>
                 </button>
                 <button
                   onClick={() => {
@@ -96,7 +103,7 @@ export default function Table({
                     }
                   }}
                 >
-                  <img src="./DeleteIcon.svg" alt="delete" className="ml-1" />
+                  <img src="./DeleteIcon.svg" alt="delete" className="h-8 p-1" />
                 </button>
               </td>
             )}
