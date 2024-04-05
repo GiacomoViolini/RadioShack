@@ -1,9 +1,7 @@
 import axios from "axios";
 import { capitalize } from "../../utils";
-import { useState } from "react";
 import { Fornitori, Acquisti, Clienti, Vendite } from "../../interfaceHelper";
 import { TableProps } from "../../interfaceHelper";
-import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function Table({
@@ -11,7 +9,6 @@ export default function Table({
   informations,
   setInformations,
 }: TableProps) {
-  const [flag, setFlag] = useState(false);
   const navigate = useNavigate();
   const deleteFornitore = async (id: number) => {
     try {
@@ -46,12 +43,9 @@ export default function Table({
     }
   };
 
-  useEffect(() => {
-    setFlag(
-      informations.some((info) => "iban" in info || "codice_fornitore" in info)
-    );
-    console.log(flag);
-  }, [informations]);
+  const flag = informations.some(
+    (info) => "iban" in info || "codice_fornitore" in info
+  );
 
   return (
     <table className="shadow-sm table-fixed shadow-slate-300 border text-center border-slate-300 w-full rounded-md overflow-hidden">
@@ -62,7 +56,7 @@ export default function Table({
               {capitalize(field)}
             </th>
           ))}
-          {flag ? <th>Interagisci</th> : null}
+          {flag && <th>Interagisci</th>}
         </tr>
       </thead>
       <tbody className="border-spacing-y-1 border xl:text-xs">
@@ -77,7 +71,7 @@ export default function Table({
                   {info instanceof Date ? info.toLocaleString() : info}
                 </td>
               ))}
-            {flag ? (
+            {flag && (
               <td
                 className="flex flex-row gap-1 justify-center items-center pt-4 mx-2"
                 key={""}
@@ -105,7 +99,7 @@ export default function Table({
                   <img src="./DeleteIcon.svg" alt="delete" className="ml-1" />
                 </button>
               </td>
-            ) : null}
+            )}
           </tr>
         ))}
       </tbody>

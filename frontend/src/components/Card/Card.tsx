@@ -54,7 +54,7 @@ export default function Card({
     >
       <img
         src={image}
-        className="object-contain col-span-1 w-full h-full bg-gray-300 rounded-l-sm"
+        className="col-span-1 w-full h-full bg-gray-300 rounded-l-sm p-2"
       />
       <div className="col-span-3 flex flex-col px-4 gap-4">
         <h2 className="border-2 rounded-lg text-center mt-2">
