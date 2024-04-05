@@ -3,7 +3,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .models import Prodotto, Acquisto, Fornitore, Cliente, Vendita
 from .utils import convertiCapacità
-from django.db.models import Count, F
+from django.db.models import Count, F, Sum
 
 
 @api_view(['GET'])
@@ -301,6 +301,22 @@ def modifyAcquisto(request, id):
     a.save()
     return Response({'id': a.id, 'nome': a.nome, 'quantita': a.quantita, 'prezzo': a.prezzo, 'fornitore': a.fornitore.id})
 
+@api_view(["POST"])
+def insertAcquisto(request):
+    data = request.data['acquisto']
+    a = Acquisto(costo=data['costo'], quantità_articoli_acquistati=data[
+                 'quantità_articoli_acquistati'], codice_fornitore=Fornitore.objects.get(id=data['codice_fornitore']))
+    a.save()
+    return Response({"id" : a.id})
+
+@api_view(["POST"])
+def insertProdotto(request):
+    data = request.data['prodotto']
+    p = Prodotto(nome=data['nome'], colore=data['colore'], capacità=data['capacità'], anno_di_uscita=data['anno_di_uscita'], condizione=data['condizione'],
+                 fotocamera=data['fotocamera'], dimensioni_schermo=data['dimensioni_schermo'], prezzo_di_acquisto=data['prezzo_di_acquisto'], prezzo_consigliato=data['prezzo_consigliato'], codice_acquisto=Acquisto.objects.get(id=data['codice_acquisto']))
+    p.save()
+    return Response({"id" : p.id})
+
 @api_view(['GET'])
 def getPiuVenduti(request):
     p = (Prodotto.objects
@@ -349,18 +365,67 @@ def getPiuRemunerativi(request):
         'Category': "Prodotti"
     }
     return Response(result)
-@api_view(["POST"])
-def insertAcquisto(request):
-    data = request.data['acquisto']
-    a = Acquisto(costo=data['costo'], quantità_articoli_acquistati=data[
-                 'quantità_articoli_acquistati'], codice_fornitore=Fornitore.objects.get(id=data['codice_fornitore']))
-    a.save()
-    return Response({"id" : a.id})
 
-@api_view(["POST"])
-def insertProdotto(request):
-    data = request.data['prodotto']
-    p = Prodotto(nome=data['nome'], colore=data['colore'], capacità=data['capacità'], anno_di_uscita=data['anno_di_uscita'], condizione=data['condizione'],
-                 fotocamera=data['fotocamera'], dimensioni_schermo=data['dimensioni_schermo'], prezzo_di_acquisto=data['prezzo_di_acquisto'], prezzo_consigliato=data['prezzo_consigliato'], codice_acquisto=Acquisto.objects.get(id=data['codice_acquisto']))
-    p.save()
-    return Response({"id" : p.id})
+@api_view(['GET'])
+def getFornitoriPiuRemunerativi(request):
+    profitable_suppliers = (Prodotto.objects
+                            .values('fornitore__nome')
+                            .annotate(profit=Sum(F('prezzo_di_vendita') - F('prezzo_di_acquisto')))
+                            .order_by('-profit')[:10])
+    xpairs = [[supplier['fornitore__nome'], supplier['profit']] for supplier in profitable_suppliers]
+    max_profit = max(supplier['profit'] for supplier in profitable_suppliers)
+    result = {
+        'XPairs': xpairs,
+        'YScale': [0, max_profit],
+        'Label': "Fornitori più remunerativi",
+        'Category': "Fornitori"
+    }
+    return Response(result)
+
+@api_view(['GET'])
+def getFornitoriPiuOrdinati(request):
+    ordered_suppliers = (Acquisto.objects
+                         .values('fornitore__nome')
+                         .annotate(orders=Count('fornitore'))
+                         .order_by('-orders')[:10])
+    xpairs = [[supplier['fornitore__nome'], supplier['orders']] for supplier in ordered_suppliers]
+    max_orders = max(supplier['orders'] for supplier in ordered_suppliers)
+    result = {
+        'XPairs': xpairs,
+        'YScale': [0, max_orders],
+        'Label': "Fornitori più ordinati",
+        'Category': "Fornitori"
+    }
+    return Response(result)
+
+@api_view(['GET'])
+def getClientiPiuRemunerativi(request):
+    profitable_customers = (Vendita.objects
+                            .values('cliente__nome')
+                            .annotate(profit=Sum(F('prodotto__prezzo_di_vendita') - F('prodotto__prezzo_di_acquisto')))
+                            .order_by('-profit')[:10])
+    xpairs = [[customer['cliente__nome'], customer['profit']] for customer in profitable_customers]
+    max_profit = max(customer['profit'] for customer in profitable_customers)
+    result = {
+        'XPairs': xpairs,
+        'YScale': [0, max_profit],
+        'Label': "Clienti più remunerativi",
+        'Category': "Clienti"
+    }
+    return Response(result)
+
+@api_view(['GET'])
+def getClientiPiuAcquisti(request):
+    frequent_customers = (Vendita.objects
+                          .values('cliente__nome')
+                          .annotate(purchases=Count('cliente'))
+                          .order_by('-purchases')[:10])
+    xpairs = [[customer['cliente__nome'], customer['purchases']] for customer in frequent_customers]
+    max_purchases = max(customer['purchases'] for customer in frequent_customers)
+    result = {
+        'XPairs': xpairs,
+        'YScale': [0, max_purchases],
+        'Label': "Clienti che acquistano di più",
+        'Category': "Clienti"
+    }
+    return Response(result)

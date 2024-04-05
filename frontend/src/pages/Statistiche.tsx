@@ -5,7 +5,6 @@ import { Chart } from "chart.js";
 import { CustomCharts } from "../interfaceHelper";
 import CustomLineChart from "../components/CustomChart/CustomLineChart";
 import StatisticheFilter from "../components/Filter/StatisticheFilter";
-import { CustomChartsProps } from "../interfaceHelper";
 import CustomChart from "../components/CustomChart/CustomChart";
 
 export default function Statistiche() {
@@ -126,13 +125,13 @@ export default function Statistiche() {
   }),[FornitoriOption];
 
   useEffect(() => {
-    switch (FornitoriOption) {
+    switch (ClientiOption) {
       case "Più remunerativi":
         {
-            const getAcquistiPiuRemunerativi = async () => {
+            const getClientiPiuRemunerativi = async () => {
                 try {
                   const res = await axios.get(
-                    "http://localhost:8000/radioapp/getAcquistiPiuRemunerativi"
+                    "http://localhost:8000/radioapp/getClientiPiuRemunerativi"
                   );
                   setGrafico3(res.data);
                   console.log(res.data);
@@ -140,15 +139,15 @@ export default function Statistiche() {
                   console.error("Failed to fetch fornitori:", error);
                 }
               };
-              getAcquistiPiuRemunerativi
+              getClientiPiuRemunerativi
         }
         break;
       case "Da cui effettuiamo più acquisti":
         {
-            const getPiuAcquisti = async () => {
+            const getClientiPiuAcquisti = async () => {
                 try {
                   const res = await axios.get(
-                    "http://localhost:8000/radioapp/getPiuAcquisti"
+                    "http://localhost:8000/radioapp/getClientiPiuAcquisti"
                   );
                   setGrafico3(res.data);
                   console.log(res.data);
@@ -156,45 +155,45 @@ export default function Statistiche() {
                   console.error("Failed to fetch fornitori:", error);
                 }
               };
-              getPiuAcquisti
+              getClientiPiuAcquisti
         }
         break;
     }
   }),[ClientiOption];
 
-// const XPairs1 = [
-//   ["Product A", 10],
-//   ["Product B", 20],
-//   ["Product C", 30],
-//   ["Product A", 10],
-//   ["Product B", 20],
-//   ["Product C", 30],
-//   ["Product A", 10],
-//   ["Product B", 20],
-//   ["Product C", 30],
-// ];
-// const XPairs2 = [
-//   ["Supplier X", 40],
-//   ["Supplier Y", 50],
-//   ["Supplier Z", 60],
-//   ["Supplier X", 40],
-//   ["Supplier Y", 50],
-//   ["Supplier Z", 60],
-//   ["Supplier X", 40],
-//   ["Supplier Y", 50],
-//   ["Supplier Z", 60],
-// ];
-// const XPairs3 = [
-//   ["Customer 1", 70],
-//   ["Customer 2", 80],
-//   ["Customer 3", 90],
-//   ["Customer 1", 70],
-//   ["Customer 2", 80],
-//   ["Customer 3", 90],
-//   ["Customer 1", 70],
-//   ["Customer 2", 80],
-//   ["Customer 3", 90],
-// ];
+   const XPairs1 = [
+     ["Product A", 10],
+     ["Product B", 20],
+     ["Product C", 30],
+     ["Product A", 10],
+     ["Product B", 20],
+     ["Product C", 30],
+     ["Product A", 10],
+     ["Product B", 20],
+     ["Product C", 30],
+   ];
+   const XPairs2 = [
+     ["Supplier X", 40],
+     ["Supplier Y", 50],
+     ["Supplier Z", 60],
+     ["Supplier X", 40],
+     ["Supplier Y", 50],
+     ["Supplier Z", 60],
+     ["Supplier X", 40],
+     ["Supplier Y", 50],
+     ["Supplier Z", 60],
+   ];
+   const XPairs3 = [
+     ["Customer 1", 70],
+     ["Customer 2", 80],
+     ["Customer 3", 90],
+     ["Customer 1", 70],
+     ["Customer 2", 80],
+     ["Customer 3", 90],
+     ["Customer 1", 70],
+     ["Customer 2", 80],
+     ["Customer 3", 90],
+   ];
 const XPairs4 = [
     ["12/07/2023", 70],
     ["13/07/2023", 30],
@@ -208,13 +207,13 @@ const XPairs4 = [
 ];
 
    const YScale: [number, number] = [0, 100];
-// const Category = "Fornitori";
-// const Category1 = "Prodotti";
-// const Category2 = "Clienti";
+   const Category = "Fornitori";
+   const Category1 = "Prodotti";
+   const Category2 = "Clienti";
    const Category3 = "Statistiche";
-// const Label = "Sample Data";
-// const Label1 = "Sample Data1";
-// const Label2 = "Sample Data2";
+   const Label = "Sample Data";
+   const Label1 = "Sample Data1";
+   const Label2 = "Sample Data2";
    const Label3 = "Sample Data3";
 
   return (
@@ -246,31 +245,31 @@ const XPairs4 = [
         <div className="bg-none rounded-xl flex flex-col justify-top items-center py-2 border-2 px-2 border-slate-100 mx-4 my-4">
             <h1 className=" text-3xl font-bold">Prodotti</h1>
             <CustomChart
-                XPairs={Grafico1?.XPairs as [string, number][]}
-                YScale={Grafico1?.YScale ?? [0, 100]}
-                Label={Grafico1?.Label ?? "Sample Data"}
+                XPairs={XPairs1 as [string, number][]}
+                YScale={YScale ?? [0, 100]}
+                Label={Label ?? "Sample Data"}
                 chartRef={chartRef1}
-                Category={Grafico1?.Category ?? "Prodotti"}
+                Category={Category1 ?? "Prodotti"}
             />
         </div>
         <div className="bg-none rounded-xl flex flex-col justify-top items-center py-2 border-2 px-2 border-slate-100 mx-4 my-4">
             <h1 className=" text-3xl font-bold">Fornitori</h1>
             <CustomChart
-                XPairs={Grafico2?.XPairs as [string, number][]}
-                YScale={Grafico2?.YScale ?? [0, 100]}
-                Label={Grafico2?.Label ?? "Sample Data"}
+                XPairs={XPairs2 as [string, number][]}
+                YScale={YScale ?? [0, 100]}
+                Label={Label1 ?? "Sample Data"}
                 chartRef={chartRef2}
-                Category={Grafico2?.Category ?? "Fornitori"}
+                Category={Category ?? "Fornitori"}
             />
         </div>
           <div className="bg-none rounded-xl flex flex-col justify-top items-center py-2 border-2 px-2 border-slate-100 mx-4 my-4">
             <h1 className=" text-3xl font-bold">Clienti</h1>
             <CustomChart
-              XPairs={Grafico3?.XPairs as [string, number][]}
-              YScale={Grafico3?.YScale ?? [0, 100]}
-              Label={Grafico3?.Label ?? "Sample Data"}
+              XPairs={XPairs3 as [string, number][]}
+              YScale={YScale ?? [0, 100]}
+              Label={Label2 ?? "Sample Data"}
               chartRef={chartRef3}
-              Category={Grafico3?.Category ?? "Fornitori"}
+              Category={Category2 ?? "Fornitori"}
             />
           </div>
           <div className="bg-none rounded-xl flex flex-col justify-top border-2 border-slate-100 px-2 items-center py-2 mx-4 my-4">
