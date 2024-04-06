@@ -78,11 +78,15 @@ export default function Table({
                 className="flex flex-row gap-1 justify-center items-center pt-2 mx-2"
                 key={""}
               >
-                {checkBox ? 
+                {checkBox && (
                   <button>
-                    <img src="./InNegozioIcon.svg" alt="modify" className=" h-8 p-1"></img>
+                    <img
+                      src="./InNegozioIcon.svg"
+                      alt="modify"
+                      className=" h-8 p-1"
+                    ></img>
                   </button>
-                 : null}
+                )}
                 <button
                   onClick={() => {
                     if ("id" in information && "iban") {
@@ -92,7 +96,11 @@ export default function Table({
                     }
                   }}
                 >
-                  <img src="./ModifyIcon.svg" className="h-8 p-1" alt="modify"></img>
+                  <img
+                    src="./ModifyIcon.svg"
+                    className="h-8 p-1"
+                    alt="modify"
+                  ></img>
                 </button>
                 <button
                   onClick={() => {
@@ -103,7 +111,11 @@ export default function Table({
                     }
                   }}
                 >
-                  <img src="./DeleteIcon.svg" alt="delete" className="h-8 p-1" />
+                  <img
+                    src="./DeleteIcon.svg"
+                    alt="delete"
+                    className="h-8 p-1"
+                  />
                 </button>
               </td>
             )}
