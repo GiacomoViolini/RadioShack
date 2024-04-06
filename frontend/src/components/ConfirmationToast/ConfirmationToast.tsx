@@ -15,7 +15,7 @@ export default function ConfirmationToast({
   }
 
   return (
-    <div className="z-30 h-screen flex justify-center items-center w-full fixed top-0 bg-opacity-90 backdrop-blur">
+    <div className="z-30 h-screen flex justify-center items-center w-full fixed top-0 left-0 bg-opacity-90 bg-black backdrop-blur">
       <div
         className={`bg-zinc-800 rounded-lg z-40 flex`}
       >
