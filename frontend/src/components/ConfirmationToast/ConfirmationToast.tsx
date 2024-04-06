@@ -4,7 +4,7 @@ export default function ConfirmationToast({
   setFlag,
   toastTitle,
   subtitle,
-  fetchData
+  fetchData,
 }: ConfirmationToastProps) {
   function closeToast() {
     fetchData();
@@ -16,10 +16,12 @@ export default function ConfirmationToast({
 
   return (
     <div className=" z-30 h-[100vh] flex justify-center w-full -ml-6 bg-black fixed top-0 bg-opacity-90 backdrop-blur-sm">
-      <div className="bg-zinc-800 h-44 w-96 rounded-lg z-40 mt-60 flex-row flex">
+      <div className={`${
+            toastTitle.length >= 10 ? "w-[40vh]" : "w-96"
+          } bg-zinc-800 h-44 rounded-lg z-40 mt-60 flex-row flex`}>
         <div className="rounded-l-lg h-44 w-2 bg-slate-100 animate-pulse" />
         <div className="w-full px-8 py-4 flex flex-col">
-          <h1 className="text-2xl text-white font-bold w-full">{toastTitle}</h1>
+          <h1 className={`text-2xl text-white font-bold w-full`}>{toastTitle}</h1>
           <h2 className="text-lg mt-2 text-white w-full">{subtitle}</h2>
           <div className="w-full mt-6 flex flex-row items-center gap-4">
             <button

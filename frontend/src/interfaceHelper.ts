@@ -74,9 +74,9 @@ export interface ListElementProps {
 export interface TableProps {
   fields: string[];
   informations: Clienti[] | Vendite[] | Acquisti[] | Fornitori[];
-  setInformations: React.Dispatch<
-    React.SetStateAction<Clienti[] | Vendite[] | Acquisti[] | Fornitori[]>
-  >;
+  setId?: React.Dispatch<React.SetStateAction<number>>
+  setFlag?: React.Dispatch<React.SetStateAction<boolean>>
+  setFlag2?: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export interface FilterProps {

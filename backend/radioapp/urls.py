@@ -33,5 +33,6 @@ urlpatterns = [
     path("insertAcquisto/", views.insertAcquisto, name="insertAcquisto"),
     path("insertProdotto/", views.insertProdotto, name="insertProdotto"),
     path("filterAcquisti/", views.filterAcquisti, name="filterAcquisti"),
+    path('changeStatoAcquisto/<int:id>/', views.ChangeStatoAcquisto, name='ChangeStatoacquisto'),
     path("getFornitoriPiùOrdinati/", views.getFornitoriPiùOrdinati, name="getFornitoriPiùOrdinati"),
 ]

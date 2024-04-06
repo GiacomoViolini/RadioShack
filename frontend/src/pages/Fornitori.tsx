@@ -6,6 +6,8 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { Vendite, Acquisti, Fornitori, Clienti } from "../interfaceHelper";
 import { FilterItems } from "../interfaceHelper";
+import ConfirmationToast from "../components/ConfirmationToast/ConfirmationToast";
+import { toast, Bounce } from "react-toastify";
 
 export default function FornitoriComponent() {
   const filters = [
@@ -30,8 +32,10 @@ export default function FornitoriComponent() {
     "capitale_investito",
   ];
 
-  const [listafornitori, setListafornitori] = useState<Fornitori[]>([]);
+  const [listafornitori, setListafornitori] = useState<Fornitori[]| Clienti[] | Vendite[] | Acquisti[]>([]);
   const [checkedOptions, setCheckedOptions] = useState<FilterItems[]>([]);
+  const [flag, setFlag] = useState(false);
+  const [id, setId] = useState(0);
 
   useEffect(() => {
     const getFornitori = async () => {
@@ -59,9 +63,38 @@ export default function FornitoriComponent() {
     }
   }, [checkedOptions]);
 
+  const fetchData = async () => {
+    console.log(id)
+    if (id != 0) {
+      await axios.delete(`http://localhost:8000/radioapp/deleteFornitore/${id}`);
+      toast.success("Fornitore eliminato con successo", {
+        position: "top-center",
+        autoClose: 2000,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        transition: Bounce,
+      });
+      const newInfo = listafornitori.filter((info) => info.id !== id) as
+      | Fornitori[]
+      | Clienti[]
+      | Vendite[]
+      | Acquisti[];
+      setListafornitori(newInfo);
+    }
+  };
+
   return (
     <div className="flex flex-col">
       <Navbar />
+      {flag && (
+        <ConfirmationToast
+          setFlag={setFlag}
+          fetchData={fetchData}
+          toastTitle={"Conferma Inserimento"}
+          subtitle={"Sei sicuro di voler procedere?"}
+        />
+      )}
       <div className="flex flex-row align-top mt-20">
         <div className="w-2/12 flex flex-col justify-center gap-6 fixed">
           <div className="w-full flex justify-center px-4">
@@ -87,13 +120,8 @@ export default function FornitoriComponent() {
           <Table
             fields={fields}
             informations={listafornitori}
-            setInformations={
-              setListafornitori as React.Dispatch<
-                React.SetStateAction<
-                  Clienti[] | Vendite[] | Fornitori[] | Acquisti[]
-                >
-              >
-            }
+            setId={setId}
+            setFlag={setFlag}
           />
         </div>
       </div>

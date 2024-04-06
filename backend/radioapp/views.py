@@ -218,8 +218,14 @@ def getClienti(request):
 
 @api_view(['GET'])
 def getAcquisti(request):
-    return Response([{'id': a.id, 'costo': a.costo, 'quantità_articoli_acquistati': a.quantità_articoli_acquistati, 'data_acquisto': a.data_acquisto, 'codice_fornitore': a.codice_fornitore.id} for a in Acquisto.objects.all()])
-
+    return Response([{
+        'id': a.id,
+        'totale': a.costo,
+        'quantità_articoli_acquistati': a.quantità_articoli_acquistati, 
+        'data': a.data_acquisto,
+        'codice_fornitore': a.codice_fornitore.id if a.codice_fornitore else None,
+        'stato': a.stato
+    } for a in Acquisto.objects.all()])
 
 @api_view(['GET'])
 def getVendite(request):
@@ -309,6 +315,23 @@ def modifyAcquisto(request, id):
     a.save()
     return Response({'id': a.id, 'nome': a.nome, 'quantita': a.quantita, 'prezzo': a.prezzo, 'fornitore': a.fornitore.id})
 
+@api_view(['PUT'])
+def ChangeStatoAcquisto(request, id):
+    a = Acquisto.objects.get(id=id)
+    a.stato= "Consegnato"
+    a.save()
+    prodotti = Prodotto.objects.filter(codice_acquisto=a.id)
+    for p in prodotti:
+        p.stato = "In magazzino"
+        p.save()
+    return Response({
+        'id': a.id,
+        'totale': a.costo,
+        'quantità_articoli_acquistati': a.quantità_articoli_acquistati, 
+        'data': a.data_acquisto,
+        'codice_fornitore': a.codice_fornitore.id if a.codice_fornitore else None,
+        'stato': a.stato
+    })
 
 @api_view(["POST"])
 def insertAcquisto(request):
@@ -432,16 +455,20 @@ def getFornitoriPiùOrdinati(request):
 
 @api_view(['GET'])
 def getClientiPiuRemunerativi(request):
-    profitable_customers = (Vendita.objects
-                            .values('cliente__nome')
-                            .annotate(profit=Sum(F('prodotto__prezzo_di_vendita') - F('prodotto__prezzo_di_acquisto')))
-                            .order_by('-profit')[:10])
-    xpairs = [[customer['cliente__nome'], customer['profit']]
-              for customer in profitable_customers]
-    max_profit = max(customer['profit'] for customer in profitable_customers)
+    sales = Vendita.objects.values('codice_cliente', 'costo')
+    temp = {}
+    for sale in sales:
+        cliente = Cliente.objects.get(id=sale['codice_cliente'])
+        cliente_nome = cliente.nome
+        if cliente_nome not in temp:
+            temp[cliente_nome] = 0
+        temp[cliente_nome] += sale['costo']
+    xpairs = [[cliente, total] for cliente, total in temp.items()]
+    xpairs = sorted(xpairs, key=lambda x: x[1], reverse=True)[:10]
+    max_total = max(total for total in temp.values())
     result = {
         'XPairs': xpairs,
-        'YScale': [0, max_profit],
+        'YScale': [0, max_total],
         'Label': "Clienti più remunerativi",
         'Category': "Clienti"
     }

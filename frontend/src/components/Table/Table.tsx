@@ -1,51 +1,44 @@
-import axios from "axios";
 import { capitalize } from "../../utils";
-import { Fornitori, Acquisti, Clienti, Vendite } from "../../interfaceHelper";
 import { TableProps } from "../../interfaceHelper";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
 
 export default function Table({
   fields,
   informations,
-  setInformations,
+  setId,
+  setFlag,
+  setFlag2,
 }: TableProps) {
-  const [checkBox, setCheckBox] = useState(false);
   const navigate = useNavigate();
+
   const deleteFornitore = async (id: number) => {
-    try {
-      await axios.delete(
-        `http://localhost:8000/radioapp/deleteFornitore/${id}`
-      );
-      alert("Fornitore eliminato con successo");
-      const newInfo = informations.filter((info) => info.id !== id) as
-        | Fornitori[]
-        | Clienti[]
-        | Vendite[]
-        | Acquisti[];
-      setInformations(newInfo);
-    } catch (error) {
-      console.error("Failed to delete fornitore:", error);
-    }
+      if (setId) {
+        setId(id);
+      }
+      if (setFlag) {
+        setFlag(true);
+      }      
   };
 
   const deleteAcquisto = async (id: number) => {
-    try {
-      await axios.delete(`http://localhost:8000/radioapp/deleteAcquisto/${id}`);
-      alert("Acquisto eliminato con successo");
-      setInformations(
-        informations.filter((info) => info.id !== id) as
-          | Fornitori[]
-          | Clienti[]
-          | Vendite[]
-          | Acquisti[]
-      );
-    } catch (error) {
-      console.error("Failed to delete acquisto:", error);
+    if (setId) {
+      setId(id);
     }
+    if (setFlag) {
+      setFlag(true);
+    }      
   };
 
-  const flag = informations.some(
+  const ChangeStatoAcquisto = async (id: number) => {
+    if (setId) {
+      setId(id);
+    }
+    if (setFlag2) {
+      setFlag2(true);
+    } 
+  };
+
+  const flag1 = informations.some(
     (info) => "iban" in info || "codice_fornitore" in info
   );
 
@@ -58,7 +51,7 @@ export default function Table({
               {capitalize(field)}
             </th>
           ))}
-          {flag && <th>Interagisci</th>}
+          {flag1 && <th>Interagisci</th>}
         </tr>
       </thead>
       <tbody className="border-spacing-y-1 border xl:text-xs">
@@ -73,35 +66,27 @@ export default function Table({
                   {info instanceof Date ? info.toLocaleString() : info}
                 </td>
               ))}
-            {flag && (
+            {flag1 && (
               <td
                 className="flex flex-row gap-1 justify-center items-center pt-2 mx-2"
                 key={""}
               >
-                {checkBox && (
-                  <button>
-                    <img
-                      src="./InNegozioIcon.svg"
-                      alt="modify"
-                      className=" h-8 p-1"
-                    ></img>
-                  </button>
-                )}
+                {"stato" in information && information.stato=="Consegnato" ? 
+                  <div className=" ml-4 text-lg">
+                    ✅
+                  </div>
+                 : 
                 <button
                   onClick={() => {
-                    if ("id" in information && "iban") {
+                    if ("id" in information && "iban" in information) {
                       navigate(`/fornitori/modifica/${information.id}`);
                     } else {
-                      navigate(`/acquisti/modifica/${information.id}`);
+                      ChangeStatoAcquisto(information.id)
                     }
                   }}
                 >
-                  <img
-                    src="./ModifyIcon.svg"
-                    className="h-8 p-1"
-                    alt="modify"
-                  ></img>
-                </button>
+                  <img src={"iban" in information ? "./ModifyIcon.svg" : "./InNegozioIcon.svg" } className="h-8 p-1" alt="modify"></img>
+                </button>}
                 <button
                   onClick={() => {
                     if ("id" in information && "iban") {
