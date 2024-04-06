@@ -92,7 +92,7 @@ export default function SecondColumn({ fornitore, setFornitore }: SecondColumnPr
           name="telefono"
           id="telefono"
           className="w-full rounded py-1 px-2 border-2 border-zinc-800 placeholder:text-zinc-200"
-          placeholder="408-996-1010"
+          placeholder="4089961010"
           value={fornitore.telefono}
           onChange={handleOnChange}
           required
