@@ -455,16 +455,20 @@ def getFornitoriPiùOrdinati(request):
 
 @api_view(['GET'])
 def getClientiPiuRemunerativi(request):
-    profitable_customers = (Vendita.objects
-                            .values('cliente__nome')
-                            .annotate(profit=Sum(F('prodotto__prezzo_di_vendita') - F('prodotto__prezzo_di_acquisto')))
-                            .order_by('-profit')[:10])
-    xpairs = [[customer['cliente__nome'], customer['profit']]
-              for customer in profitable_customers]
-    max_profit = max(customer['profit'] for customer in profitable_customers)
+    sales = Vendita.objects.values('codice_cliente', 'costo')
+    temp = {}
+    for sale in sales:
+        cliente = Cliente.objects.get(id=sale['codice_cliente'])
+        cliente_nome = cliente.nome
+        if cliente_nome not in temp:
+            temp[cliente_nome] = 0
+        temp[cliente_nome] += sale['costo']
+    xpairs = [[cliente, total] for cliente, total in temp.items()]
+    xpairs = sorted(xpairs, key=lambda x: x[1], reverse=True)[:10]
+    max_total = max(total for total in temp.values())
     result = {
         'XPairs': xpairs,
-        'YScale': [0, max_profit],
+        'YScale': [0, max_total],
         'Label': "Clienti più remunerativi",
         'Category': "Clienti"
     }
