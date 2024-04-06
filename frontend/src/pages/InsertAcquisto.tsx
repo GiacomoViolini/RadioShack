@@ -160,12 +160,12 @@ export default function InsertAcquisto({
           </button>
         </div>
         <div className="flex flex-col gap-10 ml-[25%] w-9/12 p-4">
+          <ContainerProdotto data={data} handleDelete={handleDelete} />
           <ContainerFornitore
             fornitori={fornitori}
             selectedFornitore={selectedFornitore}
             setSelectedFornitore={setSelectedFornitore}
           />
-          <ContainerProdotto data={data} handleDelete={handleDelete} />
         </div>
       </div>
     </div>
