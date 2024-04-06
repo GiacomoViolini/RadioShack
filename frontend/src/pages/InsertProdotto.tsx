@@ -81,7 +81,7 @@ export default function InsertProdotto({
                 setProdotto({ ...prodotto, nome: e.target.value })
               }
               required
-              pattern="^Iphone\s\d{2}"
+              pattern="^Iphone\s\w{2}$"
             />
           </div>
           <div className="flex flex-col gap-4">
@@ -280,6 +280,7 @@ export default function InsertProdotto({
                 })
               }
               required
+              step="0.1"
               min={4.0}
               max={7.0}
             />
