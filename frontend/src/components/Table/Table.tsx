@@ -89,7 +89,7 @@ export default function Table({
                 </button>}
                 <button
                   onClick={() => {
-                    if ("id" in information && "iban") {
+                    if ("id" in information && "iban" in information) {
                       deleteFornitore(information.id);
                     } else {
                       deleteAcquisto(information.id);
