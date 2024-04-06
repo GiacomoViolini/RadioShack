@@ -6,8 +6,8 @@ export default function ConfirmationToast({
   subtitle,
   fetchData,
 }: ConfirmationToastProps) {
-  function closeToast() {
-    fetchData();
+  async function closeToast() {
+    await fetchData();
     setFlag(false);
   }
   function annullamentAggiunta() {

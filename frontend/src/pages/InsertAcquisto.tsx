@@ -54,7 +54,7 @@ export default function InsertAcquisto({
   const addAcquisto = async () => {
     setFlag(true);
   };
-  
+
   const fetchData = async () => {
     const handlePost = async () => {
       console.log(data);
@@ -82,24 +82,35 @@ export default function InsertAcquisto({
             ...product,
             codice_acquisto: res.data.id,
           };
-          await axios.post("http://localhost:8000/radioapp/insertProdotto/", {
-            prodotto,
-          });
+          for (let i = 0; i < product.quantità; i++) {
+            await axios.post("http://localhost:8000/radioapp/insertProdotto/", {
+              prodotto,
+            });
+          }
+        });
+        toast.success("Acquisto aggiunto con successo", {
+          position: "top-center",
+          autoClose: 1000,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          transition: Bounce,
         });
         setData([]);
         setSelectedFornitore(null);
-        navigateTo("acquisti")
+        navigateTo("acquisti");
+      } else {
+        toast.error("Selezionare un prodotto e inserire almeno un fornitore", {
+          position: "top-center",
+          autoClose: 2000,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          transition: Bounce,
+        });
       }
     };
-    handlePost()
-    toast.success("Acquisto aggiunto con successo", {
-      position: "top-center",
-      autoClose: 1000,
-      draggable: true,
-      progress: undefined,
-      theme: "dark",
-      transition: Bounce,
-    });
+    handlePost();
   };
 
   return (
