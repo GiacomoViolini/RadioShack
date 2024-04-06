@@ -48,7 +48,7 @@ export default function StatisticheFilter({
       </div>
       <div className={`filter-content ${isOpen ? "open" : "closed"} mb-2`}>
         {options.map((option, index) => (
-          <div key={option} className="flex items-center gap-2">
+          <div key={index} className="flex items-center gap-2">
             <input
               type="checkbox"
               className="accent-white"

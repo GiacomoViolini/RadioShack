@@ -218,8 +218,14 @@ def getClienti(request):
 
 @api_view(['GET'])
 def getAcquisti(request):
-    return Response([{'id': a.id, 'costo': a.costo, 'quantità_articoli_acquistati': a.quantità_articoli_acquistati, 'data_acquisto': a.data_acquisto, 'codice_fornitore': a.codice_fornitore.id} for a in Acquisto.objects.all()])
-
+    return Response([{
+        'id': a.id,
+        'totale': a.costo,
+        'quantità_articoli_acquistati': a.quantità_articoli_acquistati, 
+        'data': a.data_acquisto,
+        'codice_fornitore': a.codice_fornitore.id if a.codice_fornitore else None,
+        'stato': a.stato
+    } for a in Acquisto.objects.all()])
 
 @api_view(['GET'])
 def getVendite(request):
@@ -234,11 +240,13 @@ def deleteProdotto(request, nome):
     print(p)
     return Response({"message": "Prodotto eliminato!"})
 
+
 @api_view(['DELETE'])
 def deleteAcquisto(request, id):
     f = Acquisto.objects.get(id=id)
     f.delete()
     return Response({'message': 'Acquisto eliminato!'})
+
 
 @api_view(["POST"])
 def filterFornitori(request):
@@ -275,31 +283,55 @@ def filterFornitori(request):
     return Response([{'id': f.id, 'nome': f.nome, 'email': f.email, 'telefono': f.telefono,
                       'indirizzo': f.indirizzo, 'referente': f.referente, 'iban': f.iban, "quantità_articoli_acquistati": sum([a.quantità_articoli_acquistati for a in Acquisto.objects.filter(codice_fornitore=f.id)]), "capitale_investito": sum([a.costo for a in Acquisto.objects.filter(codice_fornitore=f.id)])} for f in fornitori])
 
+
 @api_view(['GET'])
 def getFornitore(request, id):
     f = Fornitore.objects.get(id=id)
     return Response({'id': f.id, 'nome': f.nome, 'email': f.email, 'telefono': f.telefono, 'indirizzo': f.indirizzo, 'referente': f.referente, 'iban': f.iban})
 
+
 @api_view(['PUT'])
 def modifyFornitore(request, id):
     f = Fornitore.objects.get(id=id)
     data = request.data
-    f.nome, f.email, f.telefono, f.indirizzo, f.referente, f.iban = data.get('nome', f.nome), data.get('email', f.email), data.get('telefono', f.telefono), data.get('indirizzo', f.indirizzo), data.get('referente', f.referente), data.get('iban', f.iban)
+    f.nome, f.email, f.telefono, f.indirizzo, f.referente, f.iban = data.get('nome', f.nome), data.get('email', f.email), data.get(
+        'telefono', f.telefono), data.get('indirizzo', f.indirizzo), data.get('referente', f.referente), data.get('iban', f.iban)
     f.save()
     return Response({'id': f.id, 'nome': f.nome, 'email': f.email, 'telefono': f.telefono, 'indirizzo': f.indirizzo, 'referente': f.referente, 'iban': f.iban})
+
 
 @api_view(['GET'])
 def getAcquisto(request, id):
     a = Acquisto.objects.get(id=id)
     return Response({'id': a.id, 'nome': a.nome, 'quantita': a.quantita, 'prezzo': a.prezzo, 'fornitore': a.fornitore.id})
 
+
 @api_view(['PUT'])
 def modifyAcquisto(request, id):
     a = Acquisto.objects.get(id=id)
     data = request.data
-    a.nome, a.quantita, a.prezzo, a.fornitore = data.get('nome', a.nome), data.get('quantita', a.quantita), data.get('prezzo', a.prezzo), data.get('fornitore', a.fornitore)
+    a.nome, a.quantita, a.prezzo, a.fornitore = data.get('nome', a.nome), data.get(
+        'quantita', a.quantita), data.get('prezzo', a.prezzo), data.get('fornitore', a.fornitore)
     a.save()
     return Response({'id': a.id, 'nome': a.nome, 'quantita': a.quantita, 'prezzo': a.prezzo, 'fornitore': a.fornitore.id})
+
+@api_view(['PUT'])
+def ChangeStatoAcquisto(request, id):
+    a = Acquisto.objects.get(id=id)
+    a.stato= "Consegnato"
+    a.save()
+    prodotti = Prodotto.objects.filter(codice_acquisto=a.id)
+    for p in prodotti:
+        p.stato = "In magazzino"
+        p.save()
+    return Response({
+        'id': a.id,
+        'totale': a.costo,
+        'quantità_articoli_acquistati': a.quantità_articoli_acquistati, 
+        'data': a.data_acquisto,
+        'codice_fornitore': a.codice_fornitore.id if a.codice_fornitore else None,
+        'stato': a.stato
+    })
 
 @api_view(["POST"])
 def insertAcquisto(request):
@@ -307,7 +339,8 @@ def insertAcquisto(request):
     a = Acquisto(costo=data['costo'], quantità_articoli_acquistati=data[
                  'quantità_articoli_acquistati'], codice_fornitore=Fornitore.objects.get(id=data['codice_fornitore']))
     a.save()
-    return Response({"id" : a.id})
+    return Response({"id": a.id})
+
 
 @api_view(["POST"])
 def insertProdotto(request):
@@ -315,14 +348,15 @@ def insertProdotto(request):
     p = Prodotto(nome=data['nome'], colore=data['colore'], capacità=data['capacità'], anno_di_uscita=data['anno_di_uscita'], condizione=data['condizione'],
                  fotocamera=data['fotocamera'], dimensioni_schermo=data['dimensioni_schermo'], prezzo_di_acquisto=data['prezzo_di_acquisto'], prezzo_consigliato=data['prezzo_consigliato'], codice_acquisto=Acquisto.objects.get(id=data['codice_acquisto']))
     p.save()
-    return Response({"id" : p.id})
+    return Response({"id": p.id})
+
 
 @api_view(['GET'])
 def getPiuVenduti(request):
     p = (Prodotto.objects
-            .values('nome')
-            .annotate(sold_units=Count('codice_vendita'))
-            .order_by('-sold_units')[:10])
+         .values('nome')
+         .annotate(sold_units=Count('codice_vendita'))
+         .order_by('-sold_units')[:10])
     xpairs = [[product['nome'], product['sold_units']] for product in p]
     max_sold_units = max(product['sold_units'] for product in p)
     result = {
@@ -333,12 +367,13 @@ def getPiuVenduti(request):
     }
     return Response(result)
 
+
 @api_view(['GET'])
 def getMenoVenduti(request):
     p = (Prodotto.objects
-            .values('nome')
-            .annotate(sold_units=Count('codice_vendita'))
-            .order_by('sold_units')[:10])
+         .values('nome')
+         .annotate(sold_units=Count('codice_vendita'))
+         .order_by('sold_units')[:10])
     xpairs = [[product['nome'], product['sold_units']] for product in p]
     max_sold_units = max(product['sold_units'] for product in p)
     result = {
@@ -349,15 +384,18 @@ def getMenoVenduti(request):
     }
     return Response(result)
 
+
 @api_view(['GET'])
 def getPiuRemunerativi(request):
     profitable_products = (Prodotto.objects
                            .values('nome')
-                           .annotate(profit=F('prezzo_di_vendita') - F('prezzo_di_acquisto'),
+                           .annotate(profit=F('prezzo_di_vendita') / F('prezzo_di_acquisto'),
                                      sold_units=Count('codice_vendita'))
                            .order_by('-profit')[:10])
-    xpairs = [[product['nome'], product['profit'] * product['sold_units']] for product in profitable_products]
-    max_profit = max(product['profit'] * product['sold_units'] for product in profitable_products)
+    xpairs = [[product['nome'], product['profit'] * product['sold_units']]
+              for product in profitable_products]
+    max_profit = max(product['profit'] * product['sold_units']
+                     for product in profitable_products)
     result = {
         'XPairs': xpairs,
         'YScale': [0, max_profit],
@@ -366,14 +404,26 @@ def getPiuRemunerativi(request):
     }
     return Response(result)
 
+
 @api_view(['GET'])
 def getFornitoriPiuRemunerativi(request):
-    profitable_suppliers = (Prodotto.objects
-                            .values('fornitore__nome')
-                            .annotate(profit=Sum(F('prezzo_di_vendita') - F('prezzo_di_acquisto')))
-                            .order_by('-profit')[:10])
-    xpairs = [[supplier['fornitore__nome'], supplier['profit']] for supplier in profitable_suppliers]
-    max_profit = max(supplier['profit'] for supplier in profitable_suppliers)
+    products = Prodotto.objects.values('codice_acquisto',
+                                       'prezzo_di_acquisto', 'prezzo_di_vendita')
+    for product in products:
+        acquisto = Acquisto.objects.get(id=product['codice_acquisto'])
+        codice_fornitore = acquisto.codice_fornitore.id
+        fornitore = Fornitore.objects.get(id=codice_fornitore)
+        product["fornitore"] = fornitore.nome
+        print(product)
+    temp = {}
+    for product in products:
+        if product['fornitore'] not in temp:
+            temp[product['fornitore']] = 0
+        temp[product['fornitore']] += product['prezzo_di_vendita'] - \
+            product['prezzo_di_acquisto']
+    xpairs = [[fornitore, profit] for fornitore, profit in temp.items()]
+    xpairs = sorted(xpairs, key=lambda x: x[1], reverse=True)[:10]
+    max_profit = max(profit for profit in temp.values())
     result = {
         'XPairs': xpairs,
         'YScale': [0, max_profit],
@@ -382,21 +432,26 @@ def getFornitoriPiuRemunerativi(request):
     }
     return Response(result)
 
+
 @api_view(['GET'])
-def getFornitoriPiuOrdinati(request):
-    ordered_suppliers = (Acquisto.objects
-                         .values('fornitore__nome')
-                         .annotate(orders=Count('fornitore'))
-                         .order_by('-orders')[:10])
-    xpairs = [[supplier['fornitore__nome'], supplier['orders']] for supplier in ordered_suppliers]
-    max_orders = max(supplier['orders'] for supplier in ordered_suppliers)
+def getFornitoriPiùOrdinati(request):
+    fornitori = Fornitore.objects.all()
+    temp = {}
+    for fornitore in fornitori:
+        acquisti = Acquisto.objects.filter(codice_fornitore=fornitore.id)
+        temp[fornitore.nome] = sum(
+            [acquisto.quantità_articoli_acquistati for acquisto in acquisti])
+    xpairs = [[fornitore, quantità] for fornitore, quantità in temp.items()]
+    xpairs = sorted(xpairs, key=lambda x: x[1], reverse=True)[:10]
+    max_quantità = max(quantità for quantità in temp.values())
     result = {
         'XPairs': xpairs,
-        'YScale': [0, max_orders],
+        'YScale': [0, max_quantità],
         'Label': "Fornitori più ordinati",
         'Category': "Fornitori"
     }
     return Response(result)
+
 
 @api_view(['GET'])
 def getClientiPiuRemunerativi(request):
@@ -404,7 +459,8 @@ def getClientiPiuRemunerativi(request):
                             .values('cliente__nome')
                             .annotate(profit=Sum(F('prodotto__prezzo_di_vendita') - F('prodotto__prezzo_di_acquisto')))
                             .order_by('-profit')[:10])
-    xpairs = [[customer['cliente__nome'], customer['profit']] for customer in profitable_customers]
+    xpairs = [[customer['cliente__nome'], customer['profit']]
+              for customer in profitable_customers]
     max_profit = max(customer['profit'] for customer in profitable_customers)
     result = {
         'XPairs': xpairs,
@@ -414,14 +470,17 @@ def getClientiPiuRemunerativi(request):
     }
     return Response(result)
 
+
 @api_view(['GET'])
 def getClientiPiuAcquisti(request):
     frequent_customers = (Vendita.objects
                           .values('cliente__nome')
                           .annotate(purchases=Count('cliente'))
                           .order_by('-purchases')[:10])
-    xpairs = [[customer['cliente__nome'], customer['purchases']] for customer in frequent_customers]
-    max_purchases = max(customer['purchases'] for customer in frequent_customers)
+    xpairs = [[customer['cliente__nome'], customer['purchases']]
+              for customer in frequent_customers]
+    max_purchases = max(customer['purchases']
+                        for customer in frequent_customers)
     result = {
         'XPairs': xpairs,
         'YScale': [0, max_purchases],
@@ -429,6 +488,7 @@ def getClientiPiuAcquisti(request):
         'Category': "Clienti"
     }
     return Response(result)
+
 
 @api_view(['POST'])
 def filterAcquisti(request):
@@ -443,7 +503,8 @@ def filterAcquisti(request):
                     acquisti = list(
                         filter(lambda a: 10 <= a.quantità_articoli_acquistati <= 50, acquisti))
                 elif fil == "> 50":
-                    acquisti = list(filter(lambda a: a.quantità_articoli_acquistati > 50, acquisti))
+                    acquisti = list(
+                        filter(lambda a: a.quantità_articoli_acquistati > 50, acquisti))
         elif filter_data['title'] == 'Costo':
             for fil in filter_data['options']:
                 if fil == "< 1000":

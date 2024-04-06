@@ -11,6 +11,8 @@ import {
   Clienti,
   FilterItems,
 } from "../interfaceHelper";
+import ConfirmationToast from "../components/ConfirmationToast/ConfirmationToast";
+import { toast, Bounce } from "react-toastify";
 
 export default function AcquistiComponent() {
   const filters = [
@@ -30,8 +32,14 @@ export default function AcquistiComponent() {
     "quantità articoli acquistati",
     "data acquisto",
     "codice fornitore",
+    "stato",
   ];
-  const [listaAcquisti, setListaAcquisti] = useState<Acquisti[]>([]);
+  const [listaAcquisti, setListaAcquisti] = useState<
+    Fornitori[] | Clienti[] | Vendite[] | Acquisti[]
+  >([]);
+  const [flag, setFlag] = useState(false);
+  const [flag2, setFlag2] = useState(false);
+  const [id, setId] = useState(0);
 
   useEffect(() => {
     const getAcquisti = async () => {
@@ -58,9 +66,72 @@ export default function AcquistiComponent() {
     }
   }, [checkedOptions]);
 
+  const fetchData = async () => {
+    console.log(id);
+    if (id != 0) {
+      await axios.delete(`http://localhost:8000/radioapp/deleteAcquisto/${id}`);
+      toast.success("Acquisto eliminato con successo", {
+        position: "top-center",
+        autoClose: 2000,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        transition: Bounce,
+      });
+      const newInfo = listaAcquisti.filter((info) => info.id !== id) as
+        | Fornitori[]
+        | Clienti[]
+        | Vendite[]
+        | Acquisti[];
+      setListaAcquisti(newInfo);
+    }
+  };
+
+  const fetchData1 = async () => {
+    console.log(id);
+    if (id != 0) {
+      await axios.put(`http://localhost:8000/radioapp/changeStatoAcquisto/${id}/`);
+      toast.success("Stato Acquisto aggiornato con successo", {
+        position: "top-center",
+        autoClose: 2000,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        transition: Bounce,
+      });
+      const getAcquisti = async () => {
+        try {
+          const res = await axios.get(
+            "http://localhost:8000/radioapp/getAcquisti"
+          );
+          setListaAcquisti(res.data);
+        } catch (error) {
+          console.error("Failed to fetch Acquisti:", error);
+        }
+      };
+      getAcquisti()
+    }
+  };
+
   return (
     <div className="flex flex-col">
       <Navbar />
+      {flag && (
+        <ConfirmationToast
+          setFlag={setFlag}
+          fetchData={fetchData}
+          toastTitle={"Conferma Eliminazione Acquisto"}
+          subtitle={"Sei sicuro di voler procedere?"}
+        />
+      )}
+      {flag2 && (
+        <ConfirmationToast
+          setFlag={setFlag2}
+          fetchData={fetchData1}
+          toastTitle={"Conferma Aggiornamento Stato Acquisto"}
+          subtitle={"Sei sicuro di voler procedere?"}
+        />
+      )}
       <div className="flex flex-row align-top relative mt-20">
         <div className="w-3/12 flex flex-col justify-center gap-6 fixed">
           <div className="w-full flex justify-center px-4">
@@ -86,13 +157,9 @@ export default function AcquistiComponent() {
           <Table
             fields={fields}
             informations={listaAcquisti}
-            setInformations={
-              setListaAcquisti as React.Dispatch<
-                React.SetStateAction<
-                  Clienti[] | Vendite[] | Fornitori[] | Acquisti[]
-                >
-              >
-            }
+            setFlag={setFlag}
+            setFlag2={setFlag2}
+            setId={setId}
           />
         </div>
       </div>

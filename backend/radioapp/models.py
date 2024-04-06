@@ -12,7 +12,7 @@ class Fornitore(models.Model):
     iban = models.CharField(max_length=30)
 
     def __str__(self):
-        return self.nome + " " + self.email + " " + self.telefono + " " + self.indirizzo + " " + self.referente + " " + self.partita_iva + " " + self.sito_web + " " + self.iban
+        return self.nome + " " + self.email + " " + self.telefono + " " + self.indirizzo + " " + self.referente + " " + self.iban
 
 
 class Cliente(models.Model):
@@ -29,8 +29,7 @@ class Acquisto(models.Model):
     costo = models.FloatField()
     quantità_articoli_acquistati = models.IntegerField()
     data_acquisto = models.DateField(auto_now=True)
-    codice_fornitore = models.ForeignKey(
-        Fornitore, on_delete=models.DO_NOTHING)
+    codice_fornitore = models.ForeignKey(Fornitore, on_delete=models.SET_NULL, null=True, related_name='acquisti')
     stato = models.CharField(max_length=30, default="In arrivo")
 
     def __str__(self):

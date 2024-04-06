@@ -4,7 +4,7 @@ import Table from "../components/Table/Table";
 import ListElementComponent from "../components/ListElementComponent/ListELementComponent";
 import { useState,useEffect } from "react";
 import axios from "axios";
-import { Vendite,Acquisti,Fornitori,Clienti } from "../interfaceHelper";
+import { Clienti } from "../interfaceHelper";
 
 export default function ClientiComponent() {
   const filters = [
@@ -86,13 +86,7 @@ export default function ClientiComponent() {
         <Table
             fields={fields}
             informations={listaClienti}
-            setInformations={
-              setListaClienti as React.Dispatch<
-                React.SetStateAction<
-                  Clienti[] | Vendite[] | Fornitori[] | Acquisti[]
-                >
-              >
-            }/>
+        />
         </div>
       </div>
     </div>
