@@ -12,12 +12,12 @@ export default function Table({
   const navigate = useNavigate();
 
   const deleteFornitore = async (id: number) => {
-      if (setId) {
-        setId(id);
-      }
-      if (setFlag) {
-        setFlag(true);
-      }      
+    if (setId) {
+      setId(id);
+    }
+    if (setFlag) {
+      setFlag(true);
+    }
   };
 
   const deleteAcquisto = async (id: number) => {
@@ -26,7 +26,7 @@ export default function Table({
     }
     if (setFlag) {
       setFlag(true);
-    }      
+    }
   };
 
   const ChangeStatoAcquisto = async (id: number) => {
@@ -35,7 +35,7 @@ export default function Table({
     }
     if (setFlag2) {
       setFlag2(true);
-    } 
+    }
   };
 
   const flag1 = informations.some(
@@ -71,22 +71,29 @@ export default function Table({
                 className="flex flex-row gap-1 justify-center items-center pt-2 mx-2"
                 key={""}
               >
-                {"stato" in information && information.stato=="Consegnato" ? 
-                  <div className=" ml-4 text-lg">
-                    ✅
-                  </div>
-                 : 
-                <button
-                  onClick={() => {
-                    if ("id" in information && "iban" in information) {
-                      navigate(`/fornitori/modifica/${information.id}`);
-                    } else {
-                      ChangeStatoAcquisto(information.id)
-                    }
-                  }}
-                >
-                  <img src={"iban" in information ? "./ModifyIcon.svg" : "./InNegozioIcon.svg" } className="h-8 p-1" alt="modify"></img>
-                </button>}
+                {"stato" in information && information.stato == "Consegnato" ? (
+                  <div className=" ml-4 text-lg">✅</div>
+                ) : (
+                  <button
+                    onClick={() => {
+                      if ("id" in information && "iban" in information) {
+                        navigate(`/fornitori/modifica/${information.id}`);
+                      } else {
+                        ChangeStatoAcquisto(information.id);
+                      }
+                    }}
+                  >
+                    <img
+                      src={
+                        "iban" in information
+                          ? "/ModifyIcon.svg"
+                          : "/InNegozioIcon.svg"
+                      }
+                      className="h-8 p-1"
+                      alt="modify"
+                    />
+                  </button>
+                )}
                 <button
                   onClick={() => {
                     if ("id" in information && "iban" in information) {
@@ -96,7 +103,7 @@ export default function Table({
                     }
                   }}
                 >
-                  <img src="./DeleteIcon.svg" alt="delete" className="h-8 p-1" />
+                  <img src="/DeleteIcon.svg" alt="delete" className="h-8 p-1" />
                 </button>
               </td>
             )}
