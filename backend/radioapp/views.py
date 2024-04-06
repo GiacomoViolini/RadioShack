@@ -477,22 +477,22 @@ def getClientiPiuRemunerativi(request):
 
 @api_view(['GET'])
 def getClientiPiuAcquisti(request):
-    frequent_customers = (Vendita.objects
-                          .values('cliente__nome')
-                          .annotate(purchases=Count('cliente'))
-                          .order_by('-purchases')[:10])
-    xpairs = [[customer['cliente__nome'], customer['purchases']]
-              for customer in frequent_customers]
-    max_purchases = max(customer['purchases']
-                        for customer in frequent_customers)
+    clienti = Cliente.objects.all()
+    temp = {}
+    for cliente in clienti:
+        vendite = Vendita.objects.filter(codice_cliente=cliente.id)
+        temp[cliente.nome] = sum(
+            [vendita.quantità_articoli_acquistati for vendita in vendite])
+    xpairs = [[cliente, quantità] for cliente, quantità in temp.items()]
+    xpairs = sorted(xpairs, key=lambda x: x[1], reverse=True)[:10]
+    max_quantità = max(quantità for quantità in temp.values())
     result = {
         'XPairs': xpairs,
-        'YScale': [0, max_purchases],
-        'Label': "Clienti che acquistano di più",
+        'YScale': [0, max_quantità],
+        'Label': "Clienti più ordinati",
         'Category': "Clienti"
     }
     return Response(result)
-
 
 @api_view(['POST'])
 def filterAcquisti(request):

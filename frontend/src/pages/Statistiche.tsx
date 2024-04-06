@@ -135,10 +135,10 @@ export default function Statistiche() {
     };
     switch (ClientiOption) {
       case "Più remunerativi":
-        getClientiPiuRemunerativi;
+        getClientiPiuRemunerativi();
         break;
       case "Da cui effettuiamo più acquisti":
-        getClientiPiuAcquisti;
+        getClientiPiuAcquisti();
         break;
     }
   }, [ClientiOption]);
