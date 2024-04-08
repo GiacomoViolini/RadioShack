@@ -138,45 +138,12 @@ export default function Statistiche() {
       case "Più remunerativi":
         getClientiPiuRemunerativi();
         break;
-      case "Da cui effettuiamo più acquisti":
+      case "Che effetuano più ordini":
         getClientiPiuAcquisti();
         break;
     }
   }, [ClientiOption]);
 
-  const XPairs1 = [
-    ["Product A", 10],
-    ["Product B", 20],
-    ["Product C", 30],
-    ["Product A", 10],
-    ["Product B", 20],
-    ["Product C", 30],
-    ["Product A", 10],
-    ["Product B", 20],
-    ["Product C", 30],
-  ];
-  const XPairs2 = [
-    ["Supplier X", 40],
-    ["Supplier Y", 50],
-    ["Supplier Z", 60],
-    ["Supplier X", 40],
-    ["Supplier Y", 50],
-    ["Supplier Z", 60],
-    ["Supplier X", 40],
-    ["Supplier Y", 50],
-    ["Supplier Z", 60],
-  ];
-  const XPairs3 = [
-    ["Customer 1", 70],
-    ["Customer 2", 80],
-    ["Customer 3", 90],
-    ["Customer 1", 70],
-    ["Customer 2", 80],
-    ["Customer 3", 90],
-    ["Customer 1", 70],
-    ["Customer 2", 80],
-    ["Customer 3", 90],
-  ];
   const XPairs4 = [
     ["12/07/2023", 70],
     ["13/07/2023", 30],
@@ -190,13 +157,7 @@ export default function Statistiche() {
   ];
 
   const YScale: [number, number] = [0, 100];
-  const Category = "Fornitori";
-  const Category1 = "Prodotti";
-  const Category2 = "Clienti";
   const Category3 = "Statistiche";
-  const Label = "Sample Data";
-  const Label1 = "Sample Data1";
-  const Label2 = "Sample Data2";
   const Label3 = "Sample Data3";
 
   return (
@@ -229,10 +190,10 @@ export default function Statistiche() {
             <h1 className=" text-3xl font-bold">Prodotti</h1>
             {Grafico1 ? (
             <CustomChart
-              XPairs={XPairs1 as [string, number][]}
-              YScale={YScale ?? [0, 100]}
-              Label={Label ?? "Sample Data"}
-              Category={Category1 ?? "Prodotti"}
+              XPairs={Grafico1?.XPairs as [string, number][]}
+              YScale={Grafico1?.YScale ?? [0, 100]}
+              Label={Grafico1?.Label ?? "Sample Data"}
+              Category={Grafico1?.Category ?? "Prodotti"}
             />) : (
               <ChartSkelethon category="Prodotti" />
             )}
@@ -243,7 +204,7 @@ export default function Statistiche() {
               <CustomChart
                 XPairs={Grafico2?.XPairs as [string, number][]}
                 YScale={Grafico2?.YScale ?? [0, 100]}
-                Label={Grafico2?.Label ?? "Sample Data"}
+                Label={Grafico2?.Label ?? "Sample Data1"}
                 Category={Grafico2?.Category ?? "Fornitori"}
               />
             ) : (
@@ -254,10 +215,10 @@ export default function Statistiche() {
             <h1 className=" text-3xl font-bold">Clienti</h1>
             {Grafico3 ? (
             <CustomChart
-              XPairs={XPairs3 as [string, number][]}
-              YScale={YScale ?? [0, 100]}
-              Label={Label2 ?? "Sample Data"}
-              Category={Category2 ?? "Fornitori"}
+              XPairs={Grafico3?.XPairs as [string, number][]}
+              YScale={Grafico3?.YScale ?? [0, 100]}
+              Label={Grafico3?.Label ?? "Sample Data2"}
+              Category={Grafico3?.Category ?? "Clienti"}
             />) : (
               <ChartSkelethon category="Clienti" />
             )}
