@@ -95,4 +95,24 @@ function AssignColor(Coppie:[string, number][], Category:string):[string[],strin
   return [auxBackColor,auxBorColor]
 }
 
-export { convertiColori, convertiCapacità, capitalize, AssignColor };
+function AssignColorSkelethon(Category: string): [string[], string[]] {
+  let auxBackColor: string[] = [];
+  let auxBorColor: string[] = [];
+  let Colorsaux = Colors[Category];
+  if (!Colorsaux) {
+    throw new Error(`Category ${Category} not found in Colors`);
+  }
+  let ColorsauxTotal: [string, string][] = [];
+  for(let i = 0; i < 10; i++) {
+    for(let j = 0; j < 3; j++) {
+      ColorsauxTotal.push([Colorsaux[j % Colorsaux.length][0], Colorsaux[j % Colorsaux.length][1]]);
+    }
+  }
+  for(let i = 0; i < ColorsauxTotal.length; i++) {
+    auxBackColor.push(ColorsauxTotal[i][0]);
+    auxBorColor.push(ColorsauxTotal[i][1]);
+  }
+  return [auxBackColor, auxBorColor];
+}
+
+export { convertiColori, convertiCapacità, capitalize, AssignColor, AssignColorSkelethon };

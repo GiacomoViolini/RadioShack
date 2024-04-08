@@ -171,3 +171,7 @@ export interface FilterPropsStatistiche {
   setFornitoriOption: React.Dispatch<React.SetStateAction<string>>;
   setClientiOption: React.Dispatch<React.SetStateAction<string>>;
 }
+
+export interface ChartSkelethonProps {
+  category: string
+}

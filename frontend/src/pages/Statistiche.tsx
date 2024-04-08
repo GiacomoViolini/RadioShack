@@ -5,6 +5,7 @@ import { CustomCharts } from "../interfaceHelper";
 import CustomLineChart from "../components/CustomChart/CustomLineChart";
 import StatisticheFilter from "../components/Filter/StatisticheFilter";
 import CustomChart from "../components/CustomChart/CustomChart";
+import ChartSkelethon from "../components/CustomChart/ChartSkelethon";
 
 export default function Statistiche() {
   const [ProdottiOption, setProdottiOption] = useState("");
@@ -13,7 +14,7 @@ export default function Statistiche() {
   const [Grafico1, setGrafico1] = useState<CustomCharts>();
   const [Grafico2, setGrafico2] = useState<CustomCharts>();
   const [Grafico3, setGrafico3] = useState<CustomCharts>();
-  
+
   const filters = [
     {
       title: "Top 10 dei Prodotti",
@@ -226,30 +227,40 @@ export default function Statistiche() {
         <div className="w-9/12 ml-[25%] justify-center px-8 py-8 h-[90vh] grid grid-cols-2 fixe">
           <div className="bg-none rounded-xl flex flex-col justify-top items-center py-2 border-2 px-2 border-slate-100 mx-4 my-4">
             <h1 className=" text-3xl font-bold">Prodotti</h1>
+            {Grafico1 ? (
             <CustomChart
               XPairs={XPairs1 as [string, number][]}
               YScale={YScale ?? [0, 100]}
               Label={Label ?? "Sample Data"}
               Category={Category1 ?? "Prodotti"}
-            />
+            />) : (
+              <ChartSkelethon category="Prodotti" />
+            )}
           </div>
           <div className="bg-none rounded-xl flex flex-col justify-top items-center py-2 border-2 px-2 border-slate-100 mx-4 my-4">
             <h1 className=" text-3xl font-bold">Fornitori</h1>
-            <CustomChart
-              XPairs={XPairs2 as [string, number][]}
-              YScale={YScale ?? [0, 100]}
-              Label={Label1 ?? "Sample Data"}
-              Category={Category ?? "Fornitori"}
-            />
+            {Grafico2 ? (
+              <CustomChart
+                XPairs={Grafico2?.XPairs as [string, number][]}
+                YScale={Grafico2?.YScale ?? [0, 100]}
+                Label={Grafico2?.Label ?? "Sample Data"}
+                Category={Grafico2?.Category ?? "Fornitori"}
+              />
+            ) : (
+              <ChartSkelethon category="Fornitori" />
+            )}
           </div>
           <div className="bg-none rounded-xl flex flex-col justify-top items-center py-2 border-2 px-2 border-slate-100 mx-4 my-4">
             <h1 className=" text-3xl font-bold">Clienti</h1>
+            {Grafico3 ? (
             <CustomChart
               XPairs={XPairs3 as [string, number][]}
               YScale={YScale ?? [0, 100]}
               Label={Label2 ?? "Sample Data"}
               Category={Category2 ?? "Fornitori"}
-            />
+            />) : (
+              <ChartSkelethon category="Clienti" />
+            )}
           </div>
           <div className="bg-none rounded-xl flex flex-col justify-top border-2 border-slate-100 px-2 items-center py-2 mx-4 my-4">
             <h1 className=" text-3xl font-bold">Andamento Vendite</h1>
