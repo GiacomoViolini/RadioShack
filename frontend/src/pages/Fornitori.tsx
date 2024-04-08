@@ -4,7 +4,7 @@ import Table from "../components/Table/Table";
 import InstertElementButtonFornitore from "../components/InsertElementButton/InsertElementButtonFornitore";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { Vendite, Acquisti, Fornitori, Clienti } from "../interfaceHelper";
+import { Vendita, Acquisto, Fornitore, Cliente } from "../interfaceHelper";
 import { FilterItems } from "../interfaceHelper";
 import ConfirmationToast from "../components/ConfirmationToast/ConfirmationToast";
 import { toast, Bounce } from "react-toastify";
@@ -32,7 +32,7 @@ export default function FornitoriComponent() {
     "capitale_investito",
   ];
 
-  const [listafornitori, setListafornitori] = useState<Fornitori[]| Clienti[] | Vendite[] | Acquisti[]>([]);
+  const [listafornitori, setListafornitori] = useState<Fornitore[]| Cliente[] | Vendita[] | Acquisto[]>([]);
   const [checkedOptions, setCheckedOptions] = useState<FilterItems[]>([]);
   const [flag, setFlag] = useState(false);
   const [id, setId] = useState(0);
@@ -76,10 +76,10 @@ export default function FornitoriComponent() {
         transition: Bounce,
       });
       const newInfo = listafornitori.filter((info) => info.id !== id) as
-      | Fornitori[]
-      | Clienti[]
-      | Vendite[]
-      | Acquisti[];
+      | Fornitore[]
+      | Cliente[]
+      | Vendita[]
+      | Acquisto[];
       setListafornitori(newInfo);
     }
   };

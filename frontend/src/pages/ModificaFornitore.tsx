@@ -11,14 +11,12 @@ import ConfirmationToast from "../components/ConfirmationToast/ConfirmationToast
 export default function ModificaFornitore() {
   const navigate = useNavigate();
   const initialFornitore: Fornitore = {
-    id: "",
+    id: 0,
     nome: "",
     email: "",
     telefono: "",
     indirizzo: "",
     referente: "",
-    partita_iva: "",
-    sito_web: "",
     iban: "",
   };
 
@@ -48,7 +46,7 @@ export default function ModificaFornitore() {
       fornitore
     );
     console.log(res);
-    toast.success("Fornitore Modificato con successo", {
+    toast.success("Fornitore modificato con successo", {
       position: "top-center",
       autoClose: 2000,
       draggable: true,

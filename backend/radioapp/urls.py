@@ -35,4 +35,5 @@ urlpatterns = [
     path("filterAcquisti/", views.filterAcquisti, name="filterAcquisti"),
     path('changeStatoAcquisto/<int:id>/', views.ChangeStatoAcquisto, name='ChangeStatoacquisto'),
     path("getFornitoriPiùOrdinati/", views.getFornitoriPiùOrdinati, name="getFornitoriPiùOrdinati"),
+    path("filterClienti/", views.filterClienti, name="filterClienti"),
 ]

@@ -1,33 +1,34 @@
-export interface Fornitori {
+export interface Fornitore {
   id: number;
   nome: string;
   email: string;
   telefono: string;
   indirizzo: string;
   referente: string;
-  partita_iva: string;
-  sito_web: string;
   iban: string;
-  quantità_articoli_acquistati: number;
-  capitale_investito: number;
+  quantità_articoli_acquistati?: number;
+  capitale_investito?: number;
 }
-export interface Clienti {
+export interface Cliente {
   id: number;
   nome: string;
   email: string;
   telefono: string;
   indirizzo: string;
+  quantità_articoli_acquistati: number;
+  capitale_investito: number;
 }
 
-export interface Acquisti {
+export interface Acquisto {
   id: number;
   costo: number;
   quantità_articoli_acquistati: number;
   data_acquisto: string;
+  stato: string;
   codice_fornitore: number;
 }
 
-export interface Vendite {
+export interface Vendita {
   id: number;
   costo: number;
   quantità_articoli_acquistati: number;
@@ -73,10 +74,10 @@ export interface ListElementProps {
 
 export interface TableProps {
   fields: string[];
-  informations: Clienti[] | Vendite[] | Acquisti[] | Fornitori[];
-  setId?: React.Dispatch<React.SetStateAction<number>>
-  setFlag?: React.Dispatch<React.SetStateAction<boolean>>
-  setFlag2?: React.Dispatch<React.SetStateAction<boolean>>
+  informations: Cliente[] | Vendita[] | Acquisto[] | Fornitore[];
+  setId?: React.Dispatch<React.SetStateAction<number>>;
+  setFlag?: React.Dispatch<React.SetStateAction<boolean>>;
+  setFlag2?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export interface FilterProps {
@@ -129,24 +130,12 @@ export interface CardProps {
 
 export interface CheckOutListProps {
   numberAcquisti: number;
-  fornitore: Fornitori;
+  fornitore: Fornitore;
   prodotti: Prodotto[];
 }
 
 export interface InsertAcquistiProps {
   numberAcquisti: number;
-}
-
-export interface Fornitore {
-  id: string;
-  nome: string;
-  email: string;
-  telefono: string;
-  indirizzo: string;
-  referente: string;
-  partita_iva: string;
-  sito_web: string;
-  iban: string;
 }
 
 export interface ConfirmationToastProps {
