@@ -37,11 +37,11 @@ export default function CustomChart({
     chartRef.current = new Chart(ctx, {
       type: "bar",
       data: {
-        labels: XPairs.map((XPair) => XPair[0]),
+        labels: XPairs ? XPairs.map((XPair) => XPair[0]) : [],
         datasets: [
           {
             label: Label,
-            data: XPairs.map((XPair) => XPair[1]),
+            data: XPairs ? XPairs.map((XPair) => XPair[1]) : [],
             backgroundColor: BackColor,
             borderColor: BorColor,
             borderWidth: 1,
@@ -53,6 +53,9 @@ export default function CustomChart({
           x: {
             ticks: {
               color: "white",
+              font: {
+                size: 8,
+              },
             },
             grid: {
               color: "white",
@@ -64,6 +67,9 @@ export default function CustomChart({
             max: YScale[1],
             ticks: {
               color: "#FFFFFF",
+              font: {
+                size: 12,
+              },
             },
             grid: {
               color: "white",
@@ -85,7 +91,12 @@ export default function CustomChart({
         maintainAspectRatio: false,
       },
     });
-  }, [XPairs, Category, BackColor, BorColor, Label, YScale]);
+    return () => {
+      if (chartRef.current) {
+        chartRef.current.destroy();
+      }
+    };
+  }, [XPairs, Category, BackColor, BorColor, Label]);
 
   return (
     <div className="container w-full h-80 2xl:h-5/6 bg-none rounded-md">
