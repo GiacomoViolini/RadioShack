@@ -580,3 +580,30 @@ def getVenduti(request):
         p.save()
     data = [{'nome': p.nome, 'colore': p.colore, 'anno_di_uscita': p.anno_di_uscita, 'capacità': p.capacità, 'stato': p.stato, 'condizione': p.condizione, 'fotocamera': p.fotocamera, 'dimensioni_schermo': p.dimensioni_schermo, 'prezzo_consigliato': p.prezzo_consigliato, 'prezzo_di_acquisto': p.prezzo_di_acquisto, 'prezzo_di_vendita': p.prezzo_di_vendita} for p in prodotti_venduti]
     return Response(data)
+
+@api_view(['POST'])
+def filterVendite(request):
+    vendite = Vendita.objects.all()
+    for filter_data in request.data['checkedOptions']:
+        if filter_data['title'] == 'Quantità Articoli Acquistati':
+            for fil in filter_data['options']:
+                if fil == "< 3":
+                    vendite = list(
+                        filter(lambda v: v.quantità_articoli_acquistati < 3, vendite))
+                elif fil == "3 - 10":
+                    vendite = list(
+                        filter(lambda v: 3 <= v.quantità_articoli_acquistati <= 10, vendite))
+                elif fil == "> 10":
+                    vendite = list(
+                        filter(lambda v: v.quantità_articoli_acquistati > 10, vendite))
+        elif filter_data['title'] == 'Costo':
+            for fil in filter_data['options']:
+                if fil == "< 1000":
+                    vendite = list(
+                        filter(lambda v: v.costo < 1000, vendite))
+                elif fil == "1000 - 5000":
+                    vendite = list(
+                        filter(lambda v: 1000 <= v.costo <= 5000, vendite))
+                elif fil == "> 5000":
+                    vendite = list(filter(lambda v: v.costo > 5000, vendite))
+    return Response([{'costo': v.costo, 'quantità_articoli_acquistati': v.quantità_articoli_acquistati, 'data_acquisto': v.data_acquisto, 'codice_cliente': v.codice_cliente.id} for v in vendite])

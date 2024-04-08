@@ -38,4 +38,5 @@ urlpatterns = [
     path("filterClienti/", views.filterClienti, name="filterClienti"),
     path('addVendita/<int:id>/', views.addVendita, name='addVendita'),
     path('getVenduti/', views.getVenduti, name='getVenduti'),
+    path("filterVendite/", views.filterVendite, name="filterVendite"),
 ]
