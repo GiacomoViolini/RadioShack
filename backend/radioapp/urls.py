@@ -3,7 +3,6 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path("a/", views.indexa, name="indexa"),
     path("addProdotto/", views.addProdotto, name="addProdotto"),
     path("addAcquisto/", views.addAcquisto, name="addAcquisto"),
     path("addFornitore/", views.addFornitore, name="addFornitore"),
@@ -23,7 +22,6 @@ urlpatterns = [
     path('getfornitore/<int:id>/', views.getFornitore, name='getFornitore'),
     path('modifyfornitore/<int:id>/', views.modifyFornitore, name='modifyFornitore'),
     path('getacquisto/<int:id>/', views.getAcquisto, name='getAcquisto'),
-    path('modifyacquisto/<int:id>/', views.modifyAcquisto, name='modifyAcquisto'),
     path('getPiuVenduti/', views.getPiuVenduti, name='getPiuVenduti'),
     path('getMenoVenduti/', views.getMenoVenduti, name='getMenoVenduti'),
     path('getPiuRemunerativi/', views.getPiuRemunerativi, name='getPiuRemunerativi'),
@@ -33,7 +31,7 @@ urlpatterns = [
     path("insertAcquisto/", views.insertAcquisto, name="insertAcquisto"),
     path("insertProdotto/", views.insertProdotto, name="insertProdotto"),
     path("filterAcquisti/", views.filterAcquisti, name="filterAcquisti"),
-    path('changeStatoAcquisto/<int:id>/', views.ChangeStatoAcquisto, name='ChangeStatoacquisto'),
+    path('modifyAcquisto/<int:id>/', views.modifyAcquisto, name='modifyAcquisto'),
     path("getFornitoriPiùOrdinati/", views.getFornitoriPiùOrdinati, name="getFornitoriPiùOrdinati"),
     path("filterClienti/", views.filterClienti, name="filterClienti"),
     path('addVendita/<int:id>/', views.addVendita, name='addVendita'),
