@@ -213,7 +213,13 @@ def deleteFornitore(request, id):
 
 @api_view(['GET'])
 def getClienti(request):
-    return Response([{'nome': c.nome, 'email': c.email, 'telefono': c.telefono, 'indirizzo': c.indirizzo} for c in Cliente.objects.all()])
+    clienti = [{"id": c.id, 'nome': c.nome, 'email': c.email, 'telefono': c.telefono,
+                'indirizzo': c.indirizzo} for c in Cliente.objects.all()]
+    new_clienti = []
+    for c in clienti:
+        new_clienti.append({**c, "quantità_articoli_acquistati": sum([v.quantità_articoli_acquistati for v in Vendita.objects.filter(
+            codice_cliente=c['id'])]), "capitale_investito": sum([v.costo for v in Vendita.objects.filter(codice_cliente=c['id'])])})
+    return Response(new_clienti)
 
 
 @api_view(['GET'])
@@ -221,11 +227,12 @@ def getAcquisti(request):
     return Response([{
         'id': a.id,
         'totale': a.costo,
-        'quantità_articoli_acquistati': a.quantità_articoli_acquistati, 
+        'quantità_articoli_acquistati': a.quantità_articoli_acquistati,
         'data': a.data_acquisto,
         'codice_fornitore': a.codice_fornitore.id if a.codice_fornitore else None,
         'stato': a.stato
     } for a in Acquisto.objects.all()])
+
 
 @api_view(['GET'])
 def getVendite(request):
@@ -315,10 +322,11 @@ def modifyAcquisto(request, id):
     a.save()
     return Response({'id': a.id, 'nome': a.nome, 'quantita': a.quantita, 'prezzo': a.prezzo, 'fornitore': a.fornitore.id})
 
+
 @api_view(['PUT'])
 def ChangeStatoAcquisto(request, id):
     a = Acquisto.objects.get(id=id)
-    a.stato= "Consegnato"
+    a.stato = "Consegnato"
     a.save()
     prodotti = Prodotto.objects.filter(codice_acquisto=a.id)
     for p in prodotti:
@@ -327,11 +335,12 @@ def ChangeStatoAcquisto(request, id):
     return Response({
         'id': a.id,
         'totale': a.costo,
-        'quantità_articoli_acquistati': a.quantità_articoli_acquistati, 
+        'quantità_articoli_acquistati': a.quantità_articoli_acquistati,
         'data': a.data_acquisto,
         'codice_fornitore': a.codice_fornitore.id if a.codice_fornitore else None,
         'stato': a.stato
     })
+
 
 @api_view(["POST"])
 def insertAcquisto(request):
@@ -494,6 +503,7 @@ def getClientiPiuAcquisti(request):
     }
     return Response(result)
 
+
 @api_view(['POST'])
 def filterAcquisti(request):
     acquisti = Acquisto.objects.all()
@@ -520,3 +530,32 @@ def filterAcquisti(request):
                 elif fil == "> 5000":
                     acquisti = list(filter(lambda a: a.costo > 5000, acquisti))
     return Response([{'id': a.id, 'costo': a.costo, 'quantità_articoli_acquistati': a.quantità_articoli_acquistati, 'data_acquisto': a.data_acquisto, 'codice_fornitore': a.codice_fornitore.id} for a in acquisti])
+
+
+@api_view(['POST'])
+def filterClienti(request):
+    clienti = Cliente.objects.all()
+    for filter_data in request.data['checkedOptions']:
+        if filter_data['title'] == 'Quantità Articoli Acquistati':
+            for fil in filter_data['options']:
+                if fil == "< 10":
+                    clienti = list(
+                        filter(lambda c: sum([v.quantità_articoli_acquistati for v in Vendita.objects.filter(codice_cliente=c.id)]) < 10, clienti))
+                elif fil == "10 - 50":
+                    clienti = list(
+                        filter(lambda c: 10 <= sum([v.quantità_articoli_acquistati for v in Vendita.objects.filter(codice_cliente=c.id)]) <= 50, clienti))
+                elif fil == "> 50":
+                    clienti = list(
+                        filter(lambda c: sum([v.quantità_articoli_acquistati for v in Vendita.objects.filter(codice_cliente=c.id)]) > 50, clienti))
+        elif filter_data['title'] == 'Capitale Investito':
+            for fil in filter_data['options']:
+                if fil == "< 1000":
+                    clienti = list(
+                        filter(lambda c: sum([v.costo for v in Vendita.objects.filter(codice_cliente=c.id)]) < 1000, clienti))
+                elif fil == "1000 - 5000":
+                    clienti = list(
+                        filter(lambda c: 1000 <= sum([v.costo for v in Vendita.objects.filter(codice_cliente=c.id)]) <= 5000, clienti))
+                elif fil == "> 5000":
+                    clienti = list(
+                        filter(lambda c: sum([v.costo for v in Vendita.objects.filter(codice_cliente=c.id)]) > 5000, clienti))
+    return Response([{'id': c.id, 'nome': c.nome, 'email': c.email, 'telefono': c.telefono, 'indirizzo': c.indirizzo, "quantità_articoli_acquistati": sum([v.quantità_articoli_acquistati for v in Vendita.objects.filter(codice_cliente=c.id)]), "capitale_investito": sum([v.costo for v in Vendita.objects.filter(codice_cliente=c.id)])} for c in clienti])

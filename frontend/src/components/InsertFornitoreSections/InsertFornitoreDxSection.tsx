@@ -1,8 +1,8 @@
-import { Fornitori } from "../../interfaceHelper";
+import { Fornitore } from "../../interfaceHelper";
 
 interface SecondColumnProps{
-  fornitore: Fornitori;
-  setFornitore: React.Dispatch<React.SetStateAction<Fornitori>>;
+  fornitore: Fornitore;
+  setFornitore: React.Dispatch<React.SetStateAction<Fornitore>>;
 }
 export default function SecondColumn({ fornitore, setFornitore }: SecondColumnProps) {
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {

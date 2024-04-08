@@ -3,28 +3,26 @@ import { FormEvent, useState } from "react";
 import axios from "axios";
 import InsertFornitoreDxSection from "../components/InsertFornitoreSections/InsertFornitoreDxSection";
 import { useNavigate } from "react-router-dom";
-import { Fornitori } from "../interfaceHelper";
+import { Fornitore } from "../interfaceHelper";
 import { toast } from "react-toastify";
 import { Bounce } from "react-toastify";
 import ConfirmationToast from "../components/ConfirmationToast/ConfirmationToast";
 
 export default function InsertFornitore() {
   const navigate = useNavigate();
-  const initialFornitore: Fornitori = {
+  const initialFornitore: Fornitore = {
     id: 0,
     nome: "",
     email: "",
     telefono: "",
     indirizzo: "",
     referente: "",
-    partita_iva: "",
-    sito_web: "",
     iban: "",
     quantità_articoli_acquistati: 0,
     capitale_investito: 0,
   };
 
-  const [fornitore, setFornitore] = useState<Fornitori>(initialFornitore);
+  const [fornitore, setFornitore] = useState<Fornitore>(initialFornitore);
   const [flag, setFlag] = useState(false);
 
   const addFornitore = async (e: FormEvent<HTMLFormElement>) => {

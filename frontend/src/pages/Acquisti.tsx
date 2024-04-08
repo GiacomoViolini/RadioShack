@@ -5,10 +5,10 @@ import InsertElementButtonAcquisto from "../components/InsertElementButton/Inser
 import { useState, useEffect } from "react";
 import axios from "axios";
 import {
-  Vendite,
-  Acquisti,
-  Fornitori,
-  Clienti,
+  Vendita,
+  Acquisto,
+  Fornitore,
+  Cliente,
   FilterItems,
 } from "../interfaceHelper";
 import ConfirmationToast from "../components/ConfirmationToast/ConfirmationToast";
@@ -35,7 +35,7 @@ export default function AcquistiComponent() {
     "stato",
   ];
   const [listaAcquisti, setListaAcquisti] = useState<
-    Fornitori[] | Clienti[] | Vendite[] | Acquisti[]
+    Fornitore[] | Cliente[] | Vendita[] | Acquisto[]
   >([]);
   const [flag, setFlag] = useState(false);
   const [flag2, setFlag2] = useState(false);
@@ -79,10 +79,10 @@ export default function AcquistiComponent() {
         transition: Bounce,
       });
       const newInfo = listaAcquisti.filter((info) => info.id !== id) as
-        | Fornitori[]
-        | Clienti[]
-        | Vendite[]
-        | Acquisti[];
+        | Fornitore[]
+        | Cliente[]
+        | Vendita[]
+        | Acquisto[];
       setListaAcquisti(newInfo);
     }
   };

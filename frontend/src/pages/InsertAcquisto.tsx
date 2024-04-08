@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import ContainerFornitore from "../components/InserisciAcquistoFornitore/ContainerFornitore/ContainerFornitore";
 import Navbar from "../components/Navbar/Navbar";
-import { Fornitori } from "../interfaceHelper";
+import { Fornitore } from "../interfaceHelper";
 import axios from "axios";
 import ContainerProdotto from "../components/InserisciAcquistoProdotto/ContainerProdotto/ContainerProdotto";
 import { useNavigate } from "react-router-dom";
@@ -31,8 +31,8 @@ export default function InsertAcquisto({
   handleDelete: (newData: Prodotto) => void;
   setData: React.Dispatch<React.SetStateAction<Prodotto[]>>;
 }) {
-  const [fornitori, setFornitori] = useState<Fornitori[]>([]);
-  const [selectedFornitore, setSelectedFornitore] = useState<Fornitori | null>(
+  const [fornitori, setFornitori] = useState<Fornitore[]>([]);
+  const [selectedFornitore, setSelectedFornitore] = useState<Fornitore | null>(
     null
   );
   const [flag, setFlag] = useState(false);
