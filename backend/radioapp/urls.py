@@ -36,4 +36,6 @@ urlpatterns = [
     path('changeStatoAcquisto/<int:id>/', views.ChangeStatoAcquisto, name='ChangeStatoacquisto'),
     path("getFornitoriPiùOrdinati/", views.getFornitoriPiùOrdinati, name="getFornitoriPiùOrdinati"),
     path("filterClienti/", views.filterClienti, name="filterClienti"),
+    path('addVendita/<int:id>/', views.addVendita, name='addVendita'),
+    path('getVenduti/', views.getVenduti, name='getVenduti'),
 ]

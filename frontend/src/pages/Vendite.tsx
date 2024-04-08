@@ -4,7 +4,7 @@ import Table from "../components/Table/Table";
 import ListElementComponent from "../components/ListElementComponent/ListELementComponent";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { Vendite } from "../interfaceHelper";
+import { Vendita } from "../interfaceHelper";
 
 export default function VenditeComponent() {
   const filters = [
@@ -47,7 +47,7 @@ export default function VenditeComponent() {
     "codice_cliente",
   ];
 
-  const [listaVendite, setListaVendite] = useState<Vendite[]>([]);
+  const [listaVendite, setListaVendite] = useState<Vendita[]>([]);
 
   useEffect(() => {
     const getVendite = async () => {
@@ -55,7 +55,6 @@ export default function VenditeComponent() {
         const res = await axios.get(
           "http://localhost:8000/radioapp/getVendite"
         );
-
         setListaVendite(res.data);
       } catch (error) {
         console.error("Failed to fetch Vendite:", error);

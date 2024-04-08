@@ -66,6 +66,7 @@ export default function AcquistiComponent() {
     }
   }, [checkedOptions]);
 
+
   const fetchData = async () => {
     console.log(id);
     if (id != 0) {

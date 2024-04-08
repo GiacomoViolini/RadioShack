@@ -233,12 +233,6 @@ def getAcquisti(request):
         'stato': a.stato
     } for a in Acquisto.objects.all()])
 
-
-@api_view(['GET'])
-def getVendite(request):
-    return Response([{'costo': v.costo, 'quantità_articoli_acquistati': v.quantità_articoli_acquistati, 'data_acquisto': v.data_acquisto, 'codice_cliente': v.codice_cliente.id} for v in Vendita.objects.all()])
-
-
 @api_view(["DELETE"])
 def deleteProdotto(request, nome):
     print(nome)
@@ -486,15 +480,9 @@ def getClientiPiuRemunerativi(request):
 
 @api_view(['GET'])
 def getClientiPiuAcquisti(request):
-    clienti = Cliente.objects.all()
-    temp = {}
-    for cliente in clienti:
-        vendite = Vendita.objects.filter(codice_cliente=cliente.id)
-        temp[cliente.nome] = sum(
-            [vendita.quantità_articoli_acquistati for vendita in vendite])
-    xpairs = [[cliente, quantità] for cliente, quantità in temp.items()]
-    xpairs = sorted(xpairs, key=lambda x: x[1], reverse=True)[:10]
-    max_quantità = max(quantità for quantità in temp.values())
+    clienti = Cliente.objects.annotate(num_acquisti=Count('vendita')).order_by('-num_acquisti')
+    xpairs = [[cliente.nome, cliente.num_acquisti] for cliente in clienti[:10]]
+    max_quantità = max(cliente.num_acquisti for cliente in clienti)
     result = {
         'XPairs': xpairs,
         'YScale': [0, max_quantità],
@@ -559,3 +547,36 @@ def filterClienti(request):
                     clienti = list(
                         filter(lambda c: sum([v.costo for v in Vendita.objects.filter(codice_cliente=c.id)]) > 5000, clienti))
     return Response([{'id': c.id, 'nome': c.nome, 'email': c.email, 'telefono': c.telefono, 'indirizzo': c.indirizzo, "quantità_articoli_acquistati": sum([v.quantità_articoli_acquistati for v in Vendita.objects.filter(codice_cliente=c.id)]), "capitale_investito": sum([v.costo for v in Vendita.objects.filter(codice_cliente=c.id)])} for c in clienti])
+
+@api_view(['GET'])
+def getVendite(request):
+    return Response([{'costo': v.costo, 'quantità_articoli_acquistati': v.quantità_articoli_acquistati, 'data_acquisto': v.data_acquisto, 'codice_cliente': v.codice_cliente.id} for v in Vendita.objects.all()])
+
+@api_view(['GET'])
+def addVendita(request, id):
+    c = Cliente.objects.get(id=id)
+    prodotti_in_magazzino = Prodotto.objects.filter(stato="In magazzino")
+    temporary = []
+    for i, prodotto in enumerate(prodotti_in_magazzino):
+        if i < 5:
+            temporary.append(prodotto)
+    somma_prezzo_consigliato = sum(prodotto.prezzo_consigliato for prodotto in temporary)
+    v = Vendita(costo=somma_prezzo_consigliato, quantità_articoli_acquistati=5, codice_cliente=c)
+    v.save()
+    for prodotto in temporary:
+        prodotto.prezzo_di_vendita = prodotto.prezzo_consigliato
+        prodotto.stato = "Venduto"
+        prodotto.codice_vendita = v
+        prodotto.save()
+    
+    return Response({"message": "Vendita added"})    
+
+
+@api_view(['GET'])
+def getVenduti(request):
+    prodotti_venduti = Prodotto.objects.filter(stato="Venduto")
+    for p in prodotti_venduti:
+        p.prezzo_di_vendita = p.prezzo_consigliato
+        p.save()
+    data = [{'nome': p.nome, 'colore': p.colore, 'anno_di_uscita': p.anno_di_uscita, 'capacità': p.capacità, 'stato': p.stato, 'condizione': p.condizione, 'fotocamera': p.fotocamera, 'dimensioni_schermo': p.dimensioni_schermo, 'prezzo_consigliato': p.prezzo_consigliato, 'prezzo_di_acquisto': p.prezzo_di_acquisto, 'prezzo_di_vendita': p.prezzo_di_vendita} for p in prodotti_venduti]
+    return Response(data)
