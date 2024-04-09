@@ -29,7 +29,8 @@ class Acquisto(models.Model):
     costo = models.FloatField()
     quantità_articoli_acquistati = models.IntegerField()
     data_acquisto = models.DateField(auto_now=True)
-    codice_fornitore = models.ForeignKey(Fornitore, on_delete=models.SET_NULL, null=True, related_name='acquisti')
+    codice_fornitore = models.ForeignKey(
+        Fornitore, on_delete=models.SET_NULL, null=True, related_name='acquisti')
     stato = models.CharField(max_length=30, default="In arrivo")
 
     def __str__(self):

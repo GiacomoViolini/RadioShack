@@ -4,40 +4,17 @@ import Table from "../components/Table/Table";
 import ListElementComponent from "../components/ListElementComponent/ListELementComponent";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { Vendita } from "../interfaceHelper";
+import { FilterItems, Vendita } from "../interfaceHelper";
 
 export default function VenditeComponent() {
   const filters = [
     {
-      title: "Stato",
-      options: ["In arrivo", "In magazzino", "Venduto"],
+      title: "Costo",
+      options: ["< 1000", "1000 - 5000", "> 5000"],
     },
     {
-      title: "Capacità",
-      options: ["64 GB", "128 GB", "256 GB", "512 GB", "1 TB"],
-    },
-    {
-      title: "Condizione",
-      options: ["Accettabile", "Ottimo", "Eccellente"],
-    },
-    {
-      title: "Fotocamera",
-      options: ["Singola", "Doppia", "Tripla"],
-    },
-    {
-      title: "Colore",
-      options: [
-        "Nero",
-        "Bianco",
-        "Blu",
-        "Rosso",
-        "Verde",
-        "Giallo",
-        "Viola",
-        "Arancione",
-        "Rosa",
-        "Grigio",
-      ],
+      title: "Quantità Articoli Acquistati",
+      options: ["< 3", "3 - 10", "> 10"],
     },
   ];
   const fields = [
@@ -48,6 +25,7 @@ export default function VenditeComponent() {
   ];
 
   const [listaVendite, setListaVendite] = useState<Vendita[]>([]);
+  const [checkedOptions, setCheckedOptions] = useState<FilterItems[]>([]);
 
   useEffect(() => {
     const getVendite = async () => {
@@ -60,8 +38,19 @@ export default function VenditeComponent() {
         console.error("Failed to fetch Vendite:", error);
       }
     };
-    getVendite();
-  }, []);
+    const filterVendite = async () => {
+      const res = await axios.post(
+        "http://localhost:8000/radioapp/filterVendite/",
+        { checkedOptions }
+      );
+      setListaVendite(res.data);
+    };
+    if (checkedOptions.length) {
+      filterVendite();
+    } else {
+      getVendite();
+    }
+  }, [checkedOptions]);
 
   return (
     <div className="flex flex-col">
@@ -76,17 +65,19 @@ export default function VenditeComponent() {
             <hr className="h-2 border-t-2" />
             {filters.map((filter) => (
               <div key={filter.title}>
-                {/*<Filter title={filter.title} options={filter.options} />*/}
+                <Filter
+                  title={filter.title}
+                  options={filter.options}
+                  checkedOptions={checkedOptions}
+                  setCheckedOptions={setCheckedOptions}
+                />
                 <hr />
               </div>
             ))}
           </div>
         </div>
         <div className="w-9/12 ml-[25%] flex justify-center px-8">
-          <Table
-            fields={fields}
-            informations={listaVendite}
-          />
+          <Table fields={fields} informations={listaVendite} />
         </div>
       </div>
     </div>
