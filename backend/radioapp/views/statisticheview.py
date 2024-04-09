@@ -3,6 +3,9 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from ..models import Prodotto, Acquisto, Fornitore, Cliente, Vendita
 from django.db.models import Count, F
+from django.db.models.functions import TruncDay
+from django.db.models import FloatField, Sum
+from django.db.models.functions import Cast
 
 @api_view(['GET'])
 def getPiuVenduti(request):
@@ -60,23 +63,15 @@ def getPiuRemunerativi(request):
 
 @api_view(['GET'])
 def getFornitoriPiuRemunerativi(request):
-    products = Prodotto.objects.values('codice_acquisto',
-                                       'prezzo_di_acquisto', 'prezzo_di_vendita')
-    for product in products:
-        acquisto = Acquisto.objects.get(id=product['codice_acquisto'])
-        codice_fornitore = acquisto.codice_fornitore.id
-        fornitore = Fornitore.objects.get(id=codice_fornitore)
-        product["fornitore"] = fornitore.nome
-        print(product)
-    temp = {}
-    for product in products:
-        if product['fornitore'] not in temp:
-            temp[product['fornitore']] = 0
-        temp[product['fornitore']] += product['prezzo_di_vendita'] - \
-            product['prezzo_di_acquisto']
-    xpairs = [[fornitore, profit] for fornitore, profit in temp.items()]
-    xpairs = sorted(xpairs, key=lambda x: x[1], reverse=True)[:10]
-    max_profit = max(profit for profit in temp.values())
+    profits = Prodotto.objects.select_related('codice_acquisto__codice_fornitore').annotate(
+        profit=Cast(F('prezzo_di_vendita') - F('prezzo_di_acquisto'), FloatField())
+    ).values('codice_acquisto__codice_fornitore__nome').annotate(
+        total_profit=Sum('profit')
+    ).order_by('-total_profit')[:10]
+
+    xpairs = [[profit['codice_acquisto__codice_fornitore__nome'], profit['total_profit']] for profit in profits]
+    max_profit = profits[0]['total_profit'] if profits else 0
+
     result = {
         'XPairs': xpairs,
         'YScale': [0, max_profit],
@@ -141,3 +136,8 @@ def getClientiPiuAcquisti(request):
     }
     return Response(result)
 
+@api_view(['GET'])
+def getAndamentoVendite(request):
+    vendite = Vendita.objects.annotate(day=TruncDay('data_acquisto')).values('day').annotate(total_vendite=Count('id')).order_by('day')
+    result = [{'day': vendita['day'].strftime('%Y-%m-%d'), 'total_vendite': vendita['total_vendite']} for vendita in vendite]
+    return Response(result)

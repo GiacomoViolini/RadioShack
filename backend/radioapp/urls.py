@@ -37,4 +37,7 @@ urlpatterns = [
     path('addVendita/<int:id>/', views.addVendita, name='addVendita'),
     path('getVenduti/', views.getVenduti, name='getVenduti'),
     path("filterVendite/", views.filterVendite, name="filterVendite"),
+    path('getAndamentoVendite/', views.getAndamentoVendite, name='getAndamentoVendite'),
+    path('changeStatoAcquisto/<int:id>/', views.ChangeStatoAcquisto, name='changeStatoAcquisto'),
+    path('updateQuantitaArticoliAcquistati/', views.updateQuantitaArticoliAcquistati, name='updateQuantitaArticoliAcquistati'),
 ]

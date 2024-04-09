@@ -2,6 +2,8 @@ from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from ..models import Prodotto, Cliente, Vendita
+from django.db.models import Count
+import random
 
 
 @api_view(['GET'])
@@ -15,11 +17,12 @@ def addVendita(request, id):
     c = Cliente.objects.get(id=id)
     prodotti_in_magazzino = Prodotto.objects.filter(stato="In magazzino")
     temporary = []
+    numb=random.randint(1, 10)
     for i, prodotto in enumerate(prodotti_in_magazzino):
-        if i < 5:
+        if i < numb:
             temporary.append(prodotto)
     somma_prezzo_consigliato = sum(prodotto.prezzo_consigliato for prodotto in temporary)
-    v = Vendita(costo=somma_prezzo_consigliato, quantità_articoli_acquistati=5, codice_cliente=c)
+    v = Vendita(costo=somma_prezzo_consigliato, quantità_articoli_acquistati=numb, codice_cliente=c)
     v.save()
     for prodotto in temporary:
         prodotto.prezzo_di_vendita = prodotto.prezzo_consigliato
@@ -66,3 +69,15 @@ def filterVendite(request):
                 elif fil == "> 5000":
                     vendite = list(filter(lambda v: v.costo > 5000, vendite))
     return Response([{'costo': v.costo, 'quantità_articoli_acquistati': v.quantità_articoli_acquistati, 'data_acquisto': v.data_acquisto, 'codice_cliente': v.codice_cliente.id} for v in vendite])
+
+#Da eliminare
+@api_view(['GET'])
+def updateQuantitaArticoliAcquistati(request):
+    vendite = Vendita.objects.all()
+
+    for vendita in vendite:
+        num_prodotti_venduti = Prodotto.objects.filter(codice_vendita=vendita, stato="Venduto").count()
+        vendita.quantità_articoli_acquistati = num_prodotti_venduti
+        vendita.save()
+
+    return Response({"message": "Updated vendite with the number of purchased products"})

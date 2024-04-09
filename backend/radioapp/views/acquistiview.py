@@ -10,6 +10,24 @@ def addAcquisto(request):
     a.save()
     return Response({'message': 'Acquisto aggiunto!'})
 
+@api_view(['PUT'])
+def ChangeStatoAcquisto(request, id):
+    a = Acquisto.objects.get(id=id)
+    a.stato = "Consegnato"
+    a.save()
+    prodotti = Prodotto.objects.filter(codice_acquisto=a.id)
+    for p in prodotti:
+        p.stato = "In magazzino"
+        p.save()
+    return Response({
+        'id': a.id,
+        'totale': a.costo,
+        'quantità_articoli_acquistati': a.quantità_articoli_acquistati,
+        'data': a.data_acquisto,
+        'codice_fornitore': a.codice_fornitore.id if a.codice_fornitore else None,
+        'stato': a.stato
+    })
+
 
 @api_view(['GET'])
 def getAcquisti(request):
