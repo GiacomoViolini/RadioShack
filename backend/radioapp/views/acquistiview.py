@@ -46,13 +46,6 @@ def deleteAcquisto(request, id):
     f.delete()
     return Response({'message': 'Acquisto eliminato!'})
 
-
-@api_view(['GET'])
-def getAcquisto(request, id):
-    a = Acquisto.objects.get(id=id)
-    return Response({'id': a.id, 'nome': a.nome, 'quantita': a.quantita, 'prezzo': a.prezzo, 'fornitore': a.fornitore.id})
-
-
 @api_view(['PUT'])
 def modifyAcquisto(request, id):
     a = Acquisto.objects.get(id=id)
