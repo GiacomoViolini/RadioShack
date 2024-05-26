@@ -73,30 +73,39 @@ def insertAcquisto(request):
     a.save()
     return Response({"id": a.id})
 
-
 @api_view(['POST'])
 def filterAcquisti(request):
     acquisti = Acquisto.objects.all()
     for filter_data in request.data['checkedOptions']:
-        if filter_data['title'] == 'Quantità Articoli Acquistati':
+        if filter_data['title'] == 'Quantità articoli acquistati':
+            filtered = []
             for fil in filter_data['options']:
                 if fil == "< 10":
-                    acquisti = list(
+                    temp = list(
                         filter(lambda a: a.quantità_articoli_acquistati < 10, acquisti))
+                    filtered.extend(temp)
                 elif fil == "10 - 50":
-                    acquisti = list(
+                    temp = list(
                         filter(lambda a: 10 <= a.quantità_articoli_acquistati <= 50, acquisti))
+                    filtered.extend(temp)
                 elif fil == "> 50":
-                    acquisti = list(
+                    temp = list(
                         filter(lambda a: a.quantità_articoli_acquistati > 50, acquisti))
+                    filtered.extend(temp)
+            acquisti = filtered.copy()
         elif filter_data['title'] == 'Costo':
+            filtered = []
             for fil in filter_data['options']:
                 if fil == "< 1000":
-                    acquisti = list(
+                    temp = list(
                         filter(lambda a: a.costo < 1000, acquisti))
+                    filtered.extend(temp)
                 elif fil == "1000 - 5000":
-                    acquisti = list(
+                    temp = list(
                         filter(lambda a: 1000 <= a.costo <= 5000, acquisti))
+                    filtered.extend(temp)
                 elif fil == "> 5000":
-                    acquisti = list(filter(lambda a: a.costo > 5000, acquisti))
-    return Response([{'id': a.id, 'costo': a.costo, 'quantità_articoli_acquistati': a.quantità_articoli_acquistati, 'data_acquisto': a.data_acquisto, 'codice_fornitore': a.codice_fornitore.id} for a in acquisti])
+                    temp = list(filter(lambda a: a.costo > 5000, acquisti))
+                    filtered.extend(temp)
+            acquisti = filtered.copy()
+    return Response([{'id': a.id, 'costo': a.costo, 'quantità_articoli_acquistati': a.quantità_articoli_acquistati, 'data_acquisto': a.data_acquisto, 'codice_fornitore': a.codice_fornitore.id, 'stato': a.stato} for a in acquisti])

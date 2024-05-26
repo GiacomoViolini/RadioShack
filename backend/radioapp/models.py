@@ -34,7 +34,7 @@ class Acquisto(models.Model):
     stato = models.CharField(max_length=30, default="In arrivo")
 
     def __str__(self):
-        return str(self.costo) + " " + str(self.quantità_articoli_acquistati) + " " + str(self.data_acquisto)
+        return str(self.costo) + " " + str(self.quantità_articoli_acquistati) + " " + str(self.data_acquisto) + " " + str(self.id)
 
 
 class Vendita(models.Model):

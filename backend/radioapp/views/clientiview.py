@@ -21,25 +21,35 @@ def filterClienti(request):
     clienti = Cliente.objects.all()
     for filter_data in request.data['checkedOptions']:
         if filter_data['title'] == 'Quantità Articoli Acquistati':
+            filtered = []
             for fil in filter_data['options']:
                 if fil == "< 10":
-                    clienti = list(
+                    temp = list(
                         filter(lambda c: sum([v.quantità_articoli_acquistati for v in Vendita.objects.filter(codice_cliente=c.id)]) < 10, clienti))
+                    filtered.extend(temp)
                 elif fil == "10 - 50":
-                    clienti = list(
+                    temp = list(
                         filter(lambda c: 10 <= sum([v.quantità_articoli_acquistati for v in Vendita.objects.filter(codice_cliente=c.id)]) <= 50, clienti))
+                    filtered.extend(temp)
                 elif fil == "> 50":
-                    clienti = list(
+                    temp = list(
                         filter(lambda c: sum([v.quantità_articoli_acquistati for v in Vendita.objects.filter(codice_cliente=c.id)]) > 50, clienti))
+                    filtered.extend(temp)
+            clienti = filtered.copy()
         elif filter_data['title'] == 'Capitale Investito':
+            filtered = []
             for fil in filter_data['options']:
                 if fil == "< 1000":
-                    clienti = list(
+                    temp = list(
                         filter(lambda c: sum([v.costo for v in Vendita.objects.filter(codice_cliente=c.id)]) < 1000, clienti))
+                    filtered.extend(temp)
                 elif fil == "1000 - 5000":
-                    clienti = list(
+                    temp = list(
                         filter(lambda c: 1000 <= sum([v.costo for v in Vendita.objects.filter(codice_cliente=c.id)]) <= 5000, clienti))
+                    filtered.extend(temp)
                 elif fil == "> 5000":
-                    clienti = list(
+                    temp = list(
                         filter(lambda c: sum([v.costo for v in Vendita.objects.filter(codice_cliente=c.id)]) > 5000, clienti))
+                    filtered.extend(temp)
+            clienti = filtered.copy()
     return Response([{'id': c.id, 'nome': c.nome, 'email': c.email, 'telefono': c.telefono, 'indirizzo': c.indirizzo, "quantità_articoli_acquistati": sum([v.quantità_articoli_acquistati for v in Vendita.objects.filter(codice_cliente=c.id)]), "capitale_investito": sum([v.costo for v in Vendita.objects.filter(codice_cliente=c.id)])} for c in clienti])

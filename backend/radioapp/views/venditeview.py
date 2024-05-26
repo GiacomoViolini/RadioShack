@@ -48,26 +48,36 @@ def filterVendite(request):
     vendite = Vendita.objects.all()
     for filter_data in request.data['checkedOptions']:
         if filter_data['title'] == 'Quantità Articoli Acquistati':
+            filtered = []
             for fil in filter_data['options']:
                 if fil == "< 3":
-                    vendite = list(
+                    temp = list(
                         filter(lambda v: v.quantità_articoli_acquistati < 3, vendite))
+                    filtered.extend(temp)
                 elif fil == "3 - 10":
-                    vendite = list(
+                    temp = list(
                         filter(lambda v: 3 <= v.quantità_articoli_acquistati <= 10, vendite))
+                    filtered.extend(temp)
                 elif fil == "> 10":
-                    vendite = list(
+                    temp = list(
                         filter(lambda v: v.quantità_articoli_acquistati > 10, vendite))
+                    filtered.extend(temp)
+            vendite = filtered.copy()
         elif filter_data['title'] == 'Costo':
+            filtered = []
             for fil in filter_data['options']:
                 if fil == "< 1000":
-                    vendite = list(
+                    temp = list(
                         filter(lambda v: v.costo < 1000, vendite))
+                    filtered.extend(temp)
                 elif fil == "1000 - 5000":
-                    vendite = list(
+                    temp = list(
                         filter(lambda v: 1000 <= v.costo <= 5000, vendite))
+                    filtered.extend(temp)
                 elif fil == "> 5000":
-                    vendite = list(filter(lambda v: v.costo > 5000, vendite))
+                    temp = list(filter(lambda v: v.costo > 5000, vendite))
+                    filtered.extend(temp)
+            vendite = filtered.copy()
     return Response([{'costo': v.costo, 'quantità_articoli_acquistati': v.quantità_articoli_acquistati, 'data_acquisto': v.data_acquisto, 'codice_cliente': v.codice_cliente.id} for v in vendite])
 
 #Da eliminare

@@ -46,7 +46,6 @@ def getAggregatedProdotti(request):
 @api_view(['POST'])
 def filterAggregatedProdotti(request):
     products = Prodotto.objects.order_by('nome')
-    print(request.data)
     for filter_data in request.data['checkedOptions']:
         if filter_data['title'] == 'Colore':
             products = list(
