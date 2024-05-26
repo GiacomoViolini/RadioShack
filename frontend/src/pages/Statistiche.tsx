@@ -14,6 +14,7 @@ export default function Statistiche() {
   const [Grafico1, setGrafico1] = useState<CustomCharts>();
   const [Grafico2, setGrafico2] = useState<CustomCharts>();
   const [Grafico3, setGrafico3] = useState<CustomCharts>();
+  const [Grafico4, setGrafico4] = useState<CustomCharts>();
 
   const filters = [
     {
@@ -144,21 +145,24 @@ export default function Statistiche() {
     }
   }, [ClientiOption]);
 
-  const XPairs4 = [
-    ["12/07/2023", 70],
-    ["13/07/2023", 30],
-    ["14/07/2023", 90],
-    ["12/07/2023", 70],
-    ["13/07/2023", 30],
-    ["14/07/2023", 90],
-    ["12/07/2023", 70],
-    ["13/07/2023", 30],
-    ["14/07/2023", 90],
-  ];
-
-  const YScale: [number, number] = [0, 100];
-  const Category3 = "Statistiche";
-  const Label3 = "Sample Data3";
+  useEffect(() => {
+    const getAndamentoVendite = async () => {
+      try {
+        const res = await axios.get("http://localhost:8000/radioapp/getAndamentoVendite");
+        const formattedData: CustomCharts = {
+          XPairs: res.data.map((item: any) => [item.day, item.total_vendite]),
+          YScale: [0, Math.max(...res.data.map((item: any) => item.total_vendite))],
+          Label: "Andamento Vendite",
+          Category: "Statistiche"
+        };
+        setGrafico4(formattedData);
+        console.log(formattedData);
+      } catch (error) {
+        console.error("Failed to fetch andamento vendite:", error);
+      }
+    };
+    getAndamentoVendite();
+  }, []);
 
   return (
     <div className="flex flex-col">
@@ -189,12 +193,13 @@ export default function Statistiche() {
           <div className="bg-none rounded-xl flex flex-col justify-top items-center py-2 border-2 px-2 border-slate-100 mx-4 my-4">
             <h1 className=" text-3xl font-bold">Prodotti</h1>
             {Grafico1 ? (
-            <CustomChart
-              XPairs={Grafico1?.XPairs as [string, number][]}
-              YScale={Grafico1?.YScale ?? [0, 100]}
-              Label={Grafico1?.Label ?? "Sample Data"}
-              Category={Grafico1?.Category ?? "Prodotti"}
-            />) : (
+              <CustomChart
+                XPairs={Grafico1?.XPairs as [string, number][]}
+                YScale={Grafico1?.YScale ?? [0, 100]}
+                Label={Grafico1?.Label ?? "Sample Data"}
+                Category={Grafico1?.Category ?? "Prodotti"}
+              />
+            ) : (
               <ChartSkelethon category="Prodotti" />
             )}
           </div>
@@ -214,23 +219,28 @@ export default function Statistiche() {
           <div className="bg-none rounded-xl flex flex-col justify-top items-center py-2 border-2 px-2 border-slate-100 mx-4 my-4">
             <h1 className=" text-3xl font-bold">Clienti</h1>
             {Grafico3 ? (
-            <CustomChart
-              XPairs={Grafico3?.XPairs as [string, number][]}
-              YScale={Grafico3?.YScale ?? [0, 100]}
-              Label={Grafico3?.Label ?? "Sample Data2"}
-              Category={Grafico3?.Category ?? "Clienti"}
-            />) : (
+              <CustomChart
+                XPairs={Grafico3?.XPairs as [string, number][]}
+                YScale={Grafico3?.YScale ?? [0, 100]}
+                Label={Grafico3?.Label ?? "Sample Data2"}
+                Category={Grafico3?.Category ?? "Clienti"}
+              />
+            ) : (
               <ChartSkelethon category="Clienti" />
             )}
           </div>
           <div className="bg-none rounded-xl flex flex-col justify-top border-2 border-slate-100 px-2 items-center py-2 mx-4 my-4">
             <h1 className=" text-3xl font-bold">Andamento Vendite</h1>
-            <CustomLineChart
-              XPairs={XPairs4 as [string, number][]}
-              YScale={YScale}
-              Label={Label3}
-              Category={Category3}
-            />
+            {Grafico4 ? (
+              <CustomLineChart
+                XPairs={Grafico4.XPairs as [string, number][]}
+                YScale={Grafico4.YScale ?? [0, 100]}
+                Label={Grafico4.Label ?? "Sample Data3"}
+                Category={Grafico4.Category ?? "Statistiche"}
+              />
+            ) : (
+              <ChartSkelethon category="Statistiche" />
+            )}
           </div>
         </div>
       </div>

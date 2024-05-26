@@ -21,7 +21,6 @@ urlpatterns = [
     path("filterFornitori", views.filterFornitori, name="filterFornitori"),
     path('getfornitore/<int:id>/', views.getFornitore, name='getFornitore'),
     path('modifyfornitore/<int:id>/', views.modifyFornitore, name='modifyFornitore'),
-    path('getacquisto/<int:id>/', views.getAcquisto, name='getAcquisto'),
     path('getPiuVenduti/', views.getPiuVenduti, name='getPiuVenduti'),
     path('getMenoVenduti/', views.getMenoVenduti, name='getMenoVenduti'),
     path('getPiuRemunerativi/', views.getPiuRemunerativi, name='getPiuRemunerativi'),
@@ -37,4 +36,7 @@ urlpatterns = [
     path('addVendita/<int:id>/', views.addVendita, name='addVendita'),
     path('getVenduti/', views.getVenduti, name='getVenduti'),
     path("filterVendite/", views.filterVendite, name="filterVendite"),
+    path('getAndamentoVendite/', views.getAndamentoVendite, name='getAndamentoVendite'),
+    path('changeStatoAcquisto/<int:id>/', views.ChangeStatoAcquisto, name='changeStatoAcquisto'),
+    path('updateQuantitaArticoliAcquistati/', views.updateQuantitaArticoliAcquistati, name='updateQuantitaArticoliAcquistati'),
 ]

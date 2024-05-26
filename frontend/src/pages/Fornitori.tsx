@@ -91,7 +91,7 @@ export default function FornitoriComponent() {
         <ConfirmationToast
           setFlag={setFlag}
           fetchData={fetchData}
-          toastTitle={"Conferma Inserimento"}
+          toastTitle={"Conferma Eliminazione"}
           subtitle={"Sei sicuro di voler procedere?"}
         />
       )}

@@ -100,20 +100,8 @@ function App() {
         <Route path="/vendite" element={<Vendite />} />
         <Route path="/fornitori/inserisci" element={<InsertFornitore />} />
         <Route path="/fornitori/modifica/:id" element={<ModificaFornitore />} />
-        <Route
-          path="/acquisti/inserisci"
-          element={
-            <InsertAcquisto
-              data={data}
-              setData={setData}
-              handleDelete={handleDelete}
-            />
-          }
-        />
-        <Route
-          path="/acquisti/inserisci/prodotti"
-          element={<InsertProdotto handleInsert={handleInsert} />}
-        />
+        <Route path="/acquisti/inserisci" element={<InsertAcquisto data={data} setData={setData} handleDelete={handleDelete} />} />
+        <Route path="/acquisti/inserisci/prodotti" element={<InsertProdotto handleInsert={handleInsert} />} />
       </Routes>
     </BrowserRouter>
   );
